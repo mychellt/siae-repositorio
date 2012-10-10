@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	template="/template/template.xhtml"
+	xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			
+		</ui:define>
+		<ui:define name="content">
+			<br/><br/><br/>
+			<ui:include src="/template/erros.xhtml" />
+				<br/><br/><br/>
+				<form action="/SIAE/j_spring_security_check" method="post" id="form">
+					<table width="30%" class="formulario">
+					<caption>Entrar no Sistema</caption>
+					<tr>
+						<td class="obrigatorio">
+							<h:outputText value="Login:" />
+						</td>
+						<td>
+							 <p:inputText id="j_username"  size="15"  label="Firstname" />  
+						</td>
+					</tr>
+					<tr>
+						<td class="obrigatorio">
+							<h:outputText value="Senha:"/>
+						</td>
+						<td>
+							 <p:password size="15" id="j_password" />
+						</td>
+					</tr>
+					<tfoot>
+						<tr>
+							<td colspan="2">
+								 <h:commandButton type="submit" value="Login" style="margin:0"/>  
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</form>
+			<br/><br/><br/>
+	</ui:define>
+	<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>
