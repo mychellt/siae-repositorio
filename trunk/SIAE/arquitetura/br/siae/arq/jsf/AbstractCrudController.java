@@ -32,10 +32,16 @@ public class AbstractCrudController<T extends Persistable> extends AbstractContr
 	}
 	
 	public String iniciarCadastro() {
+		return getPaginaCadastro();
+	}
+	public String getPaginaCadastro() {
 		return "/views/restrito/" + obj.getClass().getSimpleName().toLowerCase() + "/cadastro";
 	}
 	
 	public String iniciarListagem() {
+		return getPaginaListagem();
+	}
+	public String getPaginaListagem() {
 		return "/views/restrito/" + obj.getClass().getSimpleName().toLowerCase() + "/listagem";
 	}
 }

@@ -11,6 +11,12 @@
 			 	 <p:submenu label="Permissão">  
 			 	 	 <p:menuitem value="Cadastrar" action="#{permissaoMBean.iniciarCadastro}" ajax="false" />
 			 	 </p:submenu>
+			 </p:submenu>
+			 <p:submenu label="Cadastros" >  
+			 	 <p:submenu label="Aluno">  
+			 	 	 <p:menuitem value="Cadastrar" action="#{alunoMBean.iniciarCadastro}" ajax="false" />
+			 	 	 <p:menuitem value="Listar/Alterar" action="#{alunoMBean.iniciarListagem}" ajax="false" />
+			 	 </p:submenu>
 			 </p:submenu> 
 		</p:menubar>
 </ui:composition>

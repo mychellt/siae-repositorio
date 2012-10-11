@@ -1,9 +1,7 @@
 package br.siae.arq.jsf;
 
 import javax.el.PropertyNotWritableException;
-import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +18,8 @@ import br.siae.arq.utils.RequestUtils;
 import br.siae.arq.utils.ValidatorUtil;
 
 public class AbstractController {	
+	public static final String PRINCIPAL = "/views/restrito/principal.jsf";
+	
 	private static ApplicationContext appContext;	
 	
 	protected String confirmButton = "Cadastrar";
@@ -49,15 +49,6 @@ public class AbstractController {
 
 	public String getConfirmButton() {
 		return confirmButton;
-	}
-	
-	public String forward(String url) {
-		FacesContext context = FacesContext.getCurrentInstance();
-		Application app = context.getApplication();
-		UIViewRoot view = app.getViewHandler().createView(context, url);
-		context.setViewRoot(view);
-		context.renderResponse();
-		return null;
 	}
 	
 	public String cancelar() {
@@ -154,5 +145,9 @@ public class AbstractController {
 	public static <T> T getMBean(String mbeanName) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		return (T) fc.getELContext().getELResolver().getValue(fc.getELContext(), null, mbeanName);
+	}
+	
+	public String redirecionarMenuPrincipal() {
+		return PRINCIPAL;
 	}
 }

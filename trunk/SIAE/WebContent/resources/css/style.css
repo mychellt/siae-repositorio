@@ -79,7 +79,7 @@ table.formulario caption{
 
 table.subformulario {
 	margin: 0 auto;
-	border: 1px solid #DFD9C3;
+	border: 1px solid #BED6F8;
 	border-top: 0px;
     font-size: 12px !important;
     border-radius: 0px 0px 0px 0px;
@@ -88,7 +88,7 @@ table.subformulario {
 table.subformulario caption{
 	padding: 0.2em 1em 0.1em;
 	background:  #BED6F8;
-    border: 1px solid #D4CCB0;
+    border: 1px solid #BED6F8;
     color: black;
     font-weight: bold;
     border-radius: 0px 0px 0px 0px;
@@ -97,6 +97,14 @@ table.subformulario caption{
 table.formulario tfoot {
 	text-align: center;
 }
+
+table.formulario tfoot {
+	text-align: center;
+}
+
+table.formulario th { text-align: left; }
+table.formulario thead { text-align: left; }
+table.formulario tr { text-align: left; }
 
 td.obrigatorio { 
 		background: url("#{resource['images/comuns/obrigatorio.png']}") no-repeat right;

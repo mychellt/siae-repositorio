@@ -18,9 +18,7 @@ import br.siae.arq.utils.ValidatorUtil;
 
 @Controller
 @Scope("session")
-public class PermissaoMBean extends AbstractCrudController<Permissao>{
-	public static final String FORM_CADASTRO = "/views/restrito/permissao/cadastro";
-	
+public class PermissaoMBean extends AbstractCrudController<Permissao>{	
 	@Resource(name="processadorPermissao")
 	private ProcessadorPermissao processador;
 	
@@ -59,7 +57,7 @@ public class PermissaoMBean extends AbstractCrudController<Permissao>{
 			return null;
 		}
 		setConfirmButton("Alterar");
-		return FORM_CADASTRO;
+		return getPaginaCadastro();
 	}
 	
 	public String cadastrar() throws DAOException {
@@ -85,6 +83,6 @@ public class PermissaoMBean extends AbstractCrudController<Permissao>{
 			e.printStackTrace();
 		}
 		setConfirmButton("Cadastrar");
-		return FORM_CADASTRO;
+		return getPaginaCadastro();
 	}
 }

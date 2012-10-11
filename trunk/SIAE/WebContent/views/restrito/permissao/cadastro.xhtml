@@ -12,9 +12,9 @@
 		<ui:define name="content">
 		<h:form id="formMenu"  acceptcharset="ISO-8859-1">
 			<p:breadCrumb>  
-			    <p:menuitem value="Administração" url="#"/>
-			    <p:menuitem value="Permissão" url="#" />
-			    <p:menuitem value="Cadastrar" url="#" />  
+			    <p:menuitem value="Administração" action="#{permissaoMBean.redirecionarMenuPrincipal}"/>
+			    <p:menuitem value="Permissão" action="#{permissaoMBean.iniciarCadastro}" />
+			    <p:menuitem value="Cadastrar" />  
 			</p:breadCrumb> 
 			<br/>
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  
@@ -35,7 +35,7 @@
 								<h:outputText value="Descrição:"/>
 							</td>
 							<td>
-								  <p:inputTextarea rows="5" cols="37"  value="#{permissaoMBean.obj.descricao}"/>
+								  <p:inputTextarea rows="5" cols="40"  value="#{permissaoMBean.obj.descricao}"/>
 							</td>
 						</tr>
 						<tfoot>

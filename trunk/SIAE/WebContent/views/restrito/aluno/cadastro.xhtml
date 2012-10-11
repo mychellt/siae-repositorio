@@ -1,0 +1,120 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form-cadastro-aluno"  acceptcharset="ISO-8859-1">
+			<p:breadCrumb>  
+			    <p:menuitem value="Cadastros" action="#{alunoMBean.redirecionarMenuPrincipal}"/>
+			    <p:menuitem value="Aluno" action="#{alunoMBean.iniciarCadastro}" />
+			    <p:menuitem value="Cadastrar" />  
+			</p:breadCrumb> 
+			<br/>
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
+			<br/>
+			<table class="formulario" width="65%">
+				<caption>Cadastro de Aluno</caption>
+				<tr>
+					<th>
+						<h:outputText value="Nome:" />
+					</th>
+					<td>
+						<p:inputText value="#{alunoMBean.obj.pessoa.nome}" size="85"/>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<h:outputText value="Data do Nascimento:" />
+					</th>
+					<td>
+						<p:calendar value="#{alunoMBean.obj.pessoa.dataNascimento}" id="data-nascimento" showOn="button" />  
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<h:outputText value="E-mail:" />
+					</th>
+					<td>
+						<p:inputText value="#{alunoMBean.obj.pessoa.email}" />
+					</td>
+				</tr>
+				<tr>
+					<th>	
+						<h:outputText value="Telefone:" />
+					</th>
+					<td>
+						<p:inputText value="#{alunoMBean.obj.pessoa.telefone}" />
+					</td>
+				</tr>
+				<tr>
+					<th>	
+						<h:outputText value="Celular:" />
+					</th>
+					<td>
+						<p:inputText value="#{alunoMBean.obj.pessoa.celular}" />
+					</td>
+				</tr>
+				<tr>
+					<th>	
+						<h:outputText value="Sexo" />
+					</th>
+					<td>
+						<p:selectOneMenu value="#{alunoMBean.obj.pessoa.sexo}" >  
+							<f:selectItem itemLabel="-- Selecione --" itemValue="" />  
+            				<f:selectItems value="#{sexoMBean.all}" var="sexo" itemLabel="#{sexo.denominacao}"/>  
+						</p:selectOneMenu>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table class="subformulario" width="100%">
+							<caption>Endereço</caption>
+							<tr>
+								<th>
+									<h:outputText value="Endereço:" />
+								</th>
+								<td>
+									<p:inputText value="#{alunoMBean.obj.pessoa.endereco.endereco}" size="85"/>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Bairro:" />
+								</th>
+								<td>
+									<p:inputText value="#{alunoMBean.obj.pessoa.endereco.bairro}" size="85"/>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="CEP" />
+								</th>
+								<td>
+									<p:inputText value="#{alunoMBean.obj.pessoa.endereco.cep}"/>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Município:" />
+								</th>
+								<td>
+									 <p:autoComplete  var="municipio" value="#{alunoMBean.obj.pessoa.endereco.municipio}" completeMethod="#{municipioMBean.complete}"/> 
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table> 
+    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>
