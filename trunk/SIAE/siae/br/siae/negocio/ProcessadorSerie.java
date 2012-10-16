@@ -10,16 +10,18 @@ import br.siae.arq.erro.NegocioException;
 import br.siae.arq.negocio.ProcessadorCadastro;
 import br.siae.arq.service.ServiceFactory;
 import br.siae.arq.utils.ValidatorUtil;
+import br.siae.dominio.academico.Nivel;
 import br.siae.dominio.academico.Serie;
 
 @Service
 public class ProcessadorSerie extends ProcessadorCadastro {
-		public Serie executarCadastro(Serie serie) throws NegocioException, DAOException {
+			GenericDAO dao = (GenericDAO) ServiceFactory.getBean("genericDAO");
+			public Serie executarCadastro(Serie serie) throws NegocioException, DAOException {
 			if( ValidatorUtil.isEmpty( serie ) ){
 				serie = (Serie) cadastrar(serie);
+				serie.setNivel( dao.findByPrimaryKey( Nivel.class, serie.getNivel().getId() ) );
 			}
 			else {
-				GenericDAO dao = (GenericDAO) ServiceFactory.getBean("genericDAO");
 				String[] fields = new String[]{"denominacao", "nivel.id"};
 				Object[] values = new Object[]{ serie.getDenominacao(), serie.getNivel().getId() };
 				List<Serie> lista = (List<Serie>) dao.findByExactFields( Serie.class, fields, values );

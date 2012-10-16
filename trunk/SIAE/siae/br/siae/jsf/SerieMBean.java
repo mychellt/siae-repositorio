@@ -55,13 +55,13 @@ public class SerieMBean extends AbstractCrudController<Serie>{
 			if( ValidatorUtil.isNotEmpty(obj)) {
 				lista.remove(obj);
 				obj = processador.executarCadastro(obj);
-				addMensagemInformacao("Permissão alterada com sucesso!");
+				addMensagemInformacao("Série alterada com sucesso!");
 				lista.add(obj);
 			}
 			else {
 				obj = processador.executarCadastro(obj);
 				lista.add(obj);
-				addMensagemInformacao("Permissão cadastrada com sucesso!");
+				addMensagemInformacao("Série cadastrada com sucesso!");
 			}
 			resetObj();
 		} catch (NegocioException e) {
@@ -69,7 +69,7 @@ public class SerieMBean extends AbstractCrudController<Serie>{
 			e.printStackTrace();
 		}
 		setConfirmButton("Cadastrar");
-		return getPaginaCadastro();
+		return null;
 	}
 
 	@Override
