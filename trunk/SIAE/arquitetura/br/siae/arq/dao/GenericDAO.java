@@ -62,6 +62,12 @@ public  class GenericDAO {
 	public <T> Collection<T> findByExactField(Class<T> classe, String field, Object value) throws DAOException {
 		return findWithQuery(classe, field, value, true, false, null, new String[0]);
 	}
+	
+	public <T> Collection<T> findByExactFields(Class<T> classe, String[] fields, Object[] values) throws DAOException{
+		return findWithQuery(classe, null, null, true, false, null,fields, values, new String[0]);
+	}
+	
+	
 	private <T> Collection<T> findWithQuery(Class<T> classe, String field, Object value, boolean exact, boolean init, String orderType, String... orderFields) throws DAOException {
 		return findWithQuery(classe, field, value, exact, init, orderType, null, null, orderFields);
 	}

@@ -94,10 +94,9 @@ table.subformulario caption{
     border-radius: 0px 0px 0px 0px;
 }
 
-table.formulario tfoot {
+table.subformulario tfoot {
 	text-align: center;
 }
-
 table.formulario tfoot {
 	text-align: center;
 }

@@ -85,4 +85,5 @@ public class PermissaoMBean extends AbstractCrudController<Permissao>{
 		setConfirmButton("Cadastrar");
 		return getPaginaCadastro();
 	}
+	
 }

@@ -17,9 +17,7 @@ import br.siae.arq.utils.ReflectionUtils;
 import br.siae.arq.utils.RequestUtils;
 import br.siae.arq.utils.ValidatorUtil;
 
-public class AbstractController {	
-	public static final String PRINCIPAL = "/views/restrito/principal.jsf";
-	
+public class AbstractController {		
 	private static ApplicationContext appContext;	
 	
 	protected String confirmButton = "Cadastrar";
@@ -147,7 +145,7 @@ public class AbstractController {
 		return (T) fc.getELContext().getELResolver().getValue(fc.getELContext(), null, mbeanName);
 	}
 	
-	public String redirecionarMenuPrincipal() {
-		return PRINCIPAL;
+	public String home() {
+		return "/views/restrito/principal.jsf";
 	}
 }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.dominio.Persistable;
 import br.siae.arq.erro.DAOException;
+import br.siae.arq.erro.NegocioException;
+import br.siae.arq.utils.DAOUtils;
 
 @Service
 public class ProcessadorCadastro {
@@ -25,7 +27,7 @@ public class ProcessadorCadastro {
 		}
 		return obj;
 	}
-	public Persistable remover( Persistable obj ) throws DAOException {
+	public Persistable remover( Persistable obj ) throws DAOException, NegocioException {
 		try {
 			dao.delete( obj );
 		} catch (Exception e) {

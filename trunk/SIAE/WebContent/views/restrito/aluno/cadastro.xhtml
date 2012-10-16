@@ -12,7 +12,8 @@
 		<ui:define name="content">
 		<h:form id="form-cadastro-aluno"  acceptcharset="ISO-8859-1">
 			<p:breadCrumb>  
-			    <p:menuitem value="Cadastros" action="#{alunoMBean.redirecionarMenuPrincipal}"/>
+				<p:menuitem value="Home" action="#{alunoMBean.home}" ajax="false"/>
+			    <p:menuitem value="Cadastros"/>
 			    <p:menuitem value="Aluno" action="#{alunoMBean.iniciarCadastro}" />
 			    <p:menuitem value="Cadastrar" />  
 			</p:breadCrumb> 

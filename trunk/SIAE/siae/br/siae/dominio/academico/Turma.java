@@ -11,11 +11,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.siae.arq.dominio.Persistable;
 import br.siae.dominio.comum.Turno;
 
 @Entity
 @Table(name="turma", schema="academico")
-public class Turma {
+public class Turma implements Persistable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,  generator="SEQ_TURMA")
 	@SequenceGenerator(name="SEQ_TURMA", sequenceName="academico.seq_turma", allocationSize=1)
