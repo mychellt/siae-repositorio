@@ -1,4 +1,4 @@
-package br.siae.arq.negocio;
+package br.siae.arq.service;
 
 import java.util.List;
 
@@ -8,13 +8,12 @@ import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.seguranca.Permissao;
-import br.siae.arq.service.ServiceFactory;
 import br.siae.arq.utils.ValidatorUtil;
 
 @Service
-public class ProcessadorPermissao extends ProcessadorCadastro {
+public class PermissaoService extends CadastroService {
 	
-	public Permissao cadastrarPermissao( Permissao permissao ) throws NegocioException, DAOException {
+	public Permissao executarCadastro( Permissao permissao ) throws NegocioException, DAOException {
 		if( ValidatorUtil.isEmpty( permissao ) ){
 			permissao = (Permissao) cadastrar(permissao);
 		}

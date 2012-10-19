@@ -22,6 +22,7 @@ public  class GenericDAO {
 	
 	@Autowired
 	private HibernateTemplate ht;
+	
 	private void change(char op, Persistable obj){		
 		switch (op) {
 		case 'C':

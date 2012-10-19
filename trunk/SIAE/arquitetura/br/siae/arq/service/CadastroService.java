@@ -1,4 +1,4 @@
-package br.siae.arq.negocio;
+package br.siae.arq.service;
 
 import javax.annotation.Resource;
 
@@ -8,10 +8,9 @@ import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.dominio.Persistable;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
-import br.siae.arq.utils.DAOUtils;
 
 @Service
-public class ProcessadorCadastro {
+public class CadastroService {
 	
 	@Resource(name="genericDAO")
 	private GenericDAO dao;

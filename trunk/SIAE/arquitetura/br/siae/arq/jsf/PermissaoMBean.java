@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
-import br.siae.arq.negocio.ProcessadorPermissao;
 import br.siae.arq.seguranca.Permissao;
+import br.siae.arq.service.PermissaoService;
 import br.siae.arq.service.ServiceFactory;
 import br.siae.arq.utils.ValidatorUtil;
 
@@ -19,8 +19,8 @@ import br.siae.arq.utils.ValidatorUtil;
 @Controller
 @Scope("session")
 public class PermissaoMBean extends AbstractCrudController<Permissao>{	
-	@Resource(name="processadorPermissao")
-	private ProcessadorPermissao processador;
+	@Resource(name="permissaoService")
+	private PermissaoService permissaoService;
 	
 	public PermissaoMBean() {
 		resetObj();
@@ -68,12 +68,12 @@ public class PermissaoMBean extends AbstractCrudController<Permissao>{
 		try {
 			if( ValidatorUtil.isNotEmpty(obj)) {
 				lista.remove(obj);
-				obj = processador.cadastrarPermissao(obj);
+				obj = permissaoService.executarCadastro(obj);
 				addMensagemInformacao("Permissão alterada com sucesso!");
 				lista.add(obj);
 			}
 			else {
-				obj = processador.cadastrarPermissao(obj);
+				obj = permissaoService.executarCadastro(obj);
 				lista.add(obj);
 				addMensagemInformacao("Permissão cadastrada com sucesso!");
 			}

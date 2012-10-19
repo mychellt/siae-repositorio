@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
-import br.siae.arq.negocio.ProcessadorCadastro;
+import br.siae.arq.service.CadastroService;
 import br.siae.arq.service.ServiceFactory;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Nivel;
 import br.siae.dominio.academico.Serie;
 
 @Service
-public class ProcessadorSerie extends ProcessadorCadastro {
+public class SerieService extends CadastroService {
 			GenericDAO dao = (GenericDAO) ServiceFactory.getBean("genericDAO");
 			public Serie executarCadastro(Serie serie) throws NegocioException, DAOException {
 			if( ValidatorUtil.isEmpty( serie ) ){
