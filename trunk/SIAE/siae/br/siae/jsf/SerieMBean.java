@@ -20,8 +20,8 @@ import br.siae.negocio.SerieService;
 @Scope("session")
 public class SerieMBean extends AbstractCrudController<Serie>{
 	
-	@Resource(name="processadorSerie")
-	private SerieService processador;
+	@Resource(name="serieService")
+	private SerieService serieService;
 	
 	@Resource(name="genericDAO")
 	private GenericDAO dao;
@@ -54,12 +54,12 @@ public class SerieMBean extends AbstractCrudController<Serie>{
 		try {
 			if( ValidatorUtil.isNotEmpty(obj)) {
 				lista.remove(obj);
-				obj = processador.executarCadastro(obj);
+				obj = serieService.executarCadastro(obj);
 				addMensagemInformacao("Série alterada com sucesso!");
 				lista.add(obj);
 			}
 			else {
-				obj = processador.executarCadastro(obj);
+				obj = serieService.executarCadastro(obj);
 				lista.add(obj);
 				addMensagemInformacao("Série cadastrada com sucesso!");
 			}
@@ -96,7 +96,7 @@ public class SerieMBean extends AbstractCrudController<Serie>{
 			return null;
 		}
 		try {
-			obj = (Serie) processador.remover(obj);
+			obj = (Serie) serieService.executarRemocao(obj);
 			lista.remove(obj);
 		}
 		catch(NegocioException e) {
