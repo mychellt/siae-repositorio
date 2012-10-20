@@ -1,30 +1,36 @@
-package br.siae.negocio;
+package br.siae.service;
 
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.service.CadastroService;
-import br.siae.arq.service.ServiceFactory;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Nivel;
 import br.siae.dominio.academico.Serie;
 
 @Service
+@Transactional
 public class SerieService {
+	
 	@Resource(name="cadastroService")
 	private CadastroService cadastroService;
 	
-
-	GenericDAO dao = (GenericDAO) ServiceFactory.getBean("genericDAO");
-		
 	public Serie executarCadastro(Serie serie) throws NegocioException, DAOException {
+		GenericDAO dao = cadastroService.getGenericDAO();
 		if( ValidatorUtil.isEmpty( serie ) ){
+			String[] fields = new String[]{"denominacao", "nivel.id"};
+			Object[] values = new Object[]{ serie.getDenominacao(), serie.getNivel().getId() };
+			List<Serie> lista = (List<Serie>) dao.findByExactFields( Serie.class, fields, values );
+			if( ValidatorUtil.isNotEmpty(lista) ) {
+				throw new NegocioException("Jé existe uma série cadastrada com essa denominação para este nível.");
+			}
 			serie = (Serie)cadastroService.cadastrar(serie);
 			serie.setNivel( dao.findByPrimaryKey( Nivel.class, serie.getNivel().getId() ) );
 		}

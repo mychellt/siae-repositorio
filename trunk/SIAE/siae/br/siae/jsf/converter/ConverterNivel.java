@@ -13,17 +13,20 @@ public class ConverterNivel implements Converter{
 
 	  @Override
 	    public Object getAsObject(FacesContext context, UIComponent component, String value) {
-	        Nivel nivel = new Nivel();
-	        if( ValidatorUtil.isNotEmpty( value ) ) {
-	        	nivel.setId( Long.parseLong(value) );
-	        }
+		  	Nivel nivel = new Nivel();
+	      	if( ValidatorUtil.isNotEmpty(value)){
+	      		nivel.setId( Integer.parseInt(value));
+	      	}
 	        return nivel;
 	    }
 
 	    @Override
 	    public String getAsString(FacesContext context, UIComponent component, Object value) {
-	    	if( ValidatorUtil.isEmpty(value)) return "";
-	        return value.toString();
+	    	if( value instanceof Nivel ){
+	    		Nivel nivel = (Nivel) value;
+	    		return String.valueOf( nivel.getId() );
+	    	}
+	    	return "";
 	    }
 
 }

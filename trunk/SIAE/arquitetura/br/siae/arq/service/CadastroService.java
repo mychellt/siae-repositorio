@@ -3,6 +3,7 @@ package br.siae.arq.service;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.dominio.Persistable;
@@ -10,6 +11,7 @@ import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
 
 @Service
+@Transactional
 public class CadastroService {
 	
 	@Resource(name="genericDAO")
@@ -48,5 +50,9 @@ public class CadastroService {
 			dao.close();
 		}
 		return obj;
+	}
+	
+	public GenericDAO getGenericDAO() {
+		return dao;
 	}
 }

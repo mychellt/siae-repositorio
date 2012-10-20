@@ -1,5 +1,4 @@
 package br.siae.arq.seguranca;
-
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;

@@ -36,7 +36,7 @@
 					</th>
 					<td>  
 						<p:selectOneMenu value="#{serieMBean.obj.nivel}" converter="converterNivel" id="nivel">  
-							<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}" noSelectionOption="true"/>  
+							<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}"/>  
             				<f:selectItems value="#{nivelMBean.all}" var="nivel" itemLabel="#{nivel.denominacao}" itemValue="#{nivel}" />  
 						</p:selectOneMenu>
 					</td>

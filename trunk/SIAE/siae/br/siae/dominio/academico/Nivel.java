@@ -66,12 +66,5 @@ public class Nivel implements Persistable{
 		if (id != other.id)
 			return false;
 		return true;
-	}
-	
-	@Override
-	public String toString() {
-		return String.valueOf(id);
-	}
-
-	
+	}	
 }

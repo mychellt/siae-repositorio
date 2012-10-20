@@ -14,7 +14,7 @@ import br.siae.arq.jsf.AbstractCrudController;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Nivel;
 import br.siae.dominio.academico.Serie;
-import br.siae.negocio.SerieService;
+import br.siae.service.SerieService;
 
 @Controller
 @Scope("session")
@@ -63,11 +63,11 @@ public class SerieMBean extends AbstractCrudController<Serie>{
 				lista.add(obj);
 				addMensagemInformacao("Série cadastrada com sucesso!");
 			}
-			resetObj();
 		} catch (NegocioException e) {
 			addMensagemErro( e.getMessage() );
 			e.printStackTrace();
 		}
+		resetObj();
 		setConfirmButton("Cadastrar");
 		return null;
 	}
