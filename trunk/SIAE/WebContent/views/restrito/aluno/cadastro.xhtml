@@ -23,15 +23,39 @@
 			<table class="formulario" width="65%">
 				<caption>Cadastro de Aluno</caption>
 				<tr>
-					<th>
+					<th class="obrigatorio">
 						<h:outputText value="Nome:" />
 					</th>
 					<td>
-						<p:inputText value="#{alunoMBean.obj.pessoa.nome}" size="85"/>
+						<p:inputText value="#{alunoMBean.obj.pessoa.nome}" size="70"/>
 					</td>
 				</tr>
 				<tr>
 					<th>
+						<h:outputText value="CPF:" />
+					</th>
+					<td>
+						<p:inputText value="#{alunoMBean.obj.pessoa.cpf}" onkeyup="formataCPF(this, event, null)"  size="14" maxlength="14" converter="converterCPF" />
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<h:outputText value="Nome da Mãe:" />
+					</th>
+					<td>
+						<p:inputText value="#{alunoMBean.obj.mae.nome}" size="70"/>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<h:outputText value="Nome da Pai:" />
+					</th>
+					<td>
+						<p:inputText value="#{alunoMBean.obj.pai.nome}" size="70"/>
+					</td>
+				</tr>
+				<tr>
+					<th nowrap="nowrap">
 						<h:outputText value="Data do Nascimento:" />
 					</th>
 					<td>
@@ -68,8 +92,8 @@
 					</th>
 					<td>
 						<p:selectOneMenu value="#{alunoMBean.obj.pessoa.sexo}" >  
-							<f:selectItem itemLabel="-- Selecione --" itemValue="" />  
-            				<f:selectItems value="#{sexoMBean.all}" var="sexo" itemLabel="#{sexo.denominacao}"/>  
+							<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}" />  
+            				<f:selectItems value="#{sexoMBean.all}" var="sexo" itemLabel="#{sexo.denominacao}" itemValue="#{sexo}"/>  
 						</p:selectOneMenu>
 					</td>
 				</tr>
@@ -79,26 +103,40 @@
 							<caption>Endereço</caption>
 							<tr>
 								<th>
-									<h:outputText value="Endereço:" />
+									<h:outputText value="CEP:" />
 								</th>
-								<td>
-									<p:inputText value="#{alunoMBean.obj.pessoa.endereco.endereco}" size="85"/>
+								<td colspan="2">
+									<p:inputText value="#{alunoMBean.obj.pessoa.endereco.cep}"/>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Logradouro:" />
+								</th>
+								<td colspan="2">
+									<p:inputText value="#{alunoMBean.obj.pessoa.endereco.endereco}" size="75"/>
 								</td>
 							</tr>
 							<tr>
 								<th>
 									<h:outputText value="Bairro:" />
 								</th>
-								<td>
-									<p:inputText value="#{alunoMBean.obj.pessoa.endereco.bairro}" size="85"/>
+								<td style="width: 70%">
+									<p:inputText value="#{alunoMBean.obj.pessoa.endereco.bairro}" size="60"/>
+								</td>
+								<th>
+									<h:outputText value="Número:" />
+								</th>
+								<td style="width: 30%">
+									<p:inputText value="#{alunoMBean.obj.pessoa.endereco.bairro}" size="10"/>
 								</td>
 							</tr>
 							<tr>
 								<th>
-									<h:outputText value="CEP" />
+									<h:outputText value="Estado" />
 								</th>
 								<td>
-									<p:inputText value="#{alunoMBean.obj.pessoa.endereco.cep}"/>
+									 <p:autoComplete  var="municipio" value="#{alunoMBean.obj.pessoa.endereco.municipio}" completeMethod="#{municipioMBean.complete}"/> 
 								</td>
 							</tr>
 							<tr>
@@ -112,6 +150,14 @@
 						</table>
 					</td>
 				</tr>
+				<tfoot>
+					<tr style="text-align: center;">
+						<td colspan="2">
+							<p:commandButton value="#{alunoMBean.confirmButton}" action="#{alunoMBean.cadastrar}"/>
+							<p:commandButton value="Cancelar" action="#{alunoMBean.cancelar}"/>
+						</td>
+					</tr>
+				</tfoot>
 			</table> 
     	</h:form>
 		</ui:define>

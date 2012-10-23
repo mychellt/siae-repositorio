@@ -1,5 +1,8 @@
 package br.siae.dominio.academico;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -36,6 +40,13 @@ public class Turma implements Persistable{
 	
 	@Column(name="numero_vagas")
 	private long numeroVagas;
+	
+	@Column(name="ano")
+	private long ano;
+	
+	@OneToMany(mappedBy="turma", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	private Collection<TurmaProfessor> professores;
+	
 
 	public long getId() {
 		return id;
@@ -75,5 +86,21 @@ public class Turma implements Persistable{
 
 	public void setNumeroVagas(long numeroVagas) {
 		this.numeroVagas = numeroVagas;
+	}
+
+	public long getAno() {
+		return ano;
+	}
+
+	public void setAno(long ano) {
+		this.ano = ano;
+	}
+
+	public Collection<TurmaProfessor> getProfessores() {
+		return professores;
+	}
+
+	public void setProfessores(Collection<TurmaProfessor> professores) {
+		this.professores = professores;
 	}
 }

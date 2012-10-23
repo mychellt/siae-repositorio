@@ -1,4 +1,4 @@
-package br.siae.jsf;
+package br.siae.arq.jsf;
 
 import java.util.Collection;
 

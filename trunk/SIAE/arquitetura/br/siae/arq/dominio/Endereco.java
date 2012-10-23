@@ -1,6 +1,7 @@
 package br.siae.arq.dominio;
 
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,9 +23,9 @@ public class Endereco implements Persistable{
 	@Column(name="id_endereco")
 	private long id;
 	
-	/** EndereÃ§o da pessoa/empresa */
-	@Column(name="endereco")
-	private String endereco;
+	/** Endereço da pessoa/empresa */
+	@Column(name="nome_logradouro")
+	private String nomeLogradouro;
 
 	/** Bairro da pessoa/empresa */
 	@Column(name="bairro")
@@ -38,6 +39,10 @@ public class Endereco implements Persistable{
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_municipio")
 	private Municipio municipio;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_logradouro")
+	private Logradouro logradouro;
 
 	public Endereco() {
 		municipio = new Municipio();
@@ -72,15 +77,23 @@ public class Endereco implements Persistable{
 	}
 
 	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+		this.nomeLogradouro = endereco;
 	}
 
 	public String getEndereco() {
-		return endereco;
+		return nomeLogradouro;
 	}
 
 	public Municipio getMunicipio() {
 		return municipio;
+	}
+
+	public Logradouro getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(Logradouro logradouro) {
+		this.logradouro = logradouro;
 	}
 
 	public void setMunicipio(Municipio municipio) {

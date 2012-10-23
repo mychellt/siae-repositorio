@@ -1,5 +1,6 @@
 package br.siae.jsf;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -103,5 +104,9 @@ public class SerieMBean extends AbstractCrudController<Serie>{
 			addMensagemErro( e.getMessage() );
 		}
 		return getPaginaCadastro();
+	}
+	
+	public Collection<Serie> getAll( ) {
+		return dao.findAll( Serie.class ); 
 	}
 }

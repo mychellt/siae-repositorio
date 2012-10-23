@@ -20,7 +20,7 @@ public class Turno {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,  generator="SEQ_TURNO")
 	@SequenceGenerator(name="SEQ_TURNO", sequenceName="comum.seq_turno", allocationSize=1)
-	@Column(name="id_turma")
+	@Column(name="id_turno")
 	private long id;
 	
 	@Column(name="denominacao")

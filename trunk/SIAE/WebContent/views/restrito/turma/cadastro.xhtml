@@ -11,6 +11,7 @@
 		</ui:define>
 		<ui:define name="content">
 		<h:form id="form"  acceptcharset="ISO-8859-1">
+			<ui:include src="/views/restrito/includes/menu.xhtml" />
 			<p:breadCrumb> 
 				<p:menuitem value="Home" action="#{turmaMBean.home}"/>
 			    <p:menuitem value="Cadastros" action="#{turmaMBean.home}"/>
@@ -18,9 +19,8 @@
 			    <p:menuitem value="Cadastrar" />  
 			</p:breadCrumb> 
 			<br/>
-			<ui:include src="/views/restrito/includes/menu.xhtml" />
 			<br/>
-			<table width="60%" class="formulario">
+			<table width="50%" class="formulario">
 				<caption>Cadastrar Turma</caption>
 				<tr>
 					<th>
@@ -34,8 +34,11 @@
 					<th>
 						<h:outputText value="Serie:" />
 					</th>
-					<td>
-						<p:inputText value="#{turmaMBean.obj.nome}" />
+					<td>  
+						<p:selectOneMenu value="#{turmaMBean.obj.serie}" converter="converterSerie" id="serie">  
+							<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}"/>  
+            				<f:selectItems value="#{serieMBean.all}" var="serie" itemLabel="#{serie.denominacao}" itemValue="#{serie}" />  
+						</p:selectOneMenu>
 					</td>
 				</tr>
 				<tr>
@@ -43,7 +46,10 @@
 						<h:outputText value="Turno:" />
 					</th>
 					<td>
-						<p:inputText value="#{turmaMBean.obj.nome}" />
+						<p:selectOneMenu value="#{turmaMBean.obj.turno}" converter="converterTurno" id="turno">  
+							<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}"/>  
+            				<f:selectItems value="#{turnoMBean.all}" var="turno" itemLabel="#{turno.denominacao}" itemValue="#{turno}" />  
+						</p:selectOneMenu>
 					</td>
 				</tr>
 			</table>

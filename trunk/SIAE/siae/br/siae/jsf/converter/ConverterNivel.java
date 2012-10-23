@@ -26,7 +26,7 @@ public class ConverterNivel implements Converter{
 	    		Nivel nivel = (Nivel) value;
 	    		return String.valueOf( nivel.getId() );
 	    	}
-	    	return "";
+	    	return String.valueOf(0);
 	    }
 
 }

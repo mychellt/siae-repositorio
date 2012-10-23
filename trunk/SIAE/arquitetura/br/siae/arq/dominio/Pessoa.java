@@ -22,7 +22,6 @@ import javax.persistence.TemporalType;
 @Table(name="pessoa", schema="comum")
 public class Pessoa implements Persistable {
 	
-	
 	@Id
 	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator="SEQ_PESSOA" )
 	@SequenceGenerator(allocationSize=1, sequenceName="comum.seq_pessoa", name="SEQ_PESSOA")
@@ -61,15 +60,18 @@ public class Pessoa implements Persistable {
 	@JoinColumn(name="id_identidade", nullable=false)
 	private Identidade identidade;
 	
-	/** Filizaï¿½ï¿½o*/
+	/** Nome da mãe da pessoa.*/
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_mae")
 	private Pessoa mae;
-	
 
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_pai")
-	private Pessoa pai;	
+	private Pessoa pai;
+	
+	@Column(name="cpf")
+	private Long cpf;
+	
 	
 	public Pessoa() {
 		sexo = new Sexo();
@@ -173,6 +175,14 @@ public class Pessoa implements Persistable {
 
 	public void setPai(Pessoa pai) {
 		this.pai = pai;
+	}
+
+	public Long getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(Long cpf) {
+		this.cpf = cpf;
 	}
 
 }
