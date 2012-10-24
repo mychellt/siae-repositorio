@@ -20,7 +20,7 @@
 			<br/>
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
 			<br/>
-			<table class="formulario" width="65%">
+			<table class="formulario" width="80%">
 				<caption>Cadastro de Aluno</caption>
 				<tr>
 					<th class="obrigatorio">
@@ -258,10 +258,96 @@
 							</tr>
 							<tr>
 								<th>
+									<h:outputText value="Certidão de Nascimento:" />
+								</th>
+								<td>
+									<p:inputText value="#{alunoMBean.obj.pessoa.certidaoNascimento.numero}"/>
+								</td>
+								<th>
+									<h:outputText value="Data de Expedição:" />
+								</th>
+								<td>
+									<p:inputText value="#{alunoMBean.obj.pessoa.certidaoNascimento.dataExpedicao}"/>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Cartório:" />
+								</th>
+								<td colspan="3 ">
+									<p:inputText value="#{alunoMBean.obj.pessoa.certidaoNascimento.cartorio}" size="65"/>	
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Livro:" />
+								</th>
+								<td>
+									<p:inputText value="#{alunoMBean.obj.pessoa.certidaoNascimento.livro}"/>		
+								</td>
+								<th>
+									<h:outputText value="Folha:" />
+								</th>
+								<td>
+									<p:inputText value="#{alunoMBean.obj.pessoa.certidaoNascimento.folha}"/>		
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" style="color: #BED6F8;">
+									<hr />
+								</td>
+							</tr>
+							<tr>
+								<th>
 									<h:outputText value="Passaporte:" />
 								</th>
 								<td>
 									<p:inputText value="#{alunoMBean.obj.pessoa.passaporte}"/>			
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table width="100%" class="subformulario">
+							<caption>Naturalidade</caption>
+							<tr>
+								<th>
+									<h:outputText value="País:" />
+								</th>
+								<td>
+									<p:selectOneMenu value="#{alunoMBean.obj.pessoa.naturalidade.pais}" converter="converterPais" id="pais-naturalidade">  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}" />  
+			            				<f:selectItems value="#{paisMBean.all}" var="pais" itemLabel="#{pais.nome}" itemValue="#{pais}"/> 
+									</p:selectOneMenu>
+								</td>
+								<th>
+									<h:outputText value="Estado:" />
+								</th>
+								<td>
+									<p:selectOneMenu value="#{municipioMBean.estado}" converter="converterEstado" id="estado-naturalidade">  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}" />  
+			            				<f:selectItems value="#{estadoMBean.all}" var="" itemLabel="#{estado.nome}" itemValue="#{estado}"/>
+			            				<p:ajax update="municipio-naturalidade" listener="#{municipioMBean.changeEstado}"/> 
+									</p:selectOneMenu>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Município:" />
+								</th>
+								<td>
+									<p:selectOneMenu value="#{alunoMBean.obj.pessoa.naturalidade.municipio}" converter="converterMunicipio" id="municipio-naturalidade">  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}" />  
+			            				<f:selectItems value="#{municipioMBean.all}" var="municipio" itemLabel="#{municipio.nome}" itemValue="#{municipio}"/> 
+									</p:selectOneMenu>
+								</td>
+								<th>
+									<h:outputText value="Naturalidade:" />
+								</th>
+								<td>
+									<p:inputText value="#{alunoMBean.obj.pessoa.naturalidade.denominacao}"/>
 								</td>
 							</tr>
 						</table>

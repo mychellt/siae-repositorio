@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import br.siae.arq.dominio.Endereco;
 import br.siae.arq.dominio.Identidade;
 import br.siae.arq.dominio.Logradouro;
+import br.siae.arq.dominio.Naturalidade;
 import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.dominio.Usuario;
 import br.siae.arq.jsf.AbstractCrudController;
@@ -31,6 +32,7 @@ public class AlunoMBean extends AbstractCrudController<Aluno>{
 		obj.getPessoa().setEndereco( new Endereco() );
 		obj.getPessoa().getEndereco().setLogradouro( new Logradouro() );
 		obj.getPessoa().setIdentidade( new Identidade() );
+		obj.getPessoa().setNaturalidade( new Naturalidade() );
 	}
 	
 	@Override

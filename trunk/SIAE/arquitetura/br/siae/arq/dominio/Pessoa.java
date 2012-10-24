@@ -87,6 +87,10 @@ public class Pessoa implements Persistable {
 	@JoinColumn(name="id_titulo_eleitor")
 	private TituloEleitor tituloEleitor;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_naturalidade")
+	private Naturalidade naturalidade;
+	
 	public Pessoa() {
 		sexo = new Sexo();
 		tipo = new TipoPessoa();
@@ -229,6 +233,14 @@ public class Pessoa implements Persistable {
 
 	public void setTituloEleitor(TituloEleitor tituloEleitor) {
 		this.tituloEleitor = tituloEleitor;
+	}
+
+	public Naturalidade getNaturalidade() {
+		return naturalidade;
+	}
+
+	public void setNaturalidade(Naturalidade naturalidade) {
+		this.naturalidade = naturalidade;
 	}
 
 }
