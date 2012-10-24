@@ -105,7 +105,7 @@
 								<th>
 									<h:outputText value="CEP:" />
 								</th>
-								<td colspan="2">
+								<td colspan="3">
 									<p:inputText value="#{alunoMBean.obj.pessoa.endereco.cep}"/>
 								</td>
 							</tr>
@@ -113,22 +113,40 @@
 								<th>
 									<h:outputText value="Logradouro:" />
 								</th>
-								<td colspan="2">
-									<p:inputText value="#{alunoMBean.obj.pessoa.endereco.endereco}" size="75"/>
+								<td>
+									<table width="100%">
+										<tr>
+											<td>
+												<p:selectOneMenu value="#{alunoMBean.obj.pessoa.endereco.logradouro}" >  
+													<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}" />  
+						            				<f:selectItems value="#{logradouroMBean.all}" var="logradouro" itemLabel="#{logradouro.denominacao}" itemValue="#{logradouro}"/>  
+												</p:selectOneMenu>
+											</td>
+											<td colspan="2">
+												<p:inputText value="#{alunoMBean.obj.pessoa.endereco.endereco}" size="60"/>
+											</td>
+										</tr>
+									</table>
 								</td>
 							</tr>
 							<tr>
 								<th>
 									<h:outputText value="Bairro:" />
 								</th>
-								<td style="width: 70%">
-									<p:inputText value="#{alunoMBean.obj.pessoa.endereco.bairro}" size="60"/>
-								</td>
-								<th>
-									<h:outputText value="Número:" />
-								</th>
-								<td style="width: 30%">
-									<p:inputText value="#{alunoMBean.obj.pessoa.endereco.bairro}" size="10"/>
+								<td>
+									<table width="100%">
+										<tr>
+											<td style="width: 70%">
+												<p:inputText value="#{alunoMBean.obj.pessoa.endereco.bairro}" size="60"/>
+											</td>
+											<th>
+												<h:outputText value="Número:" />
+											</th>
+											<td style="width: 30%">
+												<p:inputText value="#{alunoMBean.obj.pessoa.endereco.bairro}" size="10"/>
+											</td>
+										</tr>
+									</table>
 								</td>
 							</tr>
 							<tr>
@@ -136,15 +154,114 @@
 									<h:outputText value="Estado" />
 								</th>
 								<td>
-									 <p:autoComplete  var="municipio" value="#{alunoMBean.obj.pessoa.endereco.municipio}" completeMethod="#{municipioMBean.complete}"/> 
+									<p:selectOneMenu value="#{municipioMBean.estado}" converter="converterEstado" >  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}" />  
+			            				<f:selectItems value="#{estadoMBean.all}" var="estado" itemLabel="#{estado.nome}" itemValue="#{estado}"/> 
+			            				<p:ajax update="cidades" listener="#{municipioMBean.changeEstado}"/> 
+									</p:selectOneMenu>
 								</td>
 							</tr>
 							<tr>
 								<th>
 									<h:outputText value="Município:" />
 								</th>
+								<td colspan="3">
+									<p:selectOneMenu id="cidades"  value="#{alunoMBean.obj.pessoa.endereco.municipio}" converter="converterMunicipio">  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}" />  
+			            				<f:selectItems value="#{municipioMBean.all}" var="municipio" itemLabel="#{municipio.nome}" itemValue="#{municipio}"/> 
+									</p:selectOneMenu>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table width="100%" class="subformulario">
+							<caption>Documentação</caption>
+							<tr>
+								<th>
+									<h:outputText value="RG:" />
+								</th>
 								<td>
-									 <p:autoComplete  var="municipio" value="#{alunoMBean.obj.pessoa.endereco.municipio}" completeMethod="#{municipioMBean.complete}"/> 
+									<p:inputText value="#{alunoMBean.obj.pessoa.identidade.numero}"/>
+								</td>
+								<th>
+									<h:outputText value="Orgão de Expedição:" />
+								</th>
+								<td>
+									<p:inputText value="#{alunoMBean.obj.pessoa.identidade.orgaoExpedidor}"/>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="UF:" />
+								</th>
+								<td>
+									<p:selectOneMenu value="#{alunoMBean.obj.pessoa.identidade.estado}" converter="converterEstado" >  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}" />  
+			            				<f:selectItems value="#{estadoMBean.all}" var="estado" itemLabel="#{estado.nome}" itemValue="#{estado}"/> 
+									</p:selectOneMenu>
+								</td>
+								<th>
+									<h:outputText value="Data de Expedição:" />
+								</th>
+								<td>
+									<p:calendar value="#{alunoMBean.obj.pessoa.identidade.dataExpedicao}" id="data-expedicao-rg" showOn="button" />  
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" style="color: #BED6F8;">
+									<hr />
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Certificado Militar:" />
+								</th>
+								<td>
+									<p:inputText value="#{alunoMBean.obj.pessoa.certificadoMilitar.numero}"/>
+								</td>
+								<th>
+									<h:outputText value="Data de Expedição:" />
+								</th>
+								<td>
+									<p:calendar value="#{alunoMBean.obj.pessoa.certificadoMilitar.dataExpedicao}" id="data-expedicao-certificado-militar" showOn="button" />  	
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Série:" />
+								</th>
+								<td>
+									<p:inputText value="#{alunoMBean.obj.pessoa.certificadoMilitar.serie}"/>
+								</td>
+								<th>
+									<h:outputText value="Cetegoria:" />
+								</th>
+								<td>
+									<p:inputText value="#{alunoMBean.obj.pessoa.certificadoMilitar.categoria}"/>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Orgão" />
+								</th>
+								<td>
+									<p:inputText value="#{alunoMBean.obj.pessoa.certificadoMilitar.orgao}"/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" style="color: #BED6F8;">
+									<hr />
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Passaporte:" />
+								</th>
+								<td>
+									<p:inputText value="#{alunoMBean.obj.pessoa.passaporte}"/>			
 								</td>
 							</tr>
 						</table>

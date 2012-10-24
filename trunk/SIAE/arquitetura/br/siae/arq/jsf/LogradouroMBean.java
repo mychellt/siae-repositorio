@@ -12,12 +12,12 @@ import br.siae.arq.dominio.Logradouro;
 
 @Component
 @Scope("request")
-public class LogradrouroMBean {
+public class LogradouroMBean {
 	
 	@Resource(name="genericDAO")
 	private GenericDAO dao;
 	
-	public LogradrouroMBean() { }
+	public LogradouroMBean() { }
 	public Collection<Logradouro> getAll() {
 		return dao.findAll( Logradouro.class );
 	}

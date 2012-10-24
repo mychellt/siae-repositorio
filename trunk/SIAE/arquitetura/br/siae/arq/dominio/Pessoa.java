@@ -72,6 +72,20 @@ public class Pessoa implements Persistable {
 	@Column(name="cpf")
 	private Long cpf;
 	
+	@Column(name="passaporte")
+	private String passaporte;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_certificado_militar")
+	private CertificadoMilitar certificadoMilitar;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_certidao_nascimento")
+	private CertidaoNascimento certidaoNascimento;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_titulo_eleitor")
+	private TituloEleitor tituloEleitor;
 	
 	public Pessoa() {
 		sexo = new Sexo();
@@ -183,6 +197,38 @@ public class Pessoa implements Persistable {
 
 	public void setCpf(Long cpf) {
 		this.cpf = cpf;
+	}
+
+	public String getPassaporte() {
+		return passaporte;
+	}
+
+	public void setPassaporte(String passaporte) {
+		this.passaporte = passaporte;
+	}
+
+	public CertificadoMilitar getCertificadoMilitar() {
+		return certificadoMilitar;
+	}
+
+	public void setCertificadoMilitar(CertificadoMilitar certificadoMilitar) {
+		this.certificadoMilitar = certificadoMilitar;
+	}
+
+	public CertidaoNascimento getCertidaoNascimento() {
+		return certidaoNascimento;
+	}
+
+	public void setCertidaoNascimento(CertidaoNascimento certidaoNascimento) {
+		this.certidaoNascimento = certidaoNascimento;
+	}
+
+	public TituloEleitor getTituloEleitor() {
+		return tituloEleitor;
+	}
+
+	public void setTituloEleitor(TituloEleitor tituloEleitor) {
+		this.tituloEleitor = tituloEleitor;
 	}
 
 }
