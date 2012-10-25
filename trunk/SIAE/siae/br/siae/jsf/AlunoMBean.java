@@ -64,4 +64,8 @@ public class AlunoMBean extends AbstractCrudController<Aluno>{
 		addMensagemErro("Cadastro do aluno efetuado com sucesso!");
 		return PessoaMBean.COMPROVANTE_CADASTRO;
 	}
+	
+	public String getNomeObj() {
+		return "Aluno";
+	}
 }

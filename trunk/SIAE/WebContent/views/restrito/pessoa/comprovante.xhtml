@@ -1,0 +1,319 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form-comprovante"  acceptcharset="ISO-8859-1">
+			<p:breadCrumb>  
+				<p:menuitem value="Home" action="#{pessoaMBean.home}" ajax="false"/>
+			    <p:menuitem value="Cadastros"/>
+			    <p:menuitem value="#{pessoaMBean.controlador.nomeObj}" action="#{pessoaMBean.controlador.iniciarCadastro}" />
+			    <p:menuitem value="Comprovante de Cadastro" />  
+			</p:breadCrumb> 
+			<br/>
+			<table style="width: 80%" class="comprovante">
+				<caption>
+					<h:outputText value="Dados Pessoas do #{pessoaMBean.controlador.nomeObj}" />
+				</caption>
+					<tr>
+						<th>
+							<h:outputText value="Nome:" />
+						</th>
+						<td>
+							<h:outputText value="#{pessoaMBean.obj.nome}" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<h:outputText value="Nome da Mãe:" />
+						</th>
+						<td>
+							<h:outputText value="#{pessoaMBean.obj.nomeMae}" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<h:outputText value="Nome do Pai:" />
+						</th>
+						<td>
+							<h:outputText value="#{pessoaMBean.obj.nomePai}" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<h:outputText value="Data do Nascimento:" />
+						</th>
+						<td>
+							<h:outputText value="#{pessoaMBean.obj.dataNascimento}" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<h:outputText value="E-mail:" />
+						</th>
+						<td>
+							<h:outputText value="#{pessoaMBean.obj.email}" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<h:outputText value="Celular:" />
+						</th>
+						<td>
+							<h:outputText value="#{pessoaMBean.obj.celular}" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<h:outputText value="Telefone" />
+						</th>
+						<td>
+							<h:outputText value="#{pessoaMBean.obj.telefone}" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							<h:outputText value="Sexo" />
+						</th>
+						<td>
+							<h:outputText value="#{pessoaMBean.obj.sexo.denominacao}" />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<table style="width: 100%;">
+								<caption>
+									<h:outputText value="Endereço" />
+								</caption>
+								<tr>
+									<th>
+										<h:outputText value="CEP:" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.endereco.cep}" />
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h:outputText value="Logradouro:" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.endereco.logradouro.denominacao}" /> - <h:outputText value="#{pessoaMBean.obj.endereco.denominacao}" />
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h:outputText value="Bairro" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.endereco.bairro}" /> - <h:outputText value="#{pessoaMBean.obj.endereco.numero}" />
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h:outputText value="Município" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.endereco.municipio.nome}" />
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table style="width: 100%">
+								<caption>
+									<h:outputText value="Documentação" />
+								</caption>
+								<tr>
+									<th>
+										<h:outputText value="RG:" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.identidade.numero}" />
+									</td>
+									<th>
+										<h:outputText value="Orgão de Expedição:" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.identidade.orgaoExpedicao}" />
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h:outputText value="UF:" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.identidade.estado}" />
+									</td>
+									<th>
+										<h:outputText value="Data de Expedição:" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.identidade.dataExpedicao}" />
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h:outputText value="Certificado Militar:" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.certificadoMilitar.numero}" />
+									</td>
+									<th>
+										<h:outputText value="Data de Expedição:" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.certificadoMilitar.dataExpedicao}" />
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h:outputText value="Série:" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.certificadoMilitar.serie}" />
+									</td>
+									<th>
+										<h:outputText value="Categoria:" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.certificadoMilitar.categoria}" />
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h:outputText value="Orgão" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.certificadoMilitar.orgao}" />
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h:outputText value="Certidão de Nascimento" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.numero}" />
+									</td>
+									<th>
+										<h:outputText value="Categoria:" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.dataExpedicao}" />
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h:outputText value="Cartório" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.cartorio}" />
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h:outputText value="Livro" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.livro}" />
+									</td>
+									<th>
+										<h:outputText value="Folha:" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.folha}" />
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h:outputText value="Título de Eleitor" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.tituloEleitor.numero}" />
+									</td>
+									<th>
+										<h:outputText value="UF:" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.tituloEleitor.uf.nome}" />
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h:outputText value="Zona" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.tituloEleitor.zona}" />
+									</td>
+									<th>
+										<h:outputText value="UF:" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.tituloEleitor.uf.nome}" />
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h:outputText value="Passaporte" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.passaporte}" />
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<table style="width: 100%">
+								<caption>
+									<h:outputText value="Naturalidade" />
+								</caption>
+								<tr>
+									<th>
+										<h:outputText value="País" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.naturalidade.pais}" />
+									</td>
+									<th>
+										<h:outputText value="Municipio" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.naturalidade.municipio.nome}" /> - <h:outputText value="#{pessoaMBean.obj.naturalidade.municipio.estado.sigla}" />
+									</td>
+								</tr>
+								<tr>
+									<th>
+										<h:outputText value="Naturalidade" />
+									</th>
+									<td>
+										<h:outputText value="#{pessoaMBean.obj.naturalidade.denominacao}" />
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tfoot>
+						<tr>
+							<td colspan="2">
+								<p:commandButton ajax="false" action="#{pessoaMBean.controlador.iniciarCadastro}" value="Cadastrar Outro #{pessoaMBean.controlador.nomeObj}" />
+							</td>
+						</tr>
+					</tfoot>
+			</table>
+    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

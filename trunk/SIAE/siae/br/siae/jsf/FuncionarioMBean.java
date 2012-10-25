@@ -36,4 +36,8 @@ public class FuncionarioMBean extends AbstractCrudController<Funcionario>{
 	public String cadastrar() {
 		return PessoaMBean.COMPROVANTE_CADASTRO;
 	}
+	
+	public String getNomeObj() {
+		return "Funcionário";
+	}
 }

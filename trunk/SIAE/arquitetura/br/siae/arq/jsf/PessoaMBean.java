@@ -16,7 +16,7 @@ import br.siae.arq.utils.ValidatorUtil;
 @Controller
 @Scope("session")
 public class PessoaMBean extends AbstractCrudController<Pessoa>{
-	public static final String COMPROVANTE_CADASTRO = "";
+	public static final String COMPROVANTE_CADASTRO = "/views/restrito/pessoa/comprovante.jsf";
 	private String descricaoCadastro = "Cadastrar Pessoa";
 	private AbstractController controlador;
 	

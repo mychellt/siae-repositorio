@@ -42,4 +42,8 @@ public class ProfessorMBean extends AbstractCrudController<Professor>{
 	public String cadastrar() {
 		return PessoaMBean.COMPROVANTE_CADASTRO;
 	}
+	
+	public String getNomeObj() {
+		return "Professor";
+	}
 }
