@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import br.siae.arq.dominio.TipoPessoa;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.jsf.AbstractCrudController;
@@ -51,6 +52,7 @@ public class AlunoMBean extends AbstractCrudController<Aluno>{
 		}
 		
 		obj.setPessoa( pessoaMBean.getObj() );
+		obj.getPessoa().setTipo( new TipoPessoa( TipoPessoa.PESSOA_FISICA ) );
 		
 		try {
 			obj = alunoService.executarCadastro( obj );

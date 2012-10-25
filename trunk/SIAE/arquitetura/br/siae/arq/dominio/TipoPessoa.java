@@ -25,6 +25,12 @@ public class TipoPessoa implements Persistable{
 	@Column(name="denominacao")
 	private String denominacao;
 
+	public TipoPessoa() { }
+	
+	public TipoPessoa(int tipo) {
+		this.id = tipo;
+	}
+
 	public long getId() {
 		return id;
 	}

@@ -45,19 +45,19 @@ public class Pessoa implements Persistable {
 	private String celular;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_sexo", nullable=false, updatable=true)
+	@JoinColumn(name="id_sexo", nullable=true)
 	private Sexo sexo;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_tipo", nullable=false, updatable=true)
+	@JoinColumn(name="id_tipo", nullable=false)
 	private TipoPessoa tipo;
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name="id_endereco", nullable=false, updatable=true)
+	@JoinColumn(name="id_endereco", nullable=true, updatable=true, insertable=true)
 	private Endereco endereco;
 	
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name="id_identidade", nullable=false)
+	@JoinColumn(name="id_identidade", nullable=true, insertable=true)
 	private Identidade identidade;
 	
 	@Column(name="cpf")
@@ -66,20 +66,20 @@ public class Pessoa implements Persistable {
 	@Column(name="passaporte")
 	private String passaporte;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_certificado_militar")
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="id_certificado_militar", nullable= true, insertable=true, updatable=true)
 	private CertificadoMilitar certificadoMilitar;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_certidao_nascimento")
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="id_certidao_nascimento", nullable=true, insertable=true, updatable=true)
 	private CertidaoNascimento certidaoNascimento;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_titulo_eleitor")
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="id_titulo_eleitor", nullable=true, insertable=true, updatable=true)
 	private TituloEleitor tituloEleitor;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_naturalidade")
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="id_naturalidade", insertable=true, nullable=true, updatable=true)
 	private Naturalidade naturalidade;
 	
 	@Column(name="nome_mae")

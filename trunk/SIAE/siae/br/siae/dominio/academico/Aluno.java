@@ -1,5 +1,6 @@
 package br.siae.dominio.academico;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,8 +26,8 @@ public class Aluno implements Persistable{
 	private long id;
 	
 	
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_pessoa", insertable=true, nullable=false)
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="id_pessoa", insertable=true, nullable=false, updatable=true)
 	private Pessoa pessoa;
 	
 	@OneToOne(fetch=FetchType.EAGER)
@@ -38,7 +39,7 @@ public class Aluno implements Persistable{
 	
 
 	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_elemento_matricula", insertable=true, nullable=true)
+	@JoinColumn(name="id_elemento_matricula", insertable=true, nullable=true )
 	private ElementoMatricula elementoMatricula;
 	
 	public long getId() {
