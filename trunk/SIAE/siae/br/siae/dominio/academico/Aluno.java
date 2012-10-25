@@ -33,14 +33,6 @@ public class Aluno implements Persistable{
 	@JoinColumn(name="id_usuario", insertable=true)
 	private Usuario usuario;
 	
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_mae", insertable=true, nullable=false)
-	private Pessoa mae;
-	
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_pai", insertable=true, nullable=true)
-	private Pessoa pai;
-	
 	@Column(name="responsavel")
 	private String responsavel;
 	
@@ -72,23 +64,6 @@ public class Aluno implements Persistable{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
-	public Pessoa getMae() {
-		return mae;
-	}
-
-	public void setMae(Pessoa mae) {
-		this.mae = mae;
-	}
-
-	public Pessoa getPai() {
-		return pai;
-	}
-
-	public void setPai(Pessoa pai) {
-		this.pai = pai;
-	}
-
 
 	public ElementoMatricula getElementoMatricula() {
 		return elementoMatricula;

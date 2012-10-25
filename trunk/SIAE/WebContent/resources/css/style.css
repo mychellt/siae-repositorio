@@ -54,9 +54,6 @@ div.formulario p.caption{
 	border-bottom: 0;
 }
 
-
-
-
 table.formulario {
 	margin: 0 auto;
 	border: 1px solid #BED6F8;
@@ -76,6 +73,13 @@ table.formulario caption{
     padding-left: 5px;
 }
 
+table.formulario tr td, table.subFormulario tr td {
+	padding: 2px;
+}
+
+table.formulario tr td.subFormulario {
+	padding: 3px 0 3px 20px;
+}
 
 table.subformulario {
 	margin: 0 auto;
@@ -101,14 +105,44 @@ table.formulario tfoot {
 	text-align: center;
 }
 
-table.formulario th { text-align: left; }
-table.formulario thead { text-align: left; }
-table.formulario tr { text-align: left; }
-
-td.obrigatorio { 
-		background: url("#{resource['images/comuns/obrigatorio.png']}") no-repeat right;
-		padding-right: 13px;
+table.formulario th { 
+	text-align: right; 
 }
+table.formulario thead { 
+	text-align: left; 
+}
+table.formulario tr { 
+	text-align: left; 
+}
+
+th.obrigatorio{ 
+	background:  url("#{resource['images/layout/obrigatorio.png']}") no-repeat right ; 
+	padding-right: 13px;
+}
+th.rotulo{ 
+	text-align: right; 
+	font-weight: bold; 
+}
+td.obrigatorio{ 
+	background:  url("#{resource['images/layout/obrigatorio.png']}") no-repeat right ; 
+	padding-right: 13px;
+}
+div.obrigatorio{ 
+	background:  url("#{resource['images/layout/obrigatorio.png']}") no-repeat left;
+	font-size: 0.9em;
+	padding-left: 13px;
+	margin: auto 39%;
+}
+div.obrigatorioModalPanel { 
+		background:  url("#{resource['images/layout/obrigatorio.png']}") no-repeat;
+		font-size: 0.9em;
+		margin: auto 30%;
+}
+span.obrigatorio{ 
+	background:  url("#{resource['images/layout/obrigatorio.png']}") no-repeat right ; 
+	padding-right: 13px;
+}
+
 
 #info-usuario {
   background-position:initial initial;

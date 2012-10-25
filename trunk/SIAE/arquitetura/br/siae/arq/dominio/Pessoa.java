@@ -60,15 +60,6 @@ public class Pessoa implements Persistable {
 	@JoinColumn(name="id_identidade", nullable=false)
 	private Identidade identidade;
 	
-	/** Nome da mãe da pessoa.*/
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_mae")
-	private Pessoa mae;
-
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_pai")
-	private Pessoa pai;
-	
 	@Column(name="cpf")
 	private Long cpf;
 	
@@ -90,6 +81,12 @@ public class Pessoa implements Persistable {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_naturalidade")
 	private Naturalidade naturalidade;
+	
+	@Column(name="nome_mae")
+	private String nomeMae;
+	
+	@Column(name="nome_pai")
+	private String nomePai;
 	
 	public Pessoa() {
 		sexo = new Sexo();
@@ -179,22 +176,6 @@ public class Pessoa implements Persistable {
 		this.identidade = identidade;
 	}
 
-	public Pessoa getMae() {
-		return mae;
-	}
-
-	public void setMae(Pessoa mae) {
-		this.mae = mae;
-	}
-
-	public Pessoa getPai() {
-		return pai;
-	}
-
-	public void setPai(Pessoa pai) {
-		this.pai = pai;
-	}
-
 	public Long getCpf() {
 		return cpf;
 	}
@@ -241,6 +222,22 @@ public class Pessoa implements Persistable {
 
 	public void setNaturalidade(Naturalidade naturalidade) {
 		this.naturalidade = naturalidade;
+	}
+
+	public String getNomePai() {
+		return nomePai;
+	}
+
+	public void setNomePai(String nomePai) {
+		this.nomePai = nomePai;
+	}
+
+	public String getNomeMae() {
+		return nomeMae;
+	}
+
+	public void setNomeMae(String nomeMae) {
+		this.nomeMae = nomeMae;
 	}
 
 }

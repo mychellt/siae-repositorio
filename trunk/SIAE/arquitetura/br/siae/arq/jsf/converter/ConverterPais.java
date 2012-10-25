@@ -5,29 +5,27 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import br.siae.arq.dominio.Logradouro;
+import br.siae.arq.dominio.Pais;
 import br.siae.arq.utils.ValidatorUtil;
 
 
-@FacesConverter(value = "converterLogradouro")
-public class ConverterLogradouro implements Converter {
-
+@FacesConverter(value = "converterPais")
+public class ConverterPais implements Converter{
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		Logradouro logradouro = new Logradouro();
+		Pais pais = new Pais();
       	if( ValidatorUtil.isNotEmpty(value)){
-      		logradouro.setId( Integer.parseInt(value));
+      		pais.setId( Integer.parseInt(value));
       	}
-        return logradouro;
+        return pais;
 	}
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent componet, Object obj) {
-		if( obj instanceof Logradouro ){
-			Logradouro logradouro = (Logradouro) obj;
-    		return String.valueOf( logradouro.getId() );
+		if( obj instanceof Pais ){
+			Pais pais = (Pais) obj;
+    		return String.valueOf( pais.getId() );
     	}
     	return String.valueOf(0);
 	}
-
 }

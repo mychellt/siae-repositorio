@@ -15,7 +15,7 @@ import br.siae.arq.erro.DAOException;
 import br.siae.arq.utils.ValidatorUtil;
 
 @Controller
-@Scope("session")
+@Scope("request")
 public class MunicipioMBean {
 	
 	private Estado estado;

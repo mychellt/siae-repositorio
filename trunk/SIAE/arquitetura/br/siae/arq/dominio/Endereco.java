@@ -22,10 +22,6 @@ public class Endereco implements Persistable{
 	@SequenceGenerator(name="SEQ_ENDERECO", sequenceName="comum.seq_endereco", allocationSize=1)
 	@Column(name="id_endereco")
 	private long id;
-	
-	/** Endereço da pessoa/empresa */
-	@Column(name="nome_logradouro")
-	private String nomeLogradouro;
 
 	/** Bairro da pessoa/empresa */
 	@Column(name="bairro")
@@ -43,6 +39,12 @@ public class Endereco implements Persistable{
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_logradouro")
 	private Logradouro logradouro;
+	
+	@Column(name="denominacao")
+	private String denominacao;
+	
+	@Column(name="numero")
+	private long numero;
 
 	public Endereco() {
 		municipio = new Municipio();
@@ -76,14 +78,6 @@ public class Endereco implements Persistable{
 		return bairro;
 	}
 
-	public void setEndereco(String endereco) {
-		this.nomeLogradouro = endereco;
-	}
-
-	public String getEndereco() {
-		return nomeLogradouro;
-	}
-
 	public Municipio getMunicipio() {
 		return municipio;
 	}
@@ -98,5 +92,21 @@ public class Endereco implements Persistable{
 
 	public void setMunicipio(Municipio municipio) {
 		this.municipio = municipio;
+	}
+
+	public long getNumero() {
+		return numero;
+	}
+
+	public void setNumero(long numero) {
+		this.numero = numero;
+	}
+
+	public String getDenominacao() {
+		return denominacao;
+	}
+
+	public void setDenominacao(String denominacao) {
+		this.denominacao = denominacao;
 	}
 }
