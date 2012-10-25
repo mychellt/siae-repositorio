@@ -60,12 +60,12 @@ table.formulario {
 	border-top: 0px;
     font-size: 12px !important;
     border-radius: 0px 0px 6px 6px;
-    background: url("/SisGH/javax.faces.resource/images/ui-bg_highlight-hard_100_f5f3e5_1x100.png.jsf?ln=primefaces-bluesky") repeat-x scroll 50% top;
+    background: url("/SIAE/javax.faces.resource/images/ui-bg_highlight-hard_100_f5f3e5_1x100.png.jsf?ln=primefaces-bluesky") repeat-x scroll 50% top;
 }
 
 table.formulario caption{
 	padding: 0.5em 1em 0.3em;
-	background-image:url(http://localhost:8080/SIAE/javax.faces.resource/images/header.png.jsf?ln=primefaces-bluesky);
+	background-image:url(/SIAE/javax.faces.resource/images/header.png.jsf?ln=primefaces-bluesky);
     border: 1px solid #BED6F8;
     color: black;
     font-weight: bold;
@@ -143,31 +143,12 @@ span.obrigatorio{
 	padding-right: 13px;
 }
 
-
-#info-usuario {
-  background-position:initial initial;
-  background-repeat:initial initial;
-  float:right;
-  width: 989px;
-  border-color: #2191C0;
-}
-
-.pessoal-usuario {
-  background-color: #EFF3FA;
-  background-position: initial initial;
-  background-repeat: initial initial;
-  margin:4px;
-  width: 
-}
-
-.foto {
-  float:right;
-  margin:5px;
-  width:100px;
-}
-
 div.legenda {
 	text-align: center;
 	font-size: 12px;
 	font-weight: bold;
+}
+
+table.visualizacao {
+	
 }

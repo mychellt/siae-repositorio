@@ -72,7 +72,7 @@
 					</tr>
 					<tr>
 						<th>
-							<h:outputText value="Telefone" />
+							<h:outputText value="Telefone:" />
 						</th>
 						<td>
 							<h:outputText value="#{pessoaMBean.obj.telefone}" />
@@ -80,7 +80,7 @@
 					</tr>
 					<tr>
 						<th>
-							<h:outputText value="Sexo" />
+							<h:outputText value="Sexo:" />
 						</th>
 						<td>
 							<h:outputText value="#{pessoaMBean.obj.sexo.denominacao}" />
@@ -110,7 +110,7 @@
 								</tr>
 								<tr>
 									<th>
-										<h:outputText value="Bairro" />
+										<h:outputText value="Bairro:" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.endereco.bairro}" /> - <h:outputText value="#{pessoaMBean.obj.endereco.numero}" />
@@ -118,7 +118,7 @@
 								</tr>
 								<tr>
 									<th>
-										<h:outputText value="Município" />
+										<h:outputText value="Município:" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.endereco.municipio.nome}" />
@@ -162,8 +162,13 @@
 									</td>
 								</tr>
 								<tr>
+									<td colspan="4" style="color: #BED6F8;">
+										<hr />
+									</td>
+								</tr>
+								<tr>
 									<th>
-										<h:outputText value="Certificado Militar:" />
+										<h:outputText value="Certificado Militar" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.certificadoMilitar.numero}" />
@@ -191,10 +196,15 @@
 								</tr>
 								<tr>
 									<th>
-										<h:outputText value="Orgão" />
+										<h:outputText value="Orgão:" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.certificadoMilitar.orgao}" />
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4" style="color: #BED6F8;">
+										<hr />
 									</td>
 								</tr>
 								<tr>
@@ -205,7 +215,7 @@
 										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.numero}" />
 									</td>
 									<th>
-										<h:outputText value="Categoria:" />
+										<h:outputText value="Data de Expedição:" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.dataExpedicao}" />
@@ -213,7 +223,7 @@
 								</tr>
 								<tr>
 									<th>
-										<h:outputText value="Cartório" />
+										<h:outputText value="Cartório:" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.cartorio}" />
@@ -221,7 +231,7 @@
 								</tr>
 								<tr>
 									<th>
-										<h:outputText value="Livro" />
+										<h:outputText value="Livro:" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.livro}" />
@@ -234,8 +244,13 @@
 									</td>
 								</tr>
 								<tr>
+									<td colspan="4" style="color: #BED6F8;">
+										<hr />
+									</td>
+								</tr>
+								<tr>
 									<th>
-										<h:outputText value="Título de Eleitor" />
+										<h:outputText value="Título de Eleitor:" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.tituloEleitor.numero}" />
@@ -249,21 +264,26 @@
 								</tr>
 								<tr>
 									<th>
-										<h:outputText value="Zona" />
+										<h:outputText value="Zona:" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.tituloEleitor.zona}" />
 									</td>
 									<th>
-										<h:outputText value="UF:" />
+										<h:outputText value="Seção:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.tituloEleitor.uf.nome}" />
+										<h:outputText value="#{pessoaMBean.obj.tituloEleitor.secao}" />
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4" style="color: #BED6F8;">
+										<hr />
 									</td>
 								</tr>
 								<tr>
 									<th>
-										<h:outputText value="Passaporte" />
+										<h:outputText value="Passaporte:" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.passaporte}" />
@@ -280,13 +300,13 @@
 								</caption>
 								<tr>
 									<th>
-										<h:outputText value="País" />
+										<h:outputText value="País:" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.naturalidade.pais}" />
 									</td>
 									<th>
-										<h:outputText value="Municipio" />
+										<h:outputText value="Municipio:" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.naturalidade.municipio.nome}" /> - <h:outputText value="#{pessoaMBean.obj.naturalidade.municipio.estado.sigla}" />
@@ -294,7 +314,7 @@
 								</tr>
 								<tr>
 									<th>
-										<h:outputText value="Naturalidade" />
+										<h:outputText value="Naturalidade:" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.naturalidade.denominacao}" />
