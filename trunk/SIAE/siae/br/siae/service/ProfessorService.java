@@ -10,11 +10,11 @@ import br.siae.arq.erro.NegocioException;
 import br.siae.arq.service.CadastroService;
 import br.siae.arq.service.PessoaService;
 import br.siae.arq.utils.ValidatorUtil;
-import br.siae.dominio.academico.Aluno;
+import br.siae.dominio.rh.Professor;
 
 @Service
 @Transactional
-public class AlunoService {
+public class ProfessorService {
 	
 	@Resource(name="pessoaService")
 	private PessoaService pessoaService;
@@ -22,15 +22,15 @@ public class AlunoService {
 	@Resource(name="cadastroService")
 	private CadastroService cadastroService;
 
-	public Aluno executarCadastro( Aluno aluno ) throws NegocioException, DAOException {
+	public Professor executarCadastro( Professor professor ) throws NegocioException, DAOException {
 		//Persiste a pessoa
-		pessoaService.executarCadastro( aluno.getPessoa() );
-		if( ValidatorUtil.isNotEmpty(aluno) ){
-			aluno = (Aluno) cadastroService.alterar(aluno);
+		pessoaService.executarCadastro( professor.getPessoa() );
+		if( ValidatorUtil.isNotEmpty(professor) ){
+			professor = (Professor) cadastroService.alterar(professor);
 		}
 		else {
-			aluno = (Aluno) cadastroService.cadastrar(aluno);
+			professor = (Professor) cadastroService.cadastrar(professor);
 		}
-		return aluno;
+		return professor;
 	}
 }

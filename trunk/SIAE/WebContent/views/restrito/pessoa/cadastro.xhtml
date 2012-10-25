@@ -75,12 +75,12 @@
 					</td>
 				</tr>
 				<tr>
-					<th>	
+					<th class="obrigatorio">	
 						<h:outputText value="Sexo" />
 					</th>
 					<td>
-						<p:selectOneMenu value="#{pessoaMBean.obj.sexo}" id="sexo-pessoa">  
-							<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}" />  
+						<p:selectOneMenu value="#{pessoaMBean.obj.sexo}" id="sexo-pessoa" converter="converterSexo">  
+							<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
             				<f:selectItems value="#{sexoMBean.all}" var="sexo" itemLabel="#{sexo.denominacao}" itemValue="#{sexo}"/>  
 						</p:selectOneMenu>
 					</td>

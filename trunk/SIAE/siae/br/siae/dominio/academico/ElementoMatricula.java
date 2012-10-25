@@ -25,10 +25,6 @@ public class ElementoMatricula implements Persistable{
 	@Column(name="id_elemento_matricula")
 	private long id;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_aluno", insertable=true)
-	private Aluno aluno;
-	
 	@Column(name="numero_matricula")
 	private long numeroMatricula;
 	
@@ -49,14 +45,6 @@ public class ElementoMatricula implements Persistable{
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
 	}
 
 	public int getAno() {

@@ -12,7 +12,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="titulo_eleito", schema="comum")
+@Table(name="titulo_eleitor", schema="comum")
 public class TituloEleitor {
 	
 	@Id

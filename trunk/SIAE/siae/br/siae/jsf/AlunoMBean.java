@@ -11,16 +11,13 @@ import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.jsf.AbstractCrudController;
 import br.siae.arq.jsf.PessoaMBean;
-import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Aluno;
 import br.siae.service.AlunoService;
 
 @Controller
 @Scope("session")
 public class AlunoMBean extends AbstractCrudController<Aluno>{
-	
-	public static final String COMPROVANTE_CADASTRO = "";
-	
+		
 	@Autowired
 	private PessoaMBean pessoaMBean;
 	
@@ -46,7 +43,7 @@ public class AlunoMBean extends AbstractCrudController<Aluno>{
 	}
 	
 	public String cadastrar() {
-		validate();
+		pessoaMBean.validate();
 		if( isContemErros() ) {
 			return getPaginaCadastro();
 		}
@@ -64,21 +61,7 @@ public class AlunoMBean extends AbstractCrudController<Aluno>{
 			addMensagemErro("Ocorreu um erro ao tentar inserir o aluno na base de dados. Por favor entre em contato com o administrador do sistema.");
 		}
 		
-		return COMPROVANTE_CADASTRO;
-	}
-	
-	private void validate( ) {
-		if( ValidatorUtil.isEmpty( obj.getPessoa().getNome() ) ) {
-			addMensagemErro("Nome: campo obrigatório não informado.");
-		}
-		if( ValidatorUtil.isEmpty( obj.getPessoa().getDataNascimento() ) ) {
-			addMensagemErro("Date de Nascimento: campo obrigatório não informado.");
-		}
-		if( ValidatorUtil.isEmpty( obj.getPessoa().getCpf() ) ) {
-			addMensagemErro("CPF: campo obrigatório não informado.");
-		}
-		if( ValidatorUtil.isEmpty( obj.getPessoa().getNomeMae() ) ) {
-			addMensagemErro("Nome da Mãe: campo obrigatório não informado.");
-		}
+		addMensagemErro("Cadastro do aluno efetuado com sucesso!");
+		return PessoaMBean.COMPROVANTE_CADASTRO;
 	}
 }

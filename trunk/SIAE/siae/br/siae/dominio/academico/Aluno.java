@@ -37,11 +37,6 @@ public class Aluno implements Persistable{
 	@Column(name="responsavel")
 	private String responsavel;
 	
-
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_elemento_matricula", insertable=true, nullable=true )
-	private ElementoMatricula elementoMatricula;
-	
 	public long getId() {
 		return id;
 	}
@@ -66,14 +61,6 @@ public class Aluno implements Persistable{
 		this.usuario = usuario;
 	}
 
-	public ElementoMatricula getElementoMatricula() {
-		return elementoMatricula;
-	}
-
-	public void setElementoMatricula(ElementoMatricula elementoMatricula) {
-		this.elementoMatricula = elementoMatricula;
-	}
-	
 	public String getResponsavel() {
 		return responsavel;
 	}
