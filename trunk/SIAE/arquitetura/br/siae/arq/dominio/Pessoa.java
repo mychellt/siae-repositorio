@@ -52,6 +52,10 @@ public class Pessoa implements Persistable {
 	@JoinColumn(name="id_tipo", nullable=false)
 	private TipoPessoa tipo;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_especie_pessoa", nullable=false)
+	private EspeciePessoa especie;
+	
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="id_endereco", nullable=true, updatable=true, insertable=true)
 	private Endereco endereco;
@@ -238,6 +242,14 @@ public class Pessoa implements Persistable {
 
 	public void setNomeMae(String nomeMae) {
 		this.nomeMae = nomeMae;
+	}
+
+	public EspeciePessoa getEspecie() {
+		return especie;
+	}
+
+	public void setEspecie(EspeciePessoa especie) {
+		this.especie = especie;
 	}
 
 }

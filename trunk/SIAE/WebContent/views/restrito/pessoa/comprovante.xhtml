@@ -14,20 +14,21 @@
 			<p:breadCrumb>  
 				<p:menuitem value="Home" action="#{pessoaMBean.home}" ajax="false"/>
 			    <p:menuitem value="Cadastros"/>
-			    <p:menuitem value="#{pessoaMBean.controlador.nomeObj}" action="#{pessoaMBean.controlador.iniciarCadastro}" />
+			    <p:menuitem value="#{pessoaMBean.controlador.obj.nomeExibicao}" action="#{pessoaMBean.controlador.iniciarCadastro}" />
 			    <p:menuitem value="Comprovante de Cadastro" />  
 			</p:breadCrumb> 
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
 			<br/>
-			<table style="width: 80%" class="comprovante">
+			<table class="formulario" style="width: 80%">
 				<caption>
-					<h:outputText value="Dados Pessoas do #{pessoaMBean.controlador.nomeObj}" />
+					<h:outputText value="Dados Pessoas do #{pessoaMBean.controlador.obj.nomeExibicao}" />
 				</caption>
 					<tr>
 						<th>
 							<h:outputText value="Nome:" />
 						</th>
 						<td>
-							<h:outputText value="#{pessoaMBean.obj.nome}" />
+							<h:outputText value="#{not empty pessoaMBean.obj.nome ? pessoaMBean.obj.nome : 'Não Informado' }"/>
 						</td>
 					</tr>
 					<tr>
@@ -35,7 +36,7 @@
 							<h:outputText value="Nome da Mãe:" />
 						</th>
 						<td>
-							<h:outputText value="#{pessoaMBean.obj.nomeMae}" />
+							<h:outputText value="#{not empty pessoaMBean.obj.nomeMae ? pessoaMBean.obj.nomeMae : 'Não Informado'}" />
 						</td>
 					</tr>
 					<tr>
@@ -43,7 +44,7 @@
 							<h:outputText value="Nome do Pai:" />
 						</th>
 						<td>
-							<h:outputText value="#{pessoaMBean.obj.nomePai}" />
+							<h:outputText value="#{not empty pessoaMBean.obj.nomePai ? pessoaMBean.obj.nomePai : 'Não Informado'}" />
 						</td>
 					</tr>
 					<tr>
@@ -51,7 +52,7 @@
 							<h:outputText value="Data do Nascimento:" />
 						</th>
 						<td>
-							<h:outputText value="#{pessoaMBean.obj.dataNascimento}" />
+							<h:outputText value="#{not empty pessoaMBean.obj.dataNascimento ? pessoaMBean.obj.dataNascimento : 'Não Informado'}" />
 						</td>
 					</tr>
 					<tr>
@@ -59,7 +60,7 @@
 							<h:outputText value="E-mail:" />
 						</th>
 						<td>
-							<h:outputText value="#{pessoaMBean.obj.email}" />
+							<h:outputText value="#{not empty pessoaMBean.obj.email ? pessoaMBean.obj.email : 'Não Informado'}" />
 						</td>
 					</tr>
 					<tr>
@@ -67,7 +68,7 @@
 							<h:outputText value="Celular:" />
 						</th>
 						<td>
-							<h:outputText value="#{pessoaMBean.obj.celular}" />
+							<h:outputText value="#{not empty pessoaMBean.obj.celular ? pessoaMBean.obj.celular : 'Não Informado'}" />
 						</td>
 					</tr>
 					<tr>
@@ -75,7 +76,7 @@
 							<h:outputText value="Telefone:" />
 						</th>
 						<td>
-							<h:outputText value="#{pessoaMBean.obj.telefone}" />
+							<h:outputText value="#{not empty pessoaMBean.obj.telefone ? pessoaMBean.obj.telefone : 'Não Informado'}" />
 						</td>
 					</tr>
 					<tr>
@@ -83,12 +84,12 @@
 							<h:outputText value="Sexo:" />
 						</th>
 						<td>
-							<h:outputText value="#{pessoaMBean.obj.sexo.denominacao}" />
+							<h:outputText value="#{not empty pessoaMBean.obj.sexo.denominacao ? pessoaMBean.obj.sexo.denominacao : 'Não Informado'}" />
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<table style="width: 100%;">
+							<table class="subformulario" style="width: 100%">
 								<caption>
 									<h:outputText value="Endereço" />
 								</caption>
@@ -97,7 +98,7 @@
 										<h:outputText value="CEP:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.endereco.cep}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.endereco.cep ? pessoaMBean.obj.endereco.cep : 'Não Informado'}" />
 									</td>
 								</tr>
 								<tr>
@@ -105,7 +106,9 @@
 										<h:outputText value="Logradouro:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.endereco.logradouro.denominacao}" /> - <h:outputText value="#{pessoaMBean.obj.endereco.denominacao}" />
+										<h:outputText  value="#{not empty pessoaMBean.obj.endereco.logradouro.denominacao ? pessoaMBean.obj.endereco.logradouro.denominacao : 'Não Informado'}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.endereco.denominacao ? pessoaMBean.obj.endereco.denominacao  : ''}" />
+										<h:outputText value="#{pessoaMBean.obj.endereco.numero != 0 ? pessoaMBean.obj.endereco.numero : ''}" />
 									</td>
 								</tr>
 								<tr>
@@ -113,7 +116,7 @@
 										<h:outputText value="Bairro:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.endereco.bairro}" /> - <h:outputText value="#{pessoaMBean.obj.endereco.numero}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.endereco.bairro ? pessoaMBean.obj.endereco.bairro : 'Não Informado'}" /> 
 									</td>
 								</tr>
 								<tr>
@@ -121,15 +124,15 @@
 										<h:outputText value="Município:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.endereco.municipio.nome}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.endereco.municipio.nome ? pessoaMBean.obj.endereco.municipio.nome : 'Não Informado'}" />
 									</td>
 								</tr>
 							</table>
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<table style="width: 100%">
+						<td colspan="2">
+							<table class="subformulario">
 								<caption>
 									<h:outputText value="Documentação" />
 								</caption>
@@ -138,13 +141,13 @@
 										<h:outputText value="RG:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.identidade.numero}" />
+										<h:outputText value="#{pessoaMBean.obj.identidade.numero != 0 ? pessoaMBean.obj.identidade.numero : 'Não Informado'}" />
 									</td>
 									<th>
 										<h:outputText value="Orgão de Expedição:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.identidade.orgaoExpedicao}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.identidade.orgaoExpedidor ? pessoaMBean.obj.identidade.orgaoExpedidor : 'Não Informado'}" />
 									</td>
 								</tr>
 								<tr>
@@ -152,13 +155,13 @@
 										<h:outputText value="UF:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.identidade.estado}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.identidade.estado ? pessoaMBean.obj.identidade.estado.nome : 'Não Informado'}" />
 									</td>
 									<th>
 										<h:outputText value="Data de Expedição:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.identidade.dataExpedicao}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.identidade.dataExpedicao ? pessoaMBean.obj.identidade.dataExpedicao : 'Não Informado'}" />
 									</td>
 								</tr>
 								<tr>
@@ -171,13 +174,13 @@
 										<h:outputText value="Certificado Militar" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.certificadoMilitar.numero}" />
+										<h:outputText value="#{pessoaMBean.obj.certificadoMilitar.numero !=0 ? pessoaMBean.obj.certificadoMilitar.numero : 'Não Informado'}" />
 									</td>
 									<th>
 										<h:outputText value="Data de Expedição:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.certificadoMilitar.dataExpedicao}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.certificadoMilitar.dataExpedicao ? pessoaMBean.obj.certificadoMilitar.dataExpedicao : 'Não Informado'}" />
 									</td>
 								</tr>
 								<tr>
@@ -185,13 +188,13 @@
 										<h:outputText value="Série:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.certificadoMilitar.serie}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.certificadoMilitar.serie ? pessoaMBean.obj.certificadoMilitar.serie : 'Não Informado'}" />
 									</td>
 									<th>
 										<h:outputText value="Categoria:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.certificadoMilitar.categoria}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.certificadoMilitar.categoria ? pessoaMBean.obj.certificadoMilitar.categoria : 'Não Informado'}" />
 									</td>
 								</tr>
 								<tr>
@@ -199,7 +202,7 @@
 										<h:outputText value="Orgão:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.certificadoMilitar.orgao}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.certificadoMilitar.orgao ? pessoaMBean.obj.certificadoMilitar.orgao : 'Não Informado'}" />
 									</td>
 								</tr>
 								<tr>
@@ -212,13 +215,13 @@
 										<h:outputText value="Certidão de Nascimento" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.numero}" />
+										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.numero != 0 ? pessoaMBean.obj.certidaoNascimento.numero : 'Não Informado'}" />
 									</td>
 									<th>
 										<h:outputText value="Data de Expedição:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.dataExpedicao}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.certidaoNascimento.dataExpedicao ? pessoaMBean.obj.certidaoNascimento.dataExpedicao : 'Não Informado'}" />
 									</td>
 								</tr>
 								<tr>
@@ -226,7 +229,7 @@
 										<h:outputText value="Cartório:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.cartorio}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.certidaoNascimento.cartorio ? pessoaMBean.obj.certidaoNascimento.cartorio : 'Não Informado'}" />
 									</td>
 								</tr>
 								<tr>
@@ -234,13 +237,13 @@
 										<h:outputText value="Livro:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.livro}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.certidaoNascimento.livro ? pessoaMBean.obj.certidaoNascimento.livro : 'Não Informado'}" />
 									</td>
 									<th>
 										<h:outputText value="Folha:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.folha}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.certidaoNascimento.folha ? pessoaMBean.obj.certidaoNascimento.folha : 'Não Informado'}" />
 									</td>
 								</tr>
 								<tr>
@@ -253,13 +256,13 @@
 										<h:outputText value="Título de Eleitor:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.tituloEleitor.numero}" />
+										<h:outputText value="#{pessoaMBean.obj.tituloEleitor.numero != 0 ? pessoaMBean.obj.tituloEleitor.numero : 'Não Informado'}" />
 									</td>
 									<th>
 										<h:outputText value="UF:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.tituloEleitor.uf.nome}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.tituloEleitor.uf.nome ? pessoaMBean.obj.tituloEleitor.uf.nome : 'Não Informado'}" />
 									</td>
 								</tr>
 								<tr>
@@ -267,13 +270,13 @@
 										<h:outputText value="Zona:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.tituloEleitor.zona}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.tituloEleitor.zona ? pessoaMBean.obj.tituloEleitor.zona : 'Não Informado'}" />
 									</td>
 									<th>
 										<h:outputText value="Seção:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.tituloEleitor.secao}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.tituloEleitor.secao ? pessoaMBean.obj.tituloEleitor.secao : 'Não Informado'}" />
 									</td>
 								</tr>
 								<tr>
@@ -286,7 +289,7 @@
 										<h:outputText value="Passaporte:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.passaporte}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.passaporte ? pessoaMBean.obj.passaporte : 'Não Informado'}" />
 									</td>
 								</tr>
 							</table>
@@ -294,7 +297,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<table style="width: 100%">
+							<table style="width: 100%" class="subformulario">
 								<caption>
 									<h:outputText value="Naturalidade" />
 								</caption>
@@ -303,13 +306,13 @@
 										<h:outputText value="País:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.naturalidade.pais}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.naturalidade.pais ? pessoaMBean.obj.naturalidade.pais : 'Não Informado'}" />
 									</td>
 									<th>
-										<h:outputText value="Municipio:" />
+										<h:outputText value="Município:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.naturalidade.municipio.nome}" /> - <h:outputText value="#{pessoaMBean.obj.naturalidade.municipio.estado.sigla}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.naturalidade.municipio ? pessoaMBean.obj.naturalidade.municipio.nome : 'Não Informado'}" />
 									</td>
 								</tr>
 								<tr>
@@ -317,7 +320,7 @@
 										<h:outputText value="Naturalidade:" />
 									</th>
 									<td>
-										<h:outputText value="#{pessoaMBean.obj.naturalidade.denominacao}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.naturalidade.denominacao ? pessoaMBean.obj.naturalidade.denominacao : 'Não Informado'}" />
 									</td>
 								</tr>
 							</table>
@@ -325,8 +328,8 @@
 					</tr>
 					<tfoot>
 						<tr>
-							<td colspan="2">
-								<p:commandButton ajax="false" action="#{pessoaMBean.controlador.iniciarCadastro}" value="Cadastrar Outro #{pessoaMBean.controlador.nomeObj}" />
+							<td colspan="2" style="text-align: center;">
+								<p:commandButton ajax="false" action="#{pessoaMBean.controlador.iniciarCadastro}" value="Cadastrar Outro #{pessoaMBean.controlador.obj.nomeExibicao}" />
 							</td>
 						</tr>
 					</tfoot>

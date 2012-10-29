@@ -71,4 +71,8 @@ public class Professor implements Persistable{
 	public void setDisciplinas(Collection<ProfessorDisciplina> disciplinas) {
 		this.disciplinas = disciplinas;
 	}
+	
+	public String getNomeExibicao() {
+		return "Professor";
+	}
 }

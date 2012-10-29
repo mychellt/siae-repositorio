@@ -1,14 +1,20 @@
 package br.siae.dominio.comum;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.siae.arq.dominio.Endereco;
 import br.siae.arq.dominio.Persistable;
+import br.siae.dominio.academico.Nivel;
 
 
 @Entity
@@ -23,6 +29,17 @@ public class Instituicao implements Persistable{
 	
 	@Column(name="nome")
 	private String nome;
+	
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="id_endereco", insertable=true, nullable=false, updatable=true)
+	private Endereco endereco;
+	
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="id_modalidade", insertable=true, nullable=false, updatable=true)
+	private Nivel modalidade;
+	
+	@Column(name="email")
+	private String email;
 	
 	@Column(name="codigo_inep")
 	private String codigoInep;
@@ -49,6 +66,30 @@ public class Instituicao implements Persistable{
 
 	public void setCodigoInep(String codigoInep) {
 		this.codigoInep = codigoInep;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public Nivel getModalidade() {
+		return modalidade;
+	}
+
+	public void setModalidade(Nivel modalidade) {
+		this.modalidade = modalidade;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

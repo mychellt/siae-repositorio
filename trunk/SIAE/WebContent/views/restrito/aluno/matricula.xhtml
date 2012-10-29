@@ -10,17 +10,15 @@
 			<ui:include src="/template/header.xhtml" />
 		</ui:define>
 		<ui:define name="content">
-		<h:form id="form-cadastro-aluno"  acceptcharset="ISO-8859-1">
+		<h:form id="form-matricula-aluno"  acceptcharset="ISO-8859-1">
 			<p:breadCrumb>  
-				<p:menuitem value="Home" action="#{alunoMBean.home}" ajax="false"/>
-			    <p:menuitem value="Cadastros"/>
-			    <p:menuitem value="Aluno" action="#{alunoMBean.iniciarCadastro}" />
-			    <p:menuitem value="Listar/Alterar" />  
+				<p:menuitem value="Home" action="#{matriculaAlunoMBean.home}" ajax="false"/>
+			    <p:menuitem value="Discente"/>
+			    <p:menuitem value="Matrícula" action="#{matriculaAlunoMBean.iniciarRealizacaoMatricula}" />
+			    <p:menuitem value="Realizar Matrícula" />  
 			</p:breadCrumb> 
 			<br/>
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
-			<br/>
-			<ui:include src="/views/restrito/pessoa/listagem.xhtml" />
     	</h:form>
 		</ui:define>
 		<ui:define name="footer">

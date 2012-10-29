@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -36,6 +37,11 @@ public class Aluno implements Persistable{
 	
 	@Column(name="responsavel")
 	private String responsavel;
+	
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_requerimento_matricula", insertable=true)
+	private RequerimentoMatricula requerimentoMatricula;
 	
 	public long getId() {
 		return id;
@@ -67,5 +73,17 @@ public class Aluno implements Persistable{
 
 	public void setResponsavel(String responsavel) {
 		this.responsavel = responsavel;
+	}
+
+	public RequerimentoMatricula getRequerimentoMatricula() {
+		return requerimentoMatricula;
+	}
+
+	public void setRequerimentoMatricula(RequerimentoMatricula requerimentoMatricula) {
+		this.requerimentoMatricula = requerimentoMatricula;
+	}
+	
+	public String getNomeExibicao() {
+		return "Aluno";
 	}
 }

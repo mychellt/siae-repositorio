@@ -44,4 +44,8 @@ public class Funcionario implements Persistable{
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
+	
+	public String getNomeExibicao()  {
+		return "Funcionário";
+	}
 }

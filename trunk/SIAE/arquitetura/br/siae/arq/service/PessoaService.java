@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.dao.GenericDAO;
+import br.siae.arq.dominio.Estado;
 import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
@@ -19,6 +20,9 @@ public class PessoaService {
 	
 	@Resource(name="cadastroService")
 	private CadastroService cadastroService;
+	
+	@Resource(name="genericDAO")
+	private GenericDAO dao;
 	
 	public Pessoa executarCadastro( Pessoa pessoa ) throws NegocioException, DAOException {
 		GenericDAO dao = cadastroService.getGenericDAO();
@@ -55,6 +59,9 @@ public class PessoaService {
 				throw new NegocioException("Já existe um aluno cadastrado com o CPF informado.");
 			}
 			pessoa = (Pessoa) cadastroService.alterar(pessoa);
+		}
+		if( ValidatorUtil.isNotEmpty( pessoa.getIdentidade().getEstado() ) ) {
+			pessoa.getIdentidade().setEstado( dao.findByPrimaryKey(Estado.class, pessoa.getIdentidade().getEstado().getId() ) );
 		}
 		return pessoa;
 	}

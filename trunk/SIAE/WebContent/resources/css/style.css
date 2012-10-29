@@ -73,13 +73,13 @@ table.formulario caption{
     padding-left: 5px;
 }
 
-table.formulario tr td, table.subFormulario tr td {
-	padding: 2px;
-}
-
-table.formulario tr td.subFormulario {
-	padding: 3px 0 3px 20px;
-}
+table.formulario tfoot { text-align: center; }
+table.formulario th {  text-align: right;  }
+table.formulario thead {  text-align: left;  }
+table.formulario tr { text-align: left;  }
+table.formulario tr td { padding: 2px; }
+table.formulario tr { padding: 3px 0 3px 20px; }
+table.formulario th { text-align: right;  }
 
 table.subformulario {
 	margin: 0 auto;
@@ -87,7 +87,10 @@ table.subformulario {
 	border-top: 0px;
     font-size: 12px !important;
     border-radius: 0px 0px 0px 0px;
+    width: 100%;
 }
+
+table.subFormulario tr td { padding: 2px; }
 
 table.subformulario caption{
 	padding: 0.2em 1em 0.1em;
@@ -97,23 +100,7 @@ table.subformulario caption{
     font-weight: bold;
     border-radius: 0px 0px 0px 0px;
 }
-
-table.subformulario tfoot {
-	text-align: center;
-}
-table.formulario tfoot {
-	text-align: center;
-}
-
-table.formulario th { 
-	text-align: right; 
-}
-table.formulario thead { 
-	text-align: left; 
-}
-table.formulario tr { 
-	text-align: left; 
-}
+table.subformulario tfoot { text-align: center; }
 
 th.obrigatorio{ 
 	background:  url("#{resource['images/layout/obrigatorio.png']}") no-repeat right ; 
@@ -147,8 +134,4 @@ div.legenda {
 	text-align: center;
 	font-size: 12px;
 	font-weight: bold;
-}
-
-table.visualizacao {
-	
 }
