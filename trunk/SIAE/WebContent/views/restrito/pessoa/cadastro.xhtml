@@ -47,7 +47,7 @@
 						<h:outputText value="Data do Nascimento:" />
 					</th>
 					<td>
-						<p:calendar value="#{pessoaMBean.obj.dataNascimento}" id="data-nascimento" showOn="button" />  
+						<p:calendar  pattern="MM/dd/yyyy"  maxlength="10" size="8" value="#{pessoaMBean.obj.dataNascimento}" id="data-nascimento" onkeypress="formataData(this,event)" />  
 					</td>
 				</tr>
 				<tr>
@@ -195,7 +195,7 @@
 									<h:outputText value="Data de Expedição:" />
 								</th>
 								<td>
-									<p:calendar value="#{pessoaMBean.obj.identidade.dataExpedicao}" id="data-expedicao-identidade-pessoa" showOn="button" />  
+									<p:calendar maxlength="10" size="8" onkeypress="formataData(this,event)" pattern="MM/dd/yyyy" value="#{pessoaMBean.obj.identidade.dataExpedicao}" id="data-expedicao-identidade-pessoa"  />  
 								</td>
 							</tr>
 							<tr>
@@ -214,7 +214,7 @@
 									<h:outputText value="Data de Expedição:" />
 								</th>
 								<td>
-									<p:calendar value="#{pessoaMBean.obj.certificadoMilitar.dataExpedicao}" id="data-expedicao-certificado-militar" showOn="button" />  	
+									<p:calendar maxlength="10" size="8" onkeypress="formataData(this,event)" pattern="MM/dd/yyyy"  value="#{pessoaMBean.obj.certificadoMilitar.dataExpedicao}" id="data-expedicao-certificado-militar"/>  	
 								</td>
 							</tr>
 							<tr>
@@ -255,7 +255,7 @@
 									<h:outputText value="Data de Expedição:" />
 								</th>
 								<td>
-									<p:inputText value="#{pessoaMBean.obj.certidaoNascimento.dataExpedicao}" id="data-expedicao-certidao-nascimento"/>
+									<p:calendar maxlength="10" size="8" onkeypress="formataData(this,event)" pattern="MM/dd/yyyy"  value="#{pessoaMBean.obj.certidaoNascimento.dataExpedicao}" id="data-expedicao-certidao-nascimento"/>
 								</td>
 							</tr>
 							<tr>
