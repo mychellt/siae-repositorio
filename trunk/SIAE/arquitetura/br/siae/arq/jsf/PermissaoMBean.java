@@ -49,8 +49,6 @@ public class PermissaoMBean extends AbstractCrudController<Permissao>{
 	
 	
 	public String preAlterar() {
-		GenericDAO dao = (GenericDAO) ServiceFactory.getBean("genericDAO");
-		obj =  dao.findByPrimaryKey( Permissao.class, obj.getId() );
 		if( ValidatorUtil.isEmpty(obj) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
@@ -68,12 +66,12 @@ public class PermissaoMBean extends AbstractCrudController<Permissao>{
 		try {
 			if( ValidatorUtil.isNotEmpty(obj)) {
 				lista.remove(obj);
-				obj = permissaoService.executarCadastro(obj);
+				obj = permissaoService.executeCadastro(obj);
 				addMensagemInformacao("Permissão alterada com sucesso!");
 				lista.add(obj);
 			}
 			else {
-				obj = permissaoService.executarCadastro(obj);
+				obj = permissaoService.executeCadastro(obj);
 				lista.add(obj);
 				addMensagemInformacao("Permissão cadastrada com sucesso!");
 			}
@@ -83,6 +81,28 @@ public class PermissaoMBean extends AbstractCrudController<Permissao>{
 			e.printStackTrace();
 		}
 		setConfirmButton("Cadastrar");
+		return getPaginaCadastro();
+	}
+	
+	public String remover() {
+		if( ValidatorUtil.isEmpty(obj) ) {
+			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
+			resetObj();
+			return null;
+		}
+		try {
+			obj = permissaoService.executeRemocao(obj);
+			lista.remove(obj);
+		}
+		catch(NegocioException e) {
+			addMensagemErro( e.getMessage() );
+			e.printStackTrace();
+		}
+		catch(DAOException e ) {
+			addMensagemErro("Ocorreu um erro ao tentar remover o registro. Por favor entre em contato com o administrador do sistema.");
+			e.printStackTrace();
+		}
+		resetObj();
 		return getPaginaCadastro();
 	}
 	

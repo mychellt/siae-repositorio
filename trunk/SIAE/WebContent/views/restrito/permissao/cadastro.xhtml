@@ -12,7 +12,7 @@
 		<ui:define name="content">
 		<h:form id="formMenu"  acceptcharset="ISO-8859-1">
 			<p:breadCrumb>  
-			    <p:menuitem value="Administração" action="#{permissaoMBean.redirecionarMenuPrincipal}"/>
+			    <p:menuitem value="Administração" action="#{permissaoMBean.home}"/>
 			    <p:menuitem value="Permissão" action="#{permissaoMBean.iniciarCadastro}" />
 			    <p:menuitem value="Cadastrar" />  
 			</p:breadCrumb> 
@@ -23,24 +23,24 @@
 					 <table class="formulario" width="35%">
 						<caption>Cadastro de Permissão</caption>
 						<tr>
-							<td class="obrigatorio">
+							<th class="obrigatorio">
 								<h:outputText value="Denominação:"/>
-							</td>
+							</th>
 							<td>
-								 <p:inputText size="37" value="#{permissaoMBean.obj.denominacao}"/>
+								 <p:inputText size="40" value="#{permissaoMBean.obj.denominacao}"/>
 							</td>
 						</tr>
 						<tr>
-							<td class="obrigatorio">
+							<th class="obrigatorio">
 								<h:outputText value="Descrição:"/>
-							</td>
+							</th>
 							<td>
 								  <p:inputTextarea rows="5" cols="40"  value="#{permissaoMBean.obj.descricao}"/>
 							</td>
 						</tr>
 						<tfoot>
 							<tr>
-								<td colspan="2">
+								<td colspan="2" style="text-align: center;">
 									 <p:commandButton value="#{permissaoMBean.confirmButton}" ajax="false" actionListener="#{permissaoMBean.cadastrar}"/>
 		                			 <p:commandButton value="Cancelar" ajax="false" actionListener="#{permissaoMBean.cancelar}"/>
 								</td>
@@ -52,7 +52,7 @@
 					<h:graphicImage library="images" name="/operacao/remover.png" />: Remover Permissão
 					<h:graphicImage library="images" name="/operacao/alterar.png" />: Alterar Permissão
 				</div>
-				<p:dataTable id="dataTable" var="permissao" value="#{permissaoMBean.lista}"   paginator="true" rows="10"  
+				<p:dataTable id="table-permissoes" var="permissao" value="#{permissaoMBean.lista}"   paginator="true" rows="10"  
 	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  rowsPerPageTemplate="5,10,15">  
 			        <f:facet name="header">  
 			            Permissões 
@@ -71,16 +71,22 @@
 			        </p:column>
 			          <p:column style="width: 7%; text-align: right;"> 
 			          	<f:facet name="header"/>
-			          	<h:commandLink action="#{permissaoMBean.remover}">
+			          	<h:commandLink onclick="confirmation.show(); return false">
 			          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Permissão"/>
 			          	</h:commandLink>
 			          	<h:commandLink action="#{permissaoMBean.preAlterar}">
 			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Permissão"/>
 			          		<f:setPropertyActionListener target="#{permissaoMBean.obj}" value="#{permissao}"/>
 			          	</h:commandLink>    
+			          	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remoção de Permissão" severity="alert" widgetVar="confirmation">  
+					        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{permissaoMBean.remover}" >
+					        	<f:setPropertyActionListener target="#{permissaoMBean.obj}" value="#{permissao}"/>  
+					        </p:commandButton>
+					        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button" />  
+				        </p:confirmDialog>
 			          </p:column>  
 	    		</p:dataTable>
-	    		<br/><br/>  
+	    		<br/><br/> 
     	</h:form>
 		</ui:define>
 		<ui:define name="footer">

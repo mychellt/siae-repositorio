@@ -9,6 +9,7 @@ import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.dominio.Persistable;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
+import br.siae.arq.utils.DAOUtils;
 
 @Service
 @Transactional
@@ -28,13 +29,15 @@ public class CadastroService {
 		}
 		return obj;
 	}
-	public Persistable remover( Persistable obj ) throws DAOException, NegocioException {
+	public Persistable remover( Persistable obj ) throws NegocioException, DAOException {
 		try {
-			dao.delete( obj );
+			dao.delete(obj);
 		} catch (Exception e) {
+			if (DAOUtils.isFKConstraintError(e)) {
+				throw new NegocioException("Esse registro não pode ser removido, pois está associado a outros registros da base de dados.");
+			}
 			throw new DAOException(e);
-		}
-		finally {
+		} finally {
 			dao.close();
 		}
 		return obj;
