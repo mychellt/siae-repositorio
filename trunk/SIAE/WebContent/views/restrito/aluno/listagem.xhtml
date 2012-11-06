@@ -92,13 +92,19 @@
 			        </p:column>
 			          <p:column style="width: 7%; text-align: right;"> 
 			          	<f:facet name="header"/>
-			          	<h:commandLink >
+			          	<h:commandLink onclick="confirmation.show(); return false">
 			          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Aluno"/>
 			          	</h:commandLink>
 			          	<h:commandLink action="#{alunoMBean.preAlterar}">
 			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Aluno"/>
 							<f:setPropertyActionListener target="#{alunoMBean.obj}" value="#{aluno}"/>
-			          	</h:commandLink>    
+			          	</h:commandLink>
+			          	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remover Aluno" severity="alert" widgetVar="confirmation">  
+					        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{alunoMBean.remover}"  ajax="false">
+					        	<f:setPropertyActionListener target="#{alunoMBean.obj}" value="#{aluno}"/>  
+					        </p:commandButton>
+					        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+				        </p:confirmDialog>
 			          </p:column>  
 	    		</p:dataTable>
 	    		<br/><br/> 

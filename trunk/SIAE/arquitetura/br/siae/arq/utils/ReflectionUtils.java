@@ -32,6 +32,19 @@ public class ReflectionUtils extends org.springframework.util.ReflectionUtils {
 		});
 	}
 	
+	public static Field getExpressionField(Class<?> classe, String expression) {
+		String[] partes = expression.split("\\.");
+		Class<?> tipoParte = classe;
+		Field atributoParte = null;
+		
+		for (String parte : partes) {
+			atributoParte = getField(tipoParte, parte);
+			tipoParte = atributoParte.getType();
+		}
+		
+		return atributoParte;
+	}
+	
 	public static Field getField(Class<?> classe, String fieldName) {
 		while (classe != null) {
 			Field[] fields = classe.getDeclaredFields();
