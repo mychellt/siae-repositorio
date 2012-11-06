@@ -32,8 +32,6 @@ public class PessoaTest {
 	@Resource(name="pessoaService")
 	private PessoaService service;
 	
-	private long id;
-	
 	@Test  
 	public void testSave() {  
 		Pessoa pessoa = new Pessoa();  
@@ -60,7 +58,7 @@ public class PessoaTest {
 	@Test  
 	public void testDelete(){  
 		Pessoa pessoa = new Pessoa();
-		pessoa.setId(id);
+		pessoa.setId(1);
 		try {
 			service.executeRemocao(pessoa);
 		} catch (NegocioException e) {
@@ -68,19 +66,11 @@ public class PessoaTest {
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
-		assertNull( service.getCadastroService().getByPrimaryKey(Pessoa.class, id) );
+		assertNull( service.getCadastroService().getByPrimaryKey(Pessoa.class, pessoa.getId()) );
 	}  
 	  
 	@Test  
 	public void testUpdate(){ 
 		
 	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}  
 }
