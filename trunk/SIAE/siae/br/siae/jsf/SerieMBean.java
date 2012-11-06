@@ -1,6 +1,5 @@
 package br.siae.jsf;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -8,7 +7,6 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.jsf.AbstractSiaeController;
@@ -24,9 +22,6 @@ public class SerieMBean extends AbstractSiaeController<Serie>{
 	@Resource(name="serieService")
 	private SerieService serieService;
 	
-	@Resource(name="genericDAO")
-	private GenericDAO dao;
-	
 	public SerieMBean() {
 		resetObj();
 	}
@@ -37,7 +32,6 @@ public class SerieMBean extends AbstractSiaeController<Serie>{
 	}
 	
 	public String preAlterar() {
-		obj =  dao.findByPrimaryKey( Serie.class, obj.getId() );
 		if( ValidatorUtil.isEmpty(obj) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
@@ -55,12 +49,12 @@ public class SerieMBean extends AbstractSiaeController<Serie>{
 		try {
 			if( ValidatorUtil.isNotEmpty(obj)) {
 				lista.remove(obj);
-				obj = serieService.executarCadastro(obj);
+				obj = serieService.executeCadastro(obj);
 				addMensagemInformacao("Série alterada com sucesso!");
 				lista.add(obj);
 			}
 			else {
-				obj = serieService.executarCadastro(obj);
+				obj = serieService.executeCadastro(obj);
 				lista.add(obj);
 				addMensagemInformacao("Série cadastrada com sucesso!");
 			}
@@ -75,7 +69,12 @@ public class SerieMBean extends AbstractSiaeController<Serie>{
 
 	public String iniciarCadastro() {
 		resetObj();
-		lista = (List<Serie>) dao.findAll(Serie.class);
+		try {
+			lista = (List<Serie>) serieService.getAll();
+		} catch (DAOException e) {
+			addMensagemErro("Ocorreu um erro ao tentar recuperar os registros. Por favor, entre em contato com o administrador do sistema.");
+			e.printStackTrace();
+		}
 		return getPaginaCadastro();
 	}
 	
@@ -89,23 +88,18 @@ public class SerieMBean extends AbstractSiaeController<Serie>{
 	}
 	
 	public String remover() throws DAOException {
-		obj =  dao.findByPrimaryKey( Serie.class, obj.getId() );
 		if( ValidatorUtil.isEmpty(obj) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
 			return null;
 		}
 		try {
-			obj = (Serie) serieService.executarRemocao(obj);
+			obj = (Serie) serieService.executeRemocao(obj);
 			lista.remove(obj);
 		}
 		catch(NegocioException e) {
 			addMensagemErro( e.getMessage() );
 		}
 		return getPaginaCadastro();
-	}
-	
-	public Collection<Serie> getAll( ) {
-		return dao.findAll( Serie.class ); 
 	}
 }

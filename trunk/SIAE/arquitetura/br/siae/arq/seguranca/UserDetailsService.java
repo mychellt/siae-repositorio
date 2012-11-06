@@ -8,7 +8,8 @@ import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import br.siae.arq.dominio.Usuario;
 
 public class UserDetailsService extends JdbcDaoImpl{
-
+	
+	
 	@Override
 	protected UserDetails createUserDetails(String username, UserDetails userDetails, List<GrantedAuthority> authorities) {
 		Usuario usuario = new Usuario();

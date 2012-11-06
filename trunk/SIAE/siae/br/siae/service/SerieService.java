@@ -1,5 +1,6 @@
 package br.siae.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -22,7 +23,7 @@ public class SerieService {
 	@Resource(name="cadastroService")
 	private CadastroService cadastroService;
 	
-	public Serie executarCadastro(Serie serie) throws NegocioException, DAOException {
+	public Serie executeCadastro(Serie serie) throws NegocioException, DAOException {
 		GenericDAO dao = cadastroService.getGenericDAO();
 		if( ValidatorUtil.isEmpty( serie ) ){
 			String[] fields = new String[]{"denominacao", "nivel.id"};
@@ -46,11 +47,15 @@ public class SerieService {
 		return serie;
 	}
 		
-	public Serie executarRemocao(Serie obj) throws NegocioException {
+	public Serie executeRemocao(Serie serie) throws NegocioException {
 		try {
-			return (Serie) cadastroService.remover(obj);
+			return (Serie) cadastroService.remover(serie);
 		} catch (DAOException e) {
 			throw new NegocioException( e.getMessage() );
 		}
+	}
+	
+	public Collection<Serie> getAll( ) throws DAOException{
+		return cadastroService.getAll( Serie.class ); 
 	}
 }

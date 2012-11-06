@@ -6,12 +6,14 @@ import java.util.Date;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.utils.ValidatorUtil;
 
 @Repository
+@Transactional
 public class PessoaDAO extends GenericDAO{
 	
 	public Collection<Pessoa>findByCriterios( String nome, String nomeMae, String nomePai, Long cpf, Date nascimento, Long rg, Long registroNascimento ) throws DAOException {

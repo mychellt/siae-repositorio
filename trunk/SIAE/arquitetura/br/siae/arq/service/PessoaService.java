@@ -74,4 +74,8 @@ public class PessoaService {
 	public Pessoa executeRemocao( Pessoa pessoa ) throws NegocioException, DAOException {
 		return (Pessoa) cadastroService.remover(pessoa);
 	}
+	
+	public CadastroService getCadastroService() {
+		return cadastroService;
+	}
 }
