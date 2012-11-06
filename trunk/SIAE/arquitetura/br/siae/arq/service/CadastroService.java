@@ -1,5 +1,7 @@
 package br.siae.arq.service;
 
+import java.util.Collection;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -24,9 +26,6 @@ public class CadastroService {
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}
-		finally {
-			dao.close();
-		}
 		return obj;
 	}
 	public Persistable remover( Persistable obj ) throws NegocioException, DAOException {
@@ -37,9 +36,7 @@ public class CadastroService {
 				throw new NegocioException("Esse registro não pode ser removido, pois está associado a outros registros da base de dados.");
 			}
 			throw new DAOException(e);
-		} finally {
-			dao.close();
-		}
+		} 
 		return obj;
 	}
 	
@@ -49,13 +46,18 @@ public class CadastroService {
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}
-		finally {
-			dao.close();
-		}
 		return obj;
 	}
 	
 	public GenericDAO getGenericDAO() {
 		return dao;
+	}
+	
+	public <T> Collection<T>  getAll( Class<T> classe ) throws DAOException {
+		return getGenericDAO().findAll(classe);
+	}
+	
+	public <T> Collection<T> getByExactField(Class<T> classe, String field, Object value) throws DAOException {
+		return getByExactField(classe, field, value);
 	}
 }

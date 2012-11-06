@@ -4,58 +4,47 @@
   <welcome-file-list>
     <welcome-file>index.jsf</welcome-file>
   </welcome-file-list>
-  
-   <servlet>
+  <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.jsf</url-pattern>
-	</servlet-mapping>
-	
-	
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-	
-	<listener>
-		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-	</listener>
-	
-	<context-param>
-		<param-name>org.richfaces.SKIN</param-name>
-		<param-value>blueSky</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>org.richfaces.CONTROL_SKINNING</param-name>
-		<param-value>enable</param-value>
-	</context-param>
-
-
-	<filter>
-	    <filter-name>springSecurityFilterChain</filter-name>
-    	<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
-	<filter-mapping>
-	    <filter-name>springSecurityFilterChain</filter-name>
-	    <url-pattern>/*</url-pattern>
-	     <dispatcher>FORWARD</dispatcher>
-	     <dispatcher>REQUEST</dispatcher>
-	</filter-mapping>
-	
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.jsf</url-pattern>
+  </servlet-mapping>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
+  <context-param>
+    <param-name>org.richfaces.SKIN</param-name>
+    <param-value>blueSky</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.richfaces.CONTROL_SKINNING</param-name>
+    <param-value>enable</param-value>
+  </context-param>
+  <filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
 			/WEB-INF/applicationContext.xml
 		</param-value>
-	</context-param>
-		
-	<context-param>
-		<param-name>primefaces.THEME</param-name>
-		<param-value>bluesky</param-value>
-	</context-param>
-	
+  </context-param>
+  <context-param>
+    <param-name>primefaces.THEME</param-name>
+    <param-value>bluesky</param-value>
+  </context-param>
 </web-app>

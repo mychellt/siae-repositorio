@@ -7,7 +7,7 @@ import br.siae.arq.dominio.Usuario;
 
 @Controller
 @Scope("session")
-public class UsuarioMBean extends AbstractCrudController<Usuario>{
+public class UsuarioMBean extends AbstractSiaeController<Usuario>{
 	
 	public static final String FORM_IMPLANTAR_PERMISSOES = "/views/restrito/usuario/form_implantar_permissoes";
 	

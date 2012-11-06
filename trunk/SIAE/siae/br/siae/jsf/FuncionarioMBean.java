@@ -1,21 +1,17 @@
 package br.siae.jsf;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.dao.PessoaDAO;
-import br.siae.arq.dominio.EspeciePessoa;
-import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.dominio.TipoPessoa;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
-import br.siae.arq.jsf.AbstractCrudController;
+import br.siae.arq.jsf.AbstractSiaeController;
+import br.siae.arq.jsf.ConsultadorPessoa;
 import br.siae.arq.jsf.PessoaMBean;
 import br.siae.arq.service.ServiceFactory;
 import br.siae.arq.utils.ValidatorUtil;
@@ -24,13 +20,13 @@ import br.siae.service.FuncionarioService;
 
 @Controller
 @Scope("session")
-public class FuncionarioMBean extends AbstractCrudController<Funcionario>{
+public class FuncionarioMBean extends AbstractSiaeController<Funcionario>{
 
-	@Autowired
+	@Resource(name="pessoaMBean")
 	private PessoaMBean pessoaMBean;
 	
-	@Autowired
-	private ConsultadorPessoaMBean consultadorPessoaMBean;
+	@Resource(name="consultadorPessoa")
+	private ConsultadorPessoa consultadorPessoa;
 	
 	@Resource(name="funcionarioService")
 	private FuncionarioService funcionarioService;
@@ -46,14 +42,14 @@ public class FuncionarioMBean extends AbstractCrudController<Funcionario>{
 		obj = new Funcionario();
 	}
 	
-	@Override
 	public String iniciarCadastro() {
 		resetObj();
 		pessoaMBean.resetObj();
 		obj.setPessoa( pessoaMBean.getObj() );
 		pessoaMBean.setDescricaoCadastro("Cadastrar Funcionário");
 		pessoaMBean.setControlador(this);
-		return super.iniciarCadastro();
+		pessoaMBean.setExibirInfoCpf(true);
+		return getPaginaCadastro();
 	}
 	
 	public String preAlterar() {
@@ -76,8 +72,6 @@ public class FuncionarioMBean extends AbstractCrudController<Funcionario>{
 		
 		obj.setPessoa( pessoaMBean.getObj() );
 		obj.getPessoa().setTipo( new TipoPessoa( TipoPessoa.PESSOA_FISICA ) );
-		obj.getPessoa().setEspecie( new EspeciePessoa( EspeciePessoa.FUNCIONARIO ) );
-
 		
 		try {
 			obj = funcionarioService.executarCadastro( obj );
@@ -92,14 +86,9 @@ public class FuncionarioMBean extends AbstractCrudController<Funcionario>{
 		addMensagemErro("Cadastro do aluno efetuado com sucesso!");
 		return PessoaMBean.COMPROVANTE_CADASTRO;
 	}
-	@Override
+
+	
 	public String iniciarListagem() {
-		consultadorPessoaMBean.setControlador(this);
-		try {
-			consultadorPessoaMBean.setLista( (List<Pessoa>) dao.findByExactField( Pessoa.class, "especie", EspeciePessoa.FUNCIONARIO ));
-		} catch (DAOException e) {
-			addMensagemErro("Erro ao tentar recuperar os registro no base de dados, por favor contacte o administrador do sistema.");
-		}
-		return super.iniciarListagem();
+		return getPaginaListagem();
 	}
 }

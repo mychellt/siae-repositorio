@@ -11,7 +11,8 @@
 			<br/><br/><br/>
 			<ui:include src="/template/erros.xhtml" />
 				<br/><br/><br/>
-				<form action="/SIAE/j_spring_security_check" method="post" id="form">
+				
+				<form action="#{facesContext.externalContext.requestContextPath}/j_spring_security_check" method="post" id="form">
 					<table style="width: 30%" class="formulario">
 					<caption>Entrar no Sistema</caption>
 					<tr>
@@ -32,7 +33,7 @@
 					</tr>
 					<tfoot>
 						<tr>
-							<td colspan="2">
+							<td colspan="2" style="text-align: center;">
 								 <h:commandButton type="submit" value="Login" style="margin:0"/>  
 							</td>
 						</tr>

@@ -8,7 +8,6 @@ body {
 	width: 100%;
 }
 
-
 #container {
 	padding-top:0;
 	margin: 0 auto;  
@@ -60,12 +59,12 @@ table.formulario {
 	border-top: 0px;
     font-size: 12px !important;
     border-radius: 0px 0px 6px 6px;
-    background: url("/SIAE/javax.faces.resource/images/ui-bg_highlight-hard_100_f5f3e5_1x100.png.jsf?ln=primefaces-bluesky") repeat-x scroll 50% top;
+    background: url("/siae/javax.faces.resource/images/ui-bg_highlight-hard_100_f5f3e5_1x100.png.jsf?ln=primefaces-bluesky") repeat-x scroll 50% top;
 }
 
 table.formulario caption{
 	padding: 0.5em 1em 0.3em;
-	background-image:url(/SIAE/javax.faces.resource/images/header.png.jsf?ln=primefaces-bluesky);
+	background-image:url(/siae/javax.faces.resource/images/header.png.jsf?ln=primefaces-bluesky);
     border: 1px solid #BED6F8;
     color: black;
     font-weight: bold;
@@ -73,13 +72,13 @@ table.formulario caption{
     padding-left: 5px;
 }
 
-table.formulario tfoot { text-align: center; }
-table.formulario th {  text-align: right;  }
-table.formulario thead {  text-align: left;  }
-table.formulario tr { text-align: left;  }
-table.formulario tr td { padding: 2px; }
-table.formulario tr { padding: 3px 0 3px 20px; }
-table.formulario th { text-align: right;  }
+table.formulario tfoot { text-align: center; font-weight: normal;}
+table.formulario th {  text-align: right;  font-weight: normal;}
+table.formulario thead {  text-align: left;  font-weight: normal;}
+table.formulario tr { text-align: left;  font-weight: normal;}
+table.formulario tr td { padding: 2px; font-weight: normal;}
+table.formulario tr { padding: 3px 0 3px 20px; font-weight: normal;}
+table.formulario th { text-align: right;  font-weight: normal;}
 
 table.subformulario {
 	margin: 0 auto;

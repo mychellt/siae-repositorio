@@ -6,6 +6,32 @@
       xmlns:a4j="http://richfaces.org/a4j"
       xmlns:rich="http://richfaces.org/rich"
       xmlns:p="http://primefaces.org/ui">
+     	 <p:dialog id="info-cpf" visible="#{pessoaMBean.exibirInfoCpf}" closable="false" header="Informe o CPF do Aluno" width="250" resizable="false" modal="true" widgetVar="informacaoCPF">
+				<h:outputText value="#{pessoaMBean.mensagemErroCpf}" style="color: red; font-weight: bold;" />
+				<br/><br/>
+				<table style="width: 100%;">
+					<tr>
+						<th>
+							<h:outputText value="CPF:" />
+						</th>
+						<td>
+							<p:inputText id="cpf-info" value="#{pessoaMBean.cpf}" onkeyup="formataCPF(this, event, null)"  size="14" maxlength="14" converter="converterCPF"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+								<h:selectBooleanCheckbox onclick="informacaoCPF.hide();"/><h:outputText value="O #{pessoaMBean.controlador.obj.nomeExibicao} não possui CPF." />
+						</td>
+					</tr>
+					<tfoot>
+						<tr>
+							<td colspan="2" style="text-align: center; ">
+								<p:commandButton value="Enviar" action="#{pessoaMBean.carregarDados}" ajax="false"/>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</p:dialog>
 		<table class="formulario" style="width: 80%">
 				<caption>
 					<h:outputText value="#{pessoaMBean.descricaoCadastro}" />

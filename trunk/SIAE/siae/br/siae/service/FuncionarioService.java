@@ -24,7 +24,7 @@ public class FuncionarioService {
 
 	public Funcionario executarCadastro( Funcionario funcionario ) throws NegocioException, DAOException {
 		//Persiste a pessoa
-		pessoaService.executarCadastro( funcionario.getPessoa() );
+		pessoaService.executeCadastro( funcionario.getPessoa() );
 		if( ValidatorUtil.isNotEmpty(funcionario) ){
 			funcionario = (Funcionario) cadastroService.alterar(funcionario);
 		}

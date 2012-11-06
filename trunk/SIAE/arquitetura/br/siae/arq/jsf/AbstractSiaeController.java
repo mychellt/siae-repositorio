@@ -7,7 +7,7 @@ import javax.faces.model.DataModel;
 import br.siae.arq.dominio.Persistable;
 
 
-public class AbstractCrudController<T extends Persistable> extends AbstractController {
+public class AbstractSiaeController<T extends Persistable> extends AbstractController {
 	protected T obj;
 	protected List<T> lista;
 	protected DataModel<T> colecao;
@@ -30,16 +30,8 @@ public class AbstractCrudController<T extends Persistable> extends AbstractContr
 	public void setColecao(DataModel<T> colecao) {
 		this.colecao = colecao;
 	}
-	
-	public String iniciarCadastro() {
-		return getPaginaCadastro();
-	}
 	public String getPaginaCadastro() {
 		return "/views/restrito/" + obj.getClass().getSimpleName().toLowerCase() + "/cadastro";
-	}
-	
-	public String iniciarListagem() {
-		return getPaginaListagem();
 	}
 	public String getPaginaListagem() {
 		return "/views/restrito/" + obj.getClass().getSimpleName().toLowerCase() + "/listagem";

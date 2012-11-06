@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
-import br.siae.arq.jsf.AbstractCrudController;
+import br.siae.arq.jsf.AbstractSiaeController;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Nivel;
 import br.siae.dominio.academico.Serie;
@@ -19,7 +19,7 @@ import br.siae.service.SerieService;
 
 @Controller
 @Scope("session")
-public class SerieMBean extends AbstractCrudController<Serie>{
+public class SerieMBean extends AbstractSiaeController<Serie>{
 	
 	@Resource(name="serieService")
 	private SerieService serieService;
@@ -73,11 +73,10 @@ public class SerieMBean extends AbstractCrudController<Serie>{
 		return null;
 	}
 
-	@Override
 	public String iniciarCadastro() {
 		resetObj();
 		lista = (List<Serie>) dao.findAll(Serie.class);
-		return super.iniciarCadastro();
+		return getPaginaCadastro();
 	}
 	
 	private void validar() {

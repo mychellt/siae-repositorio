@@ -8,17 +8,21 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.dominio.Estado;
 import br.siae.arq.dominio.Municipio;
 import br.siae.arq.erro.DAOException;
+import br.siae.arq.service.MunicipioService;
 import br.siae.arq.utils.ValidatorUtil;
 
 @Controller
 @Scope("request")
-public class MunicipioMBean {
+public class MunicipioMBean extends AbstractController{
+	
+	@Resource(name="municipioService")
+	private MunicipioService service;
 	
 	private Estado estado;
+	
 	private Collection<Municipio> municipios;
 	
 	public MunicipioMBean() {
@@ -26,15 +30,8 @@ public class MunicipioMBean {
 		setMunicipios(new ArrayList<Municipio>());
 	}
 	
-	@Resource(name="genericDAO")
-	private GenericDAO dao;
-	
-	
 	public Collection<Municipio> getAll( ) throws DAOException {
 		return municipios;
-	}
-	public Collection<Municipio> complete( String nome ) throws DAOException {
-			return dao.findByLikeField(Municipio.class, "nome", nome );
 	}
 	
 	public Estado getEstado() {
@@ -44,10 +41,15 @@ public class MunicipioMBean {
 		this.estado = estado;
 	}
 	
-	public void changeEstado() throws DAOException {
+	public void changeEstado(){
 		municipios = new ArrayList<Municipio>();
 		if( ValidatorUtil.isNotEmpty( estado ) ) {
-			municipios = dao.findByExactField( Municipio.class, "estado.id", estado.getId() );
+			try {
+				municipios = service.getByEstado( estado );
+			} catch (DAOException e) {
+				addMensagemErro("Ocorreu um erro ao tentar recuperar os registros. Por favor, entre em contato com o administrador do sistema.");
+				e.printStackTrace();
+			}
 		}
 	}
 	public Collection<Municipio> getMunicipios() {

@@ -7,18 +7,16 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.seguranca.Permissao;
 import br.siae.arq.service.PermissaoService;
-import br.siae.arq.service.ServiceFactory;
 import br.siae.arq.utils.ValidatorUtil;
 
 
 @Controller
 @Scope("session")
-public class PermissaoMBean extends AbstractCrudController<Permissao>{	
+public class PermissaoMBean extends AbstractSiaeController<Permissao>{	
 	@Resource(name="permissaoService")
 	private PermissaoService permissaoService;
 	
@@ -30,12 +28,10 @@ public class PermissaoMBean extends AbstractCrudController<Permissao>{
 		obj = new Permissao();
 	}
 	
-	@Override
 	public String iniciarCadastro() {
 		resetObj();
-		GenericDAO dao = (GenericDAO) ServiceFactory.getBean("genericDAO");
-		lista = (List<Permissao>) dao.findAll(Permissao.class);
-		return super.iniciarCadastro();
+		lista = (List<Permissao>) permissaoService.getAll();
+		return getPaginaCadastro();
 	}
 	
 	private void validar() {
@@ -65,9 +61,10 @@ public class PermissaoMBean extends AbstractCrudController<Permissao>{
 		}
 		try {
 			if( ValidatorUtil.isNotEmpty(obj)) {
-				lista.remove(obj);
+				Permissao ObjRemocao = lista.get( lista.indexOf(obj) );
 				obj = permissaoService.executeCadastro(obj);
 				addMensagemInformacao("Permissão alterada com sucesso!");
+				lista.remove(ObjRemocao);
 				lista.add(obj);
 			}
 			else {

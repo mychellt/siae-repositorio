@@ -1,36 +1,30 @@
 package br.siae.jsf;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.dao.PessoaDAO;
-import br.siae.arq.dominio.EspeciePessoa;
-import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.dominio.TipoPessoa;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
-import br.siae.arq.jsf.AbstractCrudController;
+import br.siae.arq.jsf.AbstractSiaeController;
+import br.siae.arq.jsf.ConsultadorPessoa;
 import br.siae.arq.jsf.PessoaMBean;
-import br.siae.arq.service.ServiceFactory;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Aluno;
 import br.siae.service.AlunoService;
 
 @Controller
 @Scope("session")
-public class AlunoMBean extends AbstractCrudController<Aluno>{
+public class AlunoMBean extends AbstractSiaeController<Aluno>{
 
-	@Autowired
+	@Resource(name="pessoaMBean")
 	private PessoaMBean pessoaMBean;
 	
-	@Autowired
-	private ConsultadorPessoaMBean consultadorPessoaMBean;
+	@Resource(name="consultadorPessoa")
+	private ConsultadorPessoa consultadorPessoa;
 	
 	@Resource(name="alunoService")
 	private AlunoService alunoService;
@@ -46,31 +40,23 @@ public class AlunoMBean extends AbstractCrudController<Aluno>{
 		obj = new Aluno();
 	}
 	
-	@Override
 	public String iniciarCadastro() {
 		resetObj();
 		pessoaMBean.resetObj();
 		obj.setPessoa( pessoaMBean.getObj() );
 		pessoaMBean.setDescricaoCadastro("Cadastro de Aluno");
 		pessoaMBean.setControlador(this);
-		return super.iniciarCadastro();
+		pessoaMBean.setExibirInfoCpf(true);
+		return getPaginaCadastro();
 	}
 	
-	@Override
 	public String iniciarListagem() {
-		consultadorPessoaMBean.setControlador(this);
-		try {
-			consultadorPessoaMBean.setLista( (List<Pessoa>) dao.findByExactField( Pessoa.class, "especie", EspeciePessoa.ALUNO ));
-		} catch (DAOException e) {
-			addMensagemErro("Erro ao tentar recuperar os registro no base de dados, por favor contacte o administrador do sistema.");
-		}
-		return super.iniciarListagem();
+		
+		return getPaginaListagem();
 	}
 	
 	
 	public String preAlterar() {
-		GenericDAO dao = (GenericDAO) ServiceFactory.getBean("genericDAO");
-		obj =  dao.findByPrimaryKey( Aluno.class, getParameterInt("idAluno") );
 		if( ValidatorUtil.isEmpty(obj) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
@@ -78,6 +64,7 @@ public class AlunoMBean extends AbstractCrudController<Aluno>{
 		}
 		pessoaMBean.setObj( obj.getPessoa() );
 		pessoaMBean.setControlador(this);
+		pessoaMBean.setExibirInfoCpf(false);
 		setConfirmButton("Alterar");
 		return getPaginaCadastro();
 	}
@@ -90,10 +77,9 @@ public class AlunoMBean extends AbstractCrudController<Aluno>{
 		
 		obj.setPessoa( pessoaMBean.getObj() );
 		obj.getPessoa().setTipo( new TipoPessoa( TipoPessoa.PESSOA_FISICA ) );
-		obj.getPessoa().setEspecie( new EspeciePessoa( EspeciePessoa.ALUNO ) );
 		
 		try {
-			obj = alunoService.executarCadastro( obj );
+			obj = alunoService.executeCadastro( obj );
 		} catch (NegocioException e) {
 			e.printStackTrace();
 			addMensagemErro( e.getMessage() );
@@ -105,9 +91,12 @@ public class AlunoMBean extends AbstractCrudController<Aluno>{
 		addMensagemInformacao("Cadastro do aluno efetuado com sucesso!");
 		return PessoaMBean.COMPROVANTE_CADASTRO;
 	}
-	
-	@Override
-	public String getPaginaListagem() {
-		return super.getPaginaListagem();
+	public String remover() {
+		if( ValidatorUtil.isEmpty(obj) ) {
+			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
+			resetObj();
+			return null;
+		}
+		return getPaginaListagem();
 	}
 }

@@ -7,7 +7,6 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import br.siae.arq.dominio.EspeciePessoa;
 import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.utils.ValidatorUtil;
@@ -15,10 +14,9 @@ import br.siae.arq.utils.ValidatorUtil;
 @Repository
 public class PessoaDAO extends GenericDAO{
 	
-	public Collection<Pessoa>findByCriterios(EspeciePessoa especie, String nome, String nomeMae, String nomePai, Long cpf, Date nascimento, Long rg, Long registroNascimento ) throws DAOException {
+	public Collection<Pessoa>findByCriterios( String nome, String nomeMae, String nomePai, Long cpf, Date nascimento, Long rg, Long registroNascimento ) throws DAOException {
 		try {
 			Criteria c = getSession().createCriteria( Pessoa.class );
-			c.add( Restrictions.eq("especie", especie.getId()));
 			if( ValidatorUtil.isNotEmpty(nome) ){
 				c.add( Restrictions.ilike("nome", nome ) );
 			}
@@ -45,6 +43,16 @@ public class PessoaDAO extends GenericDAO{
 			@SuppressWarnings("unchecked")
 			Collection<Pessoa> lista = c.list();
 			return lista;
+		} catch (Exception e) {
+			throw new DAOException(e);
+		}
+	}
+	public Pessoa findByCpf( long cpf ) throws DAOException {
+		try {
+			Criteria c = getSession().createCriteria( Pessoa.class );
+			c.add( Restrictions.eq("cpf", cpf ) );
+			Pessoa pessoa = (Pessoa) c.uniqueResult();
+			return pessoa;
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}

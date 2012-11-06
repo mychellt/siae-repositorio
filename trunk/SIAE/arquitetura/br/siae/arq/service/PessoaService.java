@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.dao.GenericDAO;
+import br.siae.arq.dao.PessoaDAO;
 import br.siae.arq.dominio.Estado;
 import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.erro.DAOException;
@@ -21,10 +22,10 @@ public class PessoaService {
 	@Resource(name="cadastroService")
 	private CadastroService cadastroService;
 	
-	@Resource(name="genericDAO")
-	private GenericDAO dao;
+	@Resource(name="pessoaDAO")
+	private PessoaDAO pessoaDAO;
 	
-	public Pessoa executarCadastro( Pessoa pessoa ) throws NegocioException, DAOException {
+	public Pessoa executeCadastro( Pessoa pessoa ) throws NegocioException, DAOException {
 		GenericDAO dao = cadastroService.getGenericDAO();
 		List<Pessoa> lista = (List<Pessoa>) dao.findByExactField( Pessoa.class, "cpf", pessoa.getCpf() );
 		if( ValidatorUtil.isEmpty( pessoa.getEndereco().getMunicipio())) {
@@ -64,5 +65,13 @@ public class PessoaService {
 			pessoa.getIdentidade().setEstado( dao.findByPrimaryKey(Estado.class, pessoa.getIdentidade().getEstado().getId() ) );
 		}
 		return pessoa;
+	}
+	
+	public Pessoa getByCpf( long cpf ) throws DAOException {
+		return pessoaDAO.findByCpf(cpf);
+	}
+	
+	public Pessoa executeRemocao( Pessoa pessoa ) throws NegocioException, DAOException {
+		return (Pessoa) cadastroService.remover(pessoa);
 	}
 }

@@ -20,7 +20,88 @@
 			<br/>
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
 			<br/>
-			<ui:include src="/views/restrito/pessoa/listagem.xhtml" />
+			<center>
+				<a href="#"  onclick="filtro.show();">
+					<p:graphicImage library="images" name="operacao/filtragem.gif" />
+				</a>
+				<p:dialog header="Consulta de Aluno" widgetVar="filtro" resizable="false"  width="540" showEffect="fade" hideEffect="fade">
+					<h:panelGrid id="panel-filtro" columns="3" cellpadding="4">  
+						<h:selectBooleanCheckbox value="#{consultadorAlunoMBean.consultadorPessoa.byNome}" />
+						<h:outputText value="Nome do Aluno:" />
+						<p:inputText value="#{consultadorAlunoMBean.obj.pessoa.nome}" size="40"/>
+						
+						<h:selectBooleanCheckbox value="#{consultadorAlunoMBean.consultadorPessoa.byCpf}" />
+						<h:outputText value="Cpf do Aluno:" />
+						<p:inputText value="#{consultadorAlunoMBean.obj.pessoa.cpf}" onkeyup="formataCPF(this, event, null)"  size="14" maxlength="14" converter="converterCPF"  />
+						
+						<h:selectBooleanCheckbox value="#{consultadorAlunoMBean.consultadorPessoa.byRg}" />
+						<h:outputText value="RG do Aluno:" />
+						<p:inputText value="#{consultadorAlunoMBean.obj.pessoa.identidade.numero}" size="14"/>
+						
+						<h:selectBooleanCheckbox value="#{consultadorAlunoMBean.consultadorPessoa.byNomeMae}" />
+						<h:outputText value="Nome da Mãe:" />
+						<p:inputText value="#{consultadorAlunoMBean.obj.pessoa.nomeMae}" size="40"/>
+						
+						<h:selectBooleanCheckbox value="#{consultadorAlunoMBean.consultadorPessoa.byNomePai}" />
+						<h:outputText value="Nome da Pai:" />
+						<p:inputText value="#{consultadorAlunoMBean.obj.pessoa.nomePai}" size="40" />
+						
+						<center>
+							<h:outputText value="" />
+							<p:commandButton id="button-consultar" value="Consultar" action="#{consultadorAlunoMBean.consultar}" ajax="false" onclick="filtro.hide();"/>
+							<h:outputText value="" />
+						</center>
+					</h:panelGrid>
+				</p:dialog> 
+			</center>
+			<br/><br/>
+			<div class="legenda">
+					<h:graphicImage library="images" name="/operacao/remover.png" />: <h:outputText value="Remover Aluno" />
+					<h:graphicImage library="images" name="/operacao/alterar.png" />: <h:outputText value="Alterar Aluno" />
+				</div>
+				<p:dataTable id="listagem-aluno" var="aluno" value="#{consultadorAlunoMBean.lista}"   paginator="true" rows="10"  
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum registro encontrado.">  
+			        <f:facet name="header">  
+			           <h:outputText value="Aluno Encontrados" />
+			        </f:facet>    
+			        <p:column style="width: 40%; text-align: left;">  
+			            <f:facet name="header">  
+			                <h:outputText value="Nome" />  
+			            </f:facet>  
+			            <h:outputText value="#{aluno.pessoa.nome}" />  
+			        </p:column>
+			        <p:column style="width: 10%; text-align: center;">  
+			            <f:facet name="header">  
+			                <h:outputText value="CPF" />  
+			            </f:facet>  
+			            <h:outputText value="#{aluno.pessoa.cpf}" >
+			            	<f:converter converterId="converterCPF"/>
+			            </h:outputText>  
+			        </p:column>
+			        <p:column style="width: 10%; text-align: center;">  
+			            <f:facet name="header">  
+			                <h:outputText value="RG" />  
+			            </f:facet>  
+			            <h:outputText value="#{aluno.pessoa.identidade.numero != 0 ? pessoa.identidade.numero : 'Não Informado'}" />  
+			        </p:column>
+			        <p:column style="width: 10%; text-align: center;">  
+			            <f:facet name="header">  
+			                <h:outputText value="Registro de Nascimento" />  
+			            </f:facet>  
+			            <h:outputText value="#{aluno.pessoa.certidaoNascimento.numero != 0 ? pessoa.certidaoNascimento.numero : 'Não Informado'}" />  
+			        </p:column>
+			          <p:column style="width: 7%; text-align: right;"> 
+			          	<f:facet name="header"/>
+			          	<h:commandLink >
+			          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Aluno"/>
+			          	</h:commandLink>
+			          	<h:commandLink action="#{alunoMBean.preAlterar}">
+			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Aluno"/>
+							<f:setPropertyActionListener target="#{alunoMBean.obj}" value="#{aluno}"/>
+			          	</h:commandLink>    
+			          </p:column>  
+	    		</p:dataTable>
+	    		<br/><br/> 
     	</h:form>
 		</ui:define>
 		<ui:define name="footer">

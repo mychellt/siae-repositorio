@@ -11,15 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.erro.DAOException;
 import br.siae.arq.utils.ValidatorUtil;
-import br.siae.dominio.academico.Aluno;
+import br.siae.dominio.rh.Professor;
+
 
 @Repository
 @Transactional
-public class AlunoDAO extends GenericDAO{
+public class ProfessorDAO extends GenericDAO{
 
-	public Collection<Aluno> findByCriterios( String nome, String nomeMae, String nomePai, Long cpf, Date nascimento, Long rg, Long registroNascimento ) throws DAOException {
+	public Collection<Professor> findByCriterios( String nome, String nomeMae, String nomePai, Long cpf, Date nascimento, Long rg, Long registroNascimento ) throws DAOException {
 		try {
-			Criteria c = getSession().createCriteria( Aluno.class );
+			Criteria c = getSession().createCriteria( Professor.class );
 			c.createAlias("pessoa", "p");
 			if( ValidatorUtil.isNotEmpty(nome) ){
 				c.add( Restrictions.ilike("p.nome", nome ) );
@@ -46,7 +47,7 @@ public class AlunoDAO extends GenericDAO{
 			}
 			
 			@SuppressWarnings("unchecked")
-			Collection<Aluno> lista = c.list();
+			Collection<Professor> lista = c.list();
 			return lista;
 		} catch (Exception e) {
 			throw new DAOException(e);

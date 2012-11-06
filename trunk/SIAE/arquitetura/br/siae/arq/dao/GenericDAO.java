@@ -2,13 +2,15 @@ package br.siae.arq.dao;
 
 import java.util.Collection;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
-import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.dominio.Persistable;
 import br.siae.arq.erro.DAOException;
@@ -17,28 +19,25 @@ import br.siae.arq.utils.DAOUtils;
 
 
 @Repository
+@Transactional
 public  class GenericDAO {
 	
 	
 	@Autowired
-	private HibernateTemplate ht;
+	private SessionFactory sessionFactory;
 	
 	private void change(char op, Persistable obj){		
 		switch (op) {
 		case 'C':
 		case 'U':
-			ht.saveOrUpdate(obj);
+			getSession().saveOrUpdate(obj);
 			break;
 		case 'D':
-			ht.delete(obj);
+			getSession().delete(obj);
 			break;
 		}
 	}
 	
-	public void close() {
-		ht.getSessionFactory().close();
-	}
-
 	public void create( Persistable obj){
 		change( 'C', obj );
 	}
@@ -51,14 +50,23 @@ public  class GenericDAO {
 		change('U', obj );
 	}
 	
+	@SuppressWarnings("unchecked")
+	public <T> Collection<T> findAllAtivos( Class<T> classe ) {
+		Criteria c = getSession().createCriteria(classe);
+		c.setCacheable(true);
+		c.add( Restrictions.eq("ativo", true) );
+		return c.list();
+	}
+	@SuppressWarnings("unchecked")
 	public <T extends Persistable> T findByPrimaryKey( Class<T> classe, long id){
-		return ht.get( classe, id );
+		return (T) getSession().get( classe, id );
 	}
 	
 	@SuppressWarnings("unchecked")
 	public <T> Collection<T>  findAll( Class<T> classe ){
-		DetachedCriteria criteria = DetachedCriteria.forClass( classe );  
-		return ht.findByCriteria( criteria );  
+		Criteria c = getSession().createCriteria(classe);
+		c.setCacheable(true);
+		return c.list();  
 	}
 	public <T> Collection<T> findByExactField(Class<T> classe, String field, Object value) throws DAOException {
 		return findWithQuery(classe, field, value, true, false, null, new String[0]);
@@ -119,13 +127,12 @@ public  class GenericDAO {
 
 		}
 
-		Session openSession = ht.getSessionFactory().openSession();
-		Query q = openSession.createQuery(query + orderQuery);
+		Query q = getSession().createQuery(query + orderQuery);
 		return q.list();
 	}
 	
 	public Session getSession() {
-		return ht.getSessionFactory().openSession();
+		return sessionFactory.getCurrentSession();
 	}
 	
 	public JdbcTemplate getJdbcTemplate() {

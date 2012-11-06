@@ -24,7 +24,7 @@ public class ProfessorService {
 
 	public Professor executarCadastro( Professor professor ) throws NegocioException, DAOException {
 		//Persiste a pessoa
-		pessoaService.executarCadastro( professor.getPessoa() );
+		pessoaService.executeCadastro( professor.getPessoa() );
 		if( ValidatorUtil.isNotEmpty(professor) ){
 			professor = (Professor) cadastroService.alterar(professor);
 		}
