@@ -23,7 +23,7 @@
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://127.0.0.1:5433/siae" />
+		<property name="url" value="jdbc:postgresql://127.0.0.1:5432/siae" />
 		<property name="username" value="siae" />
 		<property name="password" value="siae" />
 	</bean>
@@ -41,6 +41,17 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
 			</props>
 		</property>
+	</bean>
+
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	   <property name="exceptionMappings">
+	      <props>
+	         <prop key="br.siae.arq.erro.SpringException">
+	            ExceptionPage
+	         </prop>
+	      </props>
+	   </property>
+	   <property name="defaultErrorView" value="error"/>
 	</bean>
 	
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">

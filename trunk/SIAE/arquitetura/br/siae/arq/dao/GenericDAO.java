@@ -29,27 +29,32 @@ public  class GenericDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	private void change(char op, Persistable obj){		
-		switch (op) {
-		case 'C':
-		case 'U':
-			getSession().saveOrUpdate(obj);
-			break;
-		case 'D':
-			getSession().delete(obj);
-			break;
+	private void change(char op, Persistable obj) throws DAOException {
+		try {
+			switch (op) {
+			case 'C':
+			case 'U':
+				getSession().saveOrUpdate(obj);
+				break;
+			case 'D':
+				getSession().delete(obj);
+				break;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException(e.getMessage()); 
 		}
 	}
 	
-	public void create( Persistable obj){
+	public void create( Persistable obj) throws DAOException{
 		change( 'C', obj );
 	}
 	
-	public void delete( Persistable obj ){
+	public void delete( Persistable obj ) throws DAOException{
 		change( 'D', obj );
 	}
 	
-	public void update( Persistable obj ){
+	public void update( Persistable obj ) throws DAOException{
 		change('U', obj );
 	}
 	

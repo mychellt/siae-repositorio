@@ -1,7 +1,5 @@
 package br.siae.arq.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,18 +14,16 @@ public class PermissaoService extends AbstractService{
 	
 
 	public Permissao executeCadastro( Permissao permissao ) throws NegocioException, DAOException {
-		List<Permissao> lista = (List<Permissao>) getGenericDAO().findByLikeField(Permissao.class, "denominacao", permissao.getDenominacao() );
 		if( ValidatorUtil.isEmpty( permissao ) ){
-			if( ValidatorUtil.isNotEmpty(lista) ){
-				throw new NegocioException("Já existe uma permissão cadastrada com essa denominação.");
+			try {
+				permissao = (Permissao) cadastrar(permissao);
 			}
-			permissao = (Permissao) cadastrar(permissao);
+			catch(Exception e) {
+				e.printStackTrace();
+				throw new NegocioException(e);
+			}
 		}
 		else {
-			
-			if( ValidatorUtil.isNotEmpty(lista) && lista.get(0).getId() != permissao.getId() ) {
-				throw new NegocioException("Já existe uma permissão cadastrada com essa denominação.");
-			}
 			permissao = (Permissao) alterar(permissao);
 		}
 		return permissao;

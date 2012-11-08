@@ -54,7 +54,7 @@ public class PermissaoMBean extends AbstractSiaeController<Permissao>{
 		return getPaginaCadastro();
 	}
 	
-	public String cadastrar() throws DAOException {
+	public String cadastrar() {
 		validar();
 		if( isContemErros() ) {
 			return null;
@@ -74,6 +74,10 @@ public class PermissaoMBean extends AbstractSiaeController<Permissao>{
 			}
 			resetObj();
 		} catch (NegocioException e) {
+			addMensagemErro( e.getMessage() );
+			e.printStackTrace();
+		}
+		catch (DAOException e) {
 			addMensagemErro( e.getMessage() );
 			e.printStackTrace();
 		}
