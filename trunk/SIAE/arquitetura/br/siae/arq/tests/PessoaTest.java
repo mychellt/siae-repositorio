@@ -66,7 +66,7 @@ public class PessoaTest {
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
-		assertNull( service.getCadastroService().getByPrimaryKey(Pessoa.class, pessoa.getId()) );
+		assertNull( service.getByPrimaryKey(Pessoa.class, pessoa.getId()) );
 	}  
 	  
 	@Test  

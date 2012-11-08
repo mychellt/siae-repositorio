@@ -70,7 +70,7 @@ public class SerieMBean extends AbstractSiaeController<Serie>{
 	public String iniciarCadastro() {
 		resetObj();
 		try {
-			lista = (List<Serie>) serieService.getAll();
+			lista = (List<Serie>) serieService.getAll(Serie.class);
 		} catch (DAOException e) {
 			addMensagemErro("Ocorreu um erro ao tentar recuperar os registros. Por favor, entre em contato com o administrador do sistema.");
 			e.printStackTrace();

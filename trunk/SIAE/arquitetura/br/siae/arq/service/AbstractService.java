@@ -15,7 +15,7 @@ import br.siae.arq.utils.DAOUtils;
 
 @Service
 @Transactional
-public class CadastroService {
+public abstract class AbstractService {
 	
 	@Resource(name="genericDAO")
 	private GenericDAO dao;
@@ -58,7 +58,7 @@ public class CadastroService {
 	}
 	
 	public <T> Collection<T> getByExactField(Class<T> classe, String field, Object value) throws DAOException {
-		return getByExactField(classe, field, value);
+		return dao.findByExactField(classe, field, value);
 	}
 	
 	public <T extends Persistable> T getByPrimaryKey( Class<T> classe, long id){

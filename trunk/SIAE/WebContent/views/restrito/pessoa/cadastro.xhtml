@@ -15,11 +15,11 @@
 							<h:outputText value="CPF:" />
 						</th>
 						<td>
-							<p:inputText id="cpf-info" value="#{pessoaMBean.cpf}" onkeyup="formataCPF(this, event, null)"  size="14" maxlength="14" converter="converterCPF"/>
+							<p:inputMask mask="999.999.999-99" value="#{pessoaMBean.cpf}"  size="14" maxlength="14" converter="converterCPF" />
 						</td>
 					</tr>
 					<tr>
-						<td>
+						<td colspan="2">
 								<h:selectBooleanCheckbox onclick="informacaoCPF.hide();"/><h:outputText value="O #{pessoaMBean.controlador.obj.nomeExibicao} não possui CPF." />
 						</td>
 					</tr>
@@ -49,7 +49,7 @@
 						<h:outputText value="CPF:" />
 					</th>
 					<td>
-						<p:inputText value="#{pessoaMBean.obj.cpf}" onkeyup="formataCPF(this, event, null)"  size="14" maxlength="14" converter="converterCPF" />
+						<p:inputMask mask="999.999.999-99" value="#{pessoaMBean.obj.cpf}"  size="14" maxlength="14" converter="converterCPF" />
 					</td>
 				</tr>
 				<tr>
@@ -89,7 +89,7 @@
 						<h:outputText value="Telefone:" />
 					</th>
 					<td>
-						<p:inputText value="#{pessoaMBean.obj.telefone}" id="telefone-pessoa"/>
+						<p:inputMask value="#{pessoaMBean.obj.telefone}" id="telefone-pessoa" mask="(99) 9999-9999" size="10"/>
 					</td>
 				</tr>
 				<tr>
@@ -97,7 +97,7 @@
 						<h:outputText value="Celular:" />
 					</th>
 					<td>
-						<p:inputText value="#{pessoaMBean.obj.celular}" id="celular-pessoa"/>
+						<p:inputMask value="#{pessoaMBean.obj.celular}" id="celular-pessoa" mask="(99) 9999-9999" size="10"/>
 					</td>
 				</tr>
 				<tr>
@@ -120,7 +120,7 @@
 									<h:outputText value="CEP:" />
 								</th>
 								<td colspan="3">
-									<p:inputText value="#{pessoaMBean.obj.endereco.cep}" id="cep-endereco-pessoa"/>
+									<p:inputMask value="#{pessoaMBean.obj.endereco.cep}" id="cep-endereco-pessoa" mask="99.999-999" size="8"/>
 								</td>
 							</tr>
 							<tr>

@@ -21,7 +21,7 @@ public class TurnoMBean extends AbstractController{
 	
 	public Collection<Turno> getAll( ) {
 		try {
-			return service.getAll();
+			return service.getAll(Turno.class);
 		} catch (DAOException e) {
 			addMensagemErro("Ocorreu um erro ao tentar recuperar os registros. Por favor, entre em contato com o administrador do sistema.");
 			e.printStackTrace();

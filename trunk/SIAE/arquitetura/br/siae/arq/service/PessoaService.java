@@ -17,17 +17,13 @@ import br.siae.arq.utils.ValidatorUtil;
 
 @Service
 @Transactional
-public class PessoaService {
-	
-	@Resource(name="cadastroService")
-	private CadastroService cadastroService;
+public class PessoaService extends AbstractService{
 	
 	@Resource(name="pessoaDAO")
 	private PessoaDAO pessoaDAO;
 	
 	public Pessoa executeCadastro( Pessoa pessoa ) throws NegocioException, DAOException {
-		GenericDAO dao = cadastroService.getGenericDAO();
-		List<Pessoa> lista = (List<Pessoa>) dao.findByExactField( Pessoa.class, "cpf", pessoa.getCpf() );
+		List<Pessoa> lista = (List<Pessoa>) getGenericDAO().findByExactField( Pessoa.class, "cpf", pessoa.getCpf() );
 		if( ValidatorUtil.isEmpty( pessoa.getEndereco().getMunicipio())) {
 			pessoa.getEndereco().setMunicipio(null);
 		}
@@ -53,16 +49,16 @@ public class PessoaService {
 			if( ValidatorUtil.isNotEmpty(lista)){
 				throw new NegocioException("Já existe um aluno cadastrado com o CPF informado.");
 			}
-			pessoa = (Pessoa) cadastroService.cadastrar(pessoa);
+			pessoa = (Pessoa) cadastrar(pessoa);
 		}
 		else {
 			if( ValidatorUtil.isNotEmpty(lista) && lista.get(0).getId() != pessoa.getId() ) {
 				throw new NegocioException("Já existe um aluno cadastrado com o CPF informado.");
 			}
-			pessoa = (Pessoa) cadastroService.alterar(pessoa);
+			pessoa = (Pessoa) alterar(pessoa);
 		}
 		if( ValidatorUtil.isNotEmpty( pessoa.getIdentidade().getEstado() ) ) {
-			pessoa.getIdentidade().setEstado( dao.findByPrimaryKey(Estado.class, pessoa.getIdentidade().getEstado().getId() ) );
+			pessoa.getIdentidade().setEstado( getGenericDAO().findByPrimaryKey(Estado.class, pessoa.getIdentidade().getEstado().getId() ) );
 		}
 		return pessoa;
 	}
@@ -72,10 +68,6 @@ public class PessoaService {
 	}
 	
 	public Pessoa executeRemocao( Pessoa pessoa ) throws NegocioException, DAOException {
-		return (Pessoa) cadastroService.remover(pessoa);
-	}
-	
-	public CadastroService getCadastroService() {
-		return cadastroService;
+		return (Pessoa) remover(pessoa);
 	}
 }

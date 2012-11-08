@@ -42,7 +42,7 @@ public class AlunoMBean extends AbstractSiaeController<Aluno>{
 		return getPaginaCadastro();
 	}
 	
-	public String iniciarListagem() {
+	public String iniciarListagem() {	
 		
 		return getPaginaListagem();
 	}

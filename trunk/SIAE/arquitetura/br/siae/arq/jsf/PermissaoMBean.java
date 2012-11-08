@@ -28,9 +28,9 @@ public class PermissaoMBean extends AbstractSiaeController<Permissao>{
 		obj = new Permissao();
 	}
 	
-	public String iniciarCadastro() {
+	public String iniciarCadastro() throws DAOException {
 		resetObj();
-		lista = (List<Permissao>) permissaoService.getAll();
+		lista = (List<Permissao>) permissaoService.getAll(Permissao.class);
 		return getPaginaCadastro();
 	}
 	
