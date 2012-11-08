@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+
+  <persistence-unit name="SIAEUnit" transaction-type="RESOURCE_LOCAL">  
+        <provider>org.hibernate.ejb.HibernatePercistence</provider>  
+        <properties>  
+            <property name="hibernate.archive.autodetecion" value="class, hbm"/>      
+            <!--  *** Configuracao de Debug ***-->  
+            <property name="hibernate.show_sql" value="true"/>  
+            <property name="hibernate.format_sql" value="true"/>  
+            <property name="use_sql_comments" value="true"/>  
+        </properties>  
+    </persistence-unit>  
+
+</persistence>

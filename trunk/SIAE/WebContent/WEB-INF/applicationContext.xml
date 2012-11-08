@@ -42,21 +42,21 @@
 			</props>
 		</property>
 	</bean>
-
-	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-	   <property name="exceptionMappings">
-	      <props>
-	         <prop key="br.siae.arq.erro.SpringException">
-	            ExceptionPage
-	         </prop>
-	      </props>
-	   </property>
-	   <property name="defaultErrorView" value="error"/>
-	</bean>
 	
-	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-	  <property name="sessionFactory" ref="sessionFactory" /> 
-   </bean>
+	<bean id="entityManagerFactory"  class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="persistenceUnitName" value="SIAEUnit" />
+        <property name="loadTimeWeaver">
+            <bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
+        </property>
+    </bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory">
+            <ref local="entityManagerFactory" />
+        </property>
+         <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
   	
 	<tx:annotation-driven/>
 	
