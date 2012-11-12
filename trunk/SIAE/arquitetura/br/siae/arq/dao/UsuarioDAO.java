@@ -33,10 +33,11 @@ public class UsuarioDAO extends GenericDAO{
 	
 	public Usuario findByLogin( String login ) throws DAOException {
 		try {
-			Query q = getSession().createQuery("select u from Usuario u where u.login = :login");
-			q.setParameter("login", login);
-			Usuario u = (Usuario) q.uniqueResult();
-			return u;
+//			Query q = getSession().createQuery("select u from Usuario u where u.login = :login");
+//			q.setParameter("login", login);
+//			Usuario u = (Usuario) q.uniqueResult();
+//			return u;
+			return null;
 		} catch (HibernateException e) {
 			throw new DAOException(e);
 		}
