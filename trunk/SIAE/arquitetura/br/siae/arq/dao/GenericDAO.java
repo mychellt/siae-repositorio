@@ -26,7 +26,7 @@ public  class GenericDAO {
 		return entityManager;
 	}
 
-	@PersistenceContext
+	@PersistenceContext(unitName="default")
 	public void setEntityManager(EntityManager entityManager) {
 	    this.entityManager = entityManager;
 	}

@@ -23,7 +23,7 @@ import br.siae.arq.service.PermissaoService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:WebContent/WEB-INF/applicationContext.xml" })  
+@ContextConfiguration(locations = {"file:WebContent/META-INF/applicationContext.xml" })  
 @Transactional  
 public class PermissaoTest {
 	@Resource(name="permissaoService")

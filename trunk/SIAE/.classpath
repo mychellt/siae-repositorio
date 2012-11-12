@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="siae"/>
-	<classpathentry kind="src" path="WebContent/META-INF">
-		<attributes>
-			<attribute name="ignore_optional_problems" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="src" path="arquitetura"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-6-sun-1.6.0.26">
 		<attributes>
@@ -17,7 +12,6 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/bluesky-1.0.8.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cglib-nodep-2.1_3.jar"/>
@@ -46,10 +40,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.springframework.web-3.1.0.M1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/postgresql-9.0-802.jdbc3.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces-3.4.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/richfaces-components-api-4.2.2.Final.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/richfaces-components-ui-4.2.2.Final.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/richfaces-core-api-4.2.2.Final.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/richfaces-core-impl-4.2.2.Final.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-security-acl-3.1.0.RC1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-security-acl-3.1.0.RC1-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-security-acl-3.1.0.RELEASE.jar"/>
@@ -82,5 +72,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jboss-logging-3.1.0.GA.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hibernate-entitymanager-4.1.8.Final.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/com.springsource.org.apache.commons.logging-1.1.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
