@@ -19,16 +19,11 @@ import br.siae.arq.utils.DAOUtils;
 @Transactional
 public  class GenericDAO {
 	
-	
+	@PersistenceContext(unitName="jpaUnit")
 	private EntityManager entityManager;
 	
 	public EntityManager getEntityManager() {
 		return entityManager;
-	}
-
-	@PersistenceContext(unitName="default")
-	public void setEntityManager(EntityManager entityManager) {
-	    this.entityManager = entityManager;
 	}
 	
 	private void change(char op, Persistable obj) throws DAOException {
