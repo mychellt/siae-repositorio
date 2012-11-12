@@ -18,9 +18,9 @@
 		http://www.springframework.org/schema/aop
 		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-	<context:component-scan base-package="br.siae.*" />
+	<context:component-scan base-package="br.siae.*"/>
 	<context:annotation-config/>
-	
+		
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
 		<property name="url" value="jdbc:postgresql://127.0.0.1:5433/siae" />
