@@ -8,9 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.siae.arq.dominio.Persistable;
+
 @Entity
 @Table(name="turno", schema="comum")
-public class Turno {
+public class Turno implements Persistable{
 	public static final int MANHA = 1;
 	public static final int TARDE = 2;
 	public static final int NOITE = 3;

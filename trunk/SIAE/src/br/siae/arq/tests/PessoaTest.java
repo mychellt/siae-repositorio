@@ -19,8 +19,6 @@ import br.siae.arq.dominio.Naturalidade;
 import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.dominio.TipoPessoa;
 import br.siae.arq.dominio.TituloEleitor;
-import br.siae.arq.erro.DAOException;
-import br.siae.arq.erro.NegocioException;
 import br.siae.arq.service.PessoaService;
 
 
@@ -45,10 +43,7 @@ public class PessoaTest {
 		pessoa.setTipo( new TipoPessoa( TipoPessoa.PESSOA_FISICA ) );
 		try {
 			service.executeCadastro(pessoa);
-		} catch (NegocioException e) {
-			assertNull(e);
-			e.printStackTrace();
-		} catch (DAOException e) {
+		} catch (Exception e) {
 			assertNull(e);
 			e.printStackTrace();
 		}
@@ -61,9 +56,7 @@ public class PessoaTest {
 		pessoa.setId(1);
 		try {
 			service.executeRemocao(pessoa);
-		} catch (NegocioException e) {
-			e.printStackTrace();
-		} catch (DAOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		assertNull( service.getByPrimaryKey(Pessoa.class, pessoa.getId()) );

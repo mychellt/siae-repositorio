@@ -9,9 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.dominio.Persistable;
-import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
-import br.siae.arq.utils.DAOUtils;
 
 @Service
 @Transactional
@@ -20,32 +18,17 @@ public abstract class AbstractService {
 	@Resource(name="genericDAO")
 	private GenericDAO dao;
 	
-	public Persistable cadastrar( Persistable obj) throws DAOException {
-		try {
-			dao.create( obj );
-		} catch (Exception e) {
-			throw new DAOException(e);
-		}
+	public Persistable cadastrar( Persistable obj) throws NegocioException {
+		dao.create( obj );
 		return obj;
 	}
-	public Persistable remover( Persistable obj ) throws NegocioException, DAOException {
-		try {
-			dao.delete(obj);
-		} catch (Exception e) {
-			if (DAOUtils.isFKConstraintError(e)) {
-				throw new NegocioException("Esse registro não pode ser removido, pois está associado a outros registros da base de dados.");
-			}
-			throw new DAOException(e);
-		} 
+	public Persistable remover( Persistable obj ) throws NegocioException {
+		dao.delete(obj);
 		return obj;
 	}
 	
-	public Persistable alterar( Persistable obj ) throws DAOException {
-		try {
-			dao.update( obj );
-		} catch (Exception e) {
-			throw new DAOException(e);
-		}
+	public Persistable alterar( Persistable obj ) throws NegocioException {
+		dao.update( obj );
 		return obj;
 	}
 	
@@ -53,11 +36,11 @@ public abstract class AbstractService {
 		return dao;
 	}
 	
-	public <T> Collection<T>  getAll( Class<T> classe ) throws DAOException {
+	public <T> Collection<T>  getAll( Class<T> classe ) throws NegocioException {
 		return getGenericDAO().findAll(classe);
 	}
 	
-	public <T> Collection<T> getByExactField(Class<T> classe, String field, Object value) throws DAOException {
+	public <T> Collection<T> getByExactField(Class<T> classe, String field, Object value) throws NegocioException {
 		return dao.findByExactField(classe, field, value);
 	}
 	

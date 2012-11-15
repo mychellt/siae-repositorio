@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.service.AbstractService;
 import br.siae.arq.service.PessoaService;
@@ -25,7 +24,7 @@ public class AlunoService extends AbstractService{
 	@Resource(name="pessoaService")
 	private PessoaService pessoaService;
 	
-	public Aluno executeCadastro( Aluno aluno ) throws NegocioException, DAOException {
+	public Aluno executeCadastro( Aluno aluno ) throws NegocioException {
 		//Persiste a pessoa
 		pessoaService.executeCadastro( aluno.getPessoa() );
 		if( ValidatorUtil.isNotEmpty(aluno) ){
@@ -37,7 +36,7 @@ public class AlunoService extends AbstractService{
 		return aluno;
 	}
 	
-	public Collection<Aluno> getByCriteriosBusca(Aluno aluno) throws DAOException{
+	public Collection<Aluno> getByCriteriosBusca(Aluno aluno) throws NegocioException{
 		return dao.findByCriterios( ValidatorUtil.isNotEmpty( aluno.getPessoa().getNome() ) ? aluno.getPessoa().getNome() : null, 
 									ValidatorUtil.isNotEmpty( aluno.getPessoa().getNomeMae() ) ? aluno.getPessoa().getNomeMae() : null, 
 									ValidatorUtil.isNotEmpty( aluno.getPessoa().getNomePai() ) ? aluno.getPessoa().getNomePai(): null,
@@ -47,11 +46,11 @@ public class AlunoService extends AbstractService{
 									ValidatorUtil.isNotEmpty( aluno.getPessoa().getCertidaoNascimento().getNumero() ) ? aluno.getPessoa().getCertidaoNascimento().getNumero() : null ) ;
 	}
 
-	public List<Aluno> getAll() throws DAOException{
+	public List<Aluno> getAll() throws NegocioException{
 		return (List<Aluno>) dao.findAll( Aluno.class );
 	}
 	
-	public Aluno executeRemocao( Aluno aluno ) throws DAOException, NegocioException  {
+	public Aluno executeRemocao( Aluno aluno ) throws NegocioException  {
 		return (Aluno) remover(aluno);
 	}
 }

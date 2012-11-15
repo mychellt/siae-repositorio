@@ -7,14 +7,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.dominio.Estado;
 import br.siae.arq.dominio.Municipio;
-import br.siae.arq.erro.DAOException;
+import br.siae.arq.erro.NegocioException;
 
 
 @Service
 @Transactional
 public class MunicipioService extends AbstractService{
 
-	public Collection<Municipio> getByEstado(Estado estado) throws DAOException {
+	public Collection<Municipio> getByEstado(Estado estado) throws NegocioException {
 		return getByExactField(Municipio.class, "estado.id", estado.getId() );
 	}
 }

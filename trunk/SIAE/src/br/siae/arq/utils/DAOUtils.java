@@ -43,6 +43,29 @@ public class DAOUtils {
 			return null;
 		}
 	}
+	
+	public static boolean isUniqueConstraintErro(Exception e ) {
+		if( e.getCause() instanceof ConstraintViolationException ) {
+			ConstraintViolationException cve = (ConstraintViolationException) e.getCause();
+			DataAccessException translatedException = SessionFactoryUtils.convertHibernateAccessException(cve);
+			if (translatedException instanceof DataIntegrityViolationException)
+				return true;
+			if (cve.getSQLException() != null) {
+				String msg = cve.getSQLException().getMessage();
+				if (msg.contains("duplicate key value violates"))
+					return true;
+				else {
+					if (cve.getSQLException().getNextException() != null) {
+						msg = cve.getSQLException().getNextException().toString();
+						if (msg.contains("duplicate key value violates"))
+							return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
 	public static boolean isFKConstraintError(Exception e) {
 
 		if (e.getCause() instanceof ConstraintViolationException) {
@@ -67,5 +90,4 @@ public class DAOUtils {
 		}
 		return false;
 	}
-	
 }

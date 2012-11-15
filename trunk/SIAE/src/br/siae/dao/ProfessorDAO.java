@@ -3,14 +3,11 @@ package br.siae.dao;
 import java.util.Collection;
 import java.util.Date;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.dao.GenericDAO;
-import br.siae.arq.erro.DAOException;
-import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.rh.Professor;
 
 
@@ -18,8 +15,7 @@ import br.siae.dominio.rh.Professor;
 @Transactional
 public class ProfessorDAO extends GenericDAO{
 
-	public Collection<Professor> findByCriterios( String nome, String nomeMae, String nomePai, Long cpf, Date nascimento, Long rg, Long registroNascimento ) throws DAOException {
-		try {
+	public Collection<Professor> findByCriterios( String nome, String nomeMae, String nomePai, Long cpf, Date nascimento, Long rg, Long registroNascimento ) throws DataAccessException {
 //			Criteria c = getSession().createCriteria( Professor.class );
 //			c.createAlias("pessoa", "p");
 //			if( ValidatorUtil.isNotEmpty(nome) ){
@@ -50,8 +46,5 @@ public class ProfessorDAO extends GenericDAO{
 //			Collection<Professor> lista = c.list();
 //			return lista;
 			return null;
-		} catch (Exception e) {
-			throw new DAOException(e);
-		}
 	}
 }

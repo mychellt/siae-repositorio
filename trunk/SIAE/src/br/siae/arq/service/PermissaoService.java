@@ -3,7 +3,6 @@ package br.siae.arq.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.siae.arq.erro.DAOException;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.seguranca.Permissao;
 import br.siae.arq.utils.ValidatorUtil;
@@ -13,15 +12,9 @@ import br.siae.arq.utils.ValidatorUtil;
 public class PermissaoService extends AbstractService{
 	
 
-	public Permissao executeCadastro( Permissao permissao ) throws NegocioException, DAOException {
+	public Permissao executeCadastro( Permissao permissao ) throws NegocioException {
 		if( ValidatorUtil.isEmpty( permissao ) ){
-			try {
-				permissao = (Permissao) cadastrar(permissao);
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-				throw new NegocioException(e);
-			}
+			permissao = (Permissao) cadastrar(permissao);
 		}
 		else {
 			permissao = (Permissao) alterar(permissao);
@@ -30,7 +23,7 @@ public class PermissaoService extends AbstractService{
 	}
 	
 	
-	public Permissao executeRemocao( Permissao permissao ) throws NegocioException, DAOException {
+	public Permissao executeRemocao( Permissao permissao ) throws NegocioException {
 		permissao = (Permissao) remover(permissao);
 		return permissao;
 	}

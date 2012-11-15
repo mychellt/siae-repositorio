@@ -3,21 +3,17 @@ package br.siae.arq.dao;
 import java.util.Collection;
 import java.util.Date;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.dominio.Pessoa;
-import br.siae.arq.erro.DAOException;
-import br.siae.arq.utils.ValidatorUtil;
 
 @Repository
 @Transactional
 public class PessoaDAO extends GenericDAO{
 	
-	public Collection<Pessoa>findByCriterios( String nome, String nomeMae, String nomePai, Long cpf, Date nascimento, Long rg, Long registroNascimento ) throws DAOException {
-		try {
+	public Collection<Pessoa>findByCriterios( String nome, String nomeMae, String nomePai, Long cpf, Date nascimento, Long rg, Long registroNascimento ) throws DataAccessException {
 //			Criteria c = getSession().createCriteria( Pessoa.class );
 //			if( ValidatorUtil.isNotEmpty(nome) ){
 //				c.add( Restrictions.ilike("nome", nome ) );
@@ -46,19 +42,12 @@ public class PessoaDAO extends GenericDAO{
 //			Collection<Pessoa> lista = c.list();
 //			return lista;
 			return null;
-		} catch (Exception e) {
-			throw new DAOException(e);
-		}
 	}
-	public Pessoa findByCpf( long cpf ) throws DAOException {
-		try {
+	public Pessoa findByCpf( long cpf ) throws DataAccessException {
 //			Criteria c = getSession().createCriteria( Pessoa.class );
 //			c.add( Restrictions.eq("cpf", cpf ) );
 //			Pessoa pessoa = (Pessoa) c.uniqueResult();
 //			return pessoa;
 			return null;
-		} catch (Exception e) {
-			throw new DAOException(e);
-		}
 	}
 }

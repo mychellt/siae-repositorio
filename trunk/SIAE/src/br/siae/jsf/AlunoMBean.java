@@ -6,8 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.siae.arq.dominio.TipoPessoa;
-import br.siae.arq.erro.DAOException;
-import br.siae.arq.erro.NegocioException;
+import br.siae.arq.erro.ArqException;
 import br.siae.arq.jsf.AbstractSiaeController;
 import br.siae.arq.jsf.PessoaMBean;
 import br.siae.arq.utils.ValidatorUtil;
@@ -16,7 +15,7 @@ import br.siae.service.AlunoService;
 
 @Controller
 @Scope("session")
-public class AlunoMBean extends AbstractSiaeController<Aluno>{
+public class AlunoMBean extends AbstractSiaeController<Aluno> implements ArqException{
 
 	@Resource(name="pessoaMBean")
 	private PessoaMBean pessoaMBean;
@@ -72,12 +71,8 @@ public class AlunoMBean extends AbstractSiaeController<Aluno>{
 		
 		try {
 			obj = alunoService.executeCadastro( obj );
-		} catch (NegocioException e) {
-			e.printStackTrace();
-			addMensagemErro( e.getMessage() );
-		} catch (DAOException e) {
-			e.printStackTrace();
-			addMensagemErro("Ocorreu um erro ao tentar inserir o aluno na base de dados. Por favor entre em contato com o administrador do sistema.");
+		} catch (Exception e) {
+			addMensagemErro( processaException(e) );
 		}
 		
 		addMensagemInformacao("Cadastro do aluno efetuado com sucesso!");
@@ -91,14 +86,15 @@ public class AlunoMBean extends AbstractSiaeController<Aluno>{
 		}
 		try {
 			obj = alunoService.executeRemocao(obj);
-		} catch (NegocioException e) {
-			e.printStackTrace();
-			addMensagemErro( e.getMessage() );
-		}
-		catch (DAOException e) {
-			e.printStackTrace();
-			addMensagemErro("Ocorreu um erro ao tentar inserir o aluno na base de dados. Por favor entre em contato com o administrador do sistema.");
+		} catch (Exception e) {
+			addMensagemErro( processaException(e) );
 		}
 		return getPaginaListagem();
+	}
+
+	@Override
+	public String processaException(Exception e) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

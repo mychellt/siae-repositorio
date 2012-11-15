@@ -15,7 +15,7 @@ import br.siae.arq.dominio.Logradouro;
 import br.siae.arq.dominio.Naturalidade;
 import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.dominio.TituloEleitor;
-import br.siae.arq.erro.DAOException;
+import br.siae.arq.erro.ArqException;
 import br.siae.arq.jsf.AbstractSiaeController;
 import br.siae.arq.jsf.ConsultadorPessoa;
 import br.siae.dominio.academico.Aluno;
@@ -23,7 +23,7 @@ import br.siae.service.AlunoService;
 
 @Controller
 @Scope("session")
-public class ConsultadorAlunoMBean extends AbstractSiaeController<Aluno>{
+public class ConsultadorAlunoMBean extends AbstractSiaeController<Aluno> implements ArqException{
 	
 	/** Indica que a busca de será feita por matrícula do aluno.*/
 	private boolean byMatricula;
@@ -65,9 +65,8 @@ public class ConsultadorAlunoMBean extends AbstractSiaeController<Aluno>{
 		resetObj();
 		try {
 			lista =  alunoService.getAll();
-		} catch (DAOException e) {
-			addMensagemErro("Ocorreu um erro ao tentar recuperar os registro de aluno. Por favor entre em contato com o administrado do sistema.");
-			e.printStackTrace();
+		} catch (Exception e) {
+			addMensagemErro( processaException(e) );
 		}
 		return getPaginaListagem();
 	}
@@ -80,5 +79,10 @@ public class ConsultadorAlunoMBean extends AbstractSiaeController<Aluno>{
 	}
 	public void setConsultadorPessoa(ConsultadorPessoa consultadorPessoa) {
 		this.consultadorPessoa = consultadorPessoa;
+	}
+
+	@Override
+	public String processaException(Exception e) {
+		return null;
 	}
 }

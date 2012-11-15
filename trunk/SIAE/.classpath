@@ -72,5 +72,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-security-taglibs-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-security-web-3.1.0.RC1-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-security-web-3.1.0.RC1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-1.6.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

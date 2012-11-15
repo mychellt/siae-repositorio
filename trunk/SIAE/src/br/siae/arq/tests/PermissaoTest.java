@@ -16,8 +16,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.siae.arq.erro.DAOException;
-import br.siae.arq.erro.NegocioException;
 import br.siae.arq.seguranca.Permissao;
 import br.siae.arq.service.PermissaoService;
 
@@ -36,48 +34,39 @@ public class PermissaoTest {
 		permissao.setDescricao("Permissão de Testes Unitário");
 		try {
 			service.executeCadastro(permissao);
-		} catch (NegocioException e) {
-			assertNull(e);
-			e.printStackTrace();
-		} catch (DAOException e) {
+		} catch (Exception e) {
 			assertNull(e);
 			e.printStackTrace();
 		}
 		assertNotNull(permissao.getId());
 	}  
 	  
-	@Test  
+	@Test
 	@ExpectedException(ObjectDeletedException.class)
 	public void testDelete(){
-		Permissao p = new Permissao();
-		p.setId(2);
+		Permissao permissao = new Permissao();
 		try {
-			service.executeRemocao(p);
-		} catch (NegocioException e) {
-			assertNull(e);
-			e.printStackTrace();
-		} catch (DAOException e) {
+			permissao = service.getByPrimaryKey(Permissao.class, 2);
+			service.executeRemocao(permissao);
+		} catch (Exception e) {
 			assertNull(e);
 			e.printStackTrace();
 		}
-		Permissao permissao = service.getByPrimaryKey(Permissao.class, p.getId() );
-		assertNull( permissao );
+		assertNull( service.getByPrimaryKey(Permissao.class, permissao.getId() ) );
 		
 	}  
 	  
 	@Test  
 	public void testUpdate(){ 
 		Permissao permissao = new Permissao();
-		permissao.setDenominacao("ROLE_TESTE");
-		permissao.setDescricao("Permissão para teste unitário");
 		try {
-			permissao = (Permissao) service.cadastrar(permissao);
-			String denominacao = permissao.getDenominacao();
-			permissao.setDenominacao("ROLE_TESTE_ALTERADO");
+			permissao = (Permissao) service.getByPrimaryKey(Permissao.class, 2);
+			String denominacao = "ROLE_TESTE_ALTERADO";
+			permissao.setDenominacao(denominacao);
 			service.alterar(permissao);
 			assertNotSame(denominacao, permissao.getDenominacao());
 			
-		} catch (DAOException e) {
+		} catch (Exception e) {
 			assertNull( e );
 			e.printStackTrace();
 		}
@@ -91,7 +80,7 @@ public class PermissaoTest {
 		Collection<Permissao> lista = null;
 		try {
 			lista = service.getByExactField(Permissao.class, "denominacao", permissao.getDenominacao() );
-		} catch (DAOException e) {
+		} catch (Exception e) {
 			assertNull(e);
 			e.printStackTrace();
 		}

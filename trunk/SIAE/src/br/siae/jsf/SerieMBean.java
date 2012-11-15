@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import br.siae.arq.erro.DAOException;
+import br.siae.arq.erro.ArqException;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.jsf.AbstractSiaeController;
 import br.siae.arq.utils.ValidatorUtil;
@@ -17,7 +17,7 @@ import br.siae.service.SerieService;
 
 @Controller
 @Scope("session")
-public class SerieMBean extends AbstractSiaeController<Serie>{
+public class SerieMBean extends AbstractSiaeController<Serie> implements ArqException{
 	
 	@Resource(name="serieService")
 	private SerieService serieService;
@@ -41,7 +41,7 @@ public class SerieMBean extends AbstractSiaeController<Serie>{
 		return getPaginaCadastro();
 	}
 	
-	public String cadastrar() throws DAOException {
+	public String cadastrar() {
 		validar();
 		if( isContemErros() ) {
 			return null;
@@ -58,9 +58,8 @@ public class SerieMBean extends AbstractSiaeController<Serie>{
 				lista.add(obj);
 				addMensagemInformacao("Série cadastrada com sucesso!");
 			}
-		} catch (NegocioException e) {
-			addMensagemErro( e.getMessage() );
-			e.printStackTrace();
+		} catch (Exception e) {
+			addMensagemErro( processaException(e) );
 		}
 		resetObj();
 		setConfirmButton("Cadastrar");
@@ -71,9 +70,8 @@ public class SerieMBean extends AbstractSiaeController<Serie>{
 		resetObj();
 		try {
 			lista = (List<Serie>) serieService.getAll(Serie.class);
-		} catch (DAOException e) {
-			addMensagemErro("Ocorreu um erro ao tentar recuperar os registros. Por favor, entre em contato com o administrador do sistema.");
-			e.printStackTrace();
+		} catch (Exception e) {
+			addMensagemErro( processaException(e) );
 		}
 		return getPaginaCadastro();
 	}
@@ -87,7 +85,7 @@ public class SerieMBean extends AbstractSiaeController<Serie>{
 		}
 	}
 	
-	public String remover() throws DAOException {
+	public String remover() {
 		if( ValidatorUtil.isEmpty(obj) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
@@ -101,5 +99,11 @@ public class SerieMBean extends AbstractSiaeController<Serie>{
 			addMensagemErro( e.getMessage() );
 		}
 		return getPaginaCadastro();
+	}
+
+	@Override
+	public String processaException(Exception e) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

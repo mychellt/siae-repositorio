@@ -16,13 +16,14 @@ import br.siae.arq.dominio.Logradouro;
 import br.siae.arq.dominio.Naturalidade;
 import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.dominio.TituloEleitor;
-import br.siae.arq.erro.DAOException;
+import br.siae.arq.erro.ArqException;
 import br.siae.arq.service.PessoaService;
+import br.siae.arq.utils.DAOUtils;
 import br.siae.arq.utils.ValidatorUtil;
 
 @Controller
 @Scope("session")
-public class PessoaMBean extends AbstractSiaeController<Pessoa>{
+public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqException{
 	/** Xhtml para o comprovante de cadastro da pessoa.*/
 	public static final String COMPROVANTE_CADASTRO = "/views/restrito/pessoa/comprovante.jsf";
 	
@@ -102,9 +103,8 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa>{
 		}
 		try {
 			obj = pessoaService.getByCpf( getCpf() );
-		} catch (DAOException e) {
-			addMensagemErro("Houve um erro ao tentar carregar os dados do para o cpf informado. Por favor entre em contato com o administrador do sistema.");
-			e.printStackTrace();
+		} catch (Exception e) {
+			addMensagemErro( processaException(e) );
 		}
 		if( ValidatorUtil.isEmpty(obj)) {
 			resetObj();
@@ -137,5 +137,17 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa>{
 
 	public void setCpf(long cpf) {
 		this.cpf = cpf;
+	}
+
+	@Override
+	public String processaException(Exception e) {
+		e.printStackTrace();
+		if( DAOUtils.isUniqueConstraintErro(e) ) {
+			return "Já existe uma Pessoa cadastrada com esse cpf";
+		}
+		if( DAOUtils.isFKConstraintError(e) ) {
+			return "Ocorreu um erro ao tentar remover o registro. Por favor entre em contato com o administrador do sistema.";
+		}
+		return e.getMessage();
 	}
 }
