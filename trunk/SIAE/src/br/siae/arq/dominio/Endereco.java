@@ -13,6 +13,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import br.siae.arq.utils.ValidatorUtil;
+
 
 @Entity
 @Table(name="endereco", schema="comum")
@@ -115,7 +117,7 @@ public class Endereco implements Persistable{
 	}
 	
 	public String getNomeExibicao() {
-		return logradouro.getDenominacao() + ", " + getDenominacao() + " - " + getNumero();
+		return ValidatorUtil.isNotEmpty( logradouro ) ? logradouro.getDenominacao() + ", " : "" + getDenominacao() + " - " + getNumero();
 	}
 
 	public Estado getEstado() {

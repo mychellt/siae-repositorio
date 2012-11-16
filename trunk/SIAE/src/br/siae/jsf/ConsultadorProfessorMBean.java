@@ -19,12 +19,12 @@ import br.siae.arq.dominio.TituloEleitor;
 import br.siae.arq.erro.ArqException;
 import br.siae.arq.jsf.AbstractSiaeController;
 import br.siae.arq.jsf.ConsultadorPessoa;
-import br.siae.dominio.academico.Aluno;
-import br.siae.service.AlunoService;
+import br.siae.dominio.rh.Professor;
+import br.siae.service.ProfessorService;
 
 @Controller
 @Scope("session")
-public class ConsultadorAlunoMBean extends AbstractSiaeController<Aluno> implements ArqException{
+public class ConsultadorProfessorMBean extends AbstractSiaeController<Professor> implements ArqException{
 	
 	/** Indica que a busca de será feita por matrícula do aluno.*/
 	private boolean byMatricula;
@@ -32,16 +32,16 @@ public class ConsultadorAlunoMBean extends AbstractSiaeController<Aluno> impleme
 	@Resource(name="consultadorPessoa")
 	private ConsultadorPessoa consultadorPessoa; 
 	
-	@Resource(name="alunoService")
-	private AlunoService alunoService;
+	@Resource(name="professorService")
+	private ProfessorService professorService;
 	
-	public ConsultadorAlunoMBean() {
+	public ConsultadorProfessorMBean() {
 		resetObj();
-		lista = new ArrayList<Aluno>();
+		lista = new ArrayList<Professor>();
 	}
 	
 	private void resetObj() {
-		obj = new Aluno();
+		obj = new Professor();
 		obj.setPessoa( new Pessoa() );
 		obj.getPessoa().setEndereco( new Endereco() );
 		obj.getPessoa().getEndereco().setLogradouro( new Logradouro() );
@@ -65,7 +65,7 @@ public class ConsultadorAlunoMBean extends AbstractSiaeController<Aluno> impleme
 	public String iniciarListagem() {
 		resetObj();
 		try {
-			lista =  (List<Aluno>) alunoService.getAll( Aluno.class );
+			lista =  (List<Professor>) professorService.getAll(Professor.class);
 		} catch (Exception e) {
 			addMensagemErro( processaException(e) );
 		}

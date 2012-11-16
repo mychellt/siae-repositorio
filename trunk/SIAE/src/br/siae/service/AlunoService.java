@@ -1,7 +1,6 @@
 package br.siae.service;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -44,10 +43,6 @@ public class AlunoService extends AbstractService{
 									ValidatorUtil.isNotEmpty( aluno.getPessoa().getDataNascimento() ) ? aluno.getPessoa().getDataNascimento() : null, 
 									ValidatorUtil.isNotEmpty( aluno.getPessoa().getIdentidade().getNumero() ) ? aluno.getPessoa().getIdentidade().getNumero() : null, 
 									ValidatorUtil.isNotEmpty( aluno.getPessoa().getCertidaoNascimento().getNumero() ) ? aluno.getPessoa().getCertidaoNascimento().getNumero() : null ) ;
-	}
-
-	public List<Aluno> getAll() throws NegocioException{
-		return (List<Aluno>) dao.findAll( Aluno.class );
 	}
 	
 	public Aluno executeRemocao( Aluno aluno ) throws NegocioException  {

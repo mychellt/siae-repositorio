@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.persistence.NoResultException;
 
 import org.primefaces.component.dialog.Dialog;
 import org.springframework.context.annotation.Scope;
@@ -48,8 +49,10 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqEx
 	/** Cpf informado no início do cadastro. */
 	private long cpf;
 	
+	/** Municípios para a naturalidade da pessoa.*/
 	private Collection<Municipio> municipiosNaturalidade;
 	
+	/** Municípios para o endereço da pessoa. */
 	private Collection<Municipio> municipiosEndereco;
 	
 	@Resource(name="pessoaService")
@@ -114,7 +117,9 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqEx
 		try {
 			obj = pessoaService.getByCpf( getCpf() );
 		} catch (Exception e) {
-			addMensagemErro( processaException(e) );
+			if( !(e instanceof NoResultException ) ) {
+				addMensagemErro( processaException(e) );
+			}
 		}
 		if( ValidatorUtil.isEmpty(obj)) {
 			resetObj();

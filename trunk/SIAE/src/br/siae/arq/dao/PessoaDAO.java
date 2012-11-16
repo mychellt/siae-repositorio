@@ -3,6 +3,9 @@ package br.siae.arq.dao;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Query;
+
+import org.hibernate.id.IdentityGenerator.GetGeneratedKeysDelegate;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,10 +47,9 @@ public class PessoaDAO extends GenericDAO{
 			return null;
 	}
 	public Pessoa findByCpf( long cpf ) throws DataAccessException {
-//			Criteria c = getSession().createCriteria( Pessoa.class );
-//			c.add( Restrictions.eq("cpf", cpf ) );
-//			Pessoa pessoa = (Pessoa) c.uniqueResult();
-//			return pessoa;
-			return null;
+		Query q = getEntityManager().createQuery("select p From Pessoa p where p.cpf =:cpf");
+		q.setParameter("cpf", cpf);
+		Pessoa pessoa = (Pessoa) q.getSingleResult();
+		return pessoa;
 	}
 }
