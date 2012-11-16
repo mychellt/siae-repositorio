@@ -10,9 +10,9 @@
 		<ui:define name="content">
 		<h:form id="form"  acceptcharset="ISO-8859-1" >
 			<p:breadCrumb>  
-				<p:menuitem value="Home" action="#{alunoMBean.home}" ajax="false"/>
+				<p:menuitem value="Home" action="#{alunoMBean.home}" ajax="false" immediate="true"/>
 			    <p:menuitem value="Cadastros"/>
-			    <p:menuitem value="Aluno" action="#{alunoMBean.iniciarCadastro}" />
+			    <p:menuitem value="Aluno" action="#{alunoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
 			    <p:menuitem value="Cadastrar" />  
 			</p:breadCrumb> 
 			<br/>

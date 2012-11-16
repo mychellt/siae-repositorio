@@ -1,5 +1,9 @@
 package br.siae.arq.jsf;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -13,10 +17,12 @@ import br.siae.arq.dominio.CertificadoMilitar;
 import br.siae.arq.dominio.Endereco;
 import br.siae.arq.dominio.Identidade;
 import br.siae.arq.dominio.Logradouro;
+import br.siae.arq.dominio.Municipio;
 import br.siae.arq.dominio.Naturalidade;
 import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.dominio.TituloEleitor;
 import br.siae.arq.erro.ArqException;
+import br.siae.arq.service.MunicipioService;
 import br.siae.arq.service.PessoaService;
 import br.siae.arq.utils.DAOUtils;
 import br.siae.arq.utils.ValidatorUtil;
@@ -42,8 +48,15 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqEx
 	/** Cpf informado no início do cadastro. */
 	private long cpf;
 	
+	private Collection<Municipio> municipiosNaturalidade;
+	
+	private Collection<Municipio> municipiosEndereco;
+	
 	@Resource(name="pessoaService")
 	private PessoaService pessoaService;
+	
+	@Resource(name="municipioService")
+	private MunicipioService municipioService;
 	
 	public PessoaMBean() {
 		resetObj();
@@ -82,9 +95,6 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqEx
 		}
 		if( ValidatorUtil.isEmpty( obj.getDataNascimento() ) ) {
 			addMensagemErro("Date de Nascimento: campo obrigatório não informado.");
-		}
-		if( ValidatorUtil.isEmpty( obj.getCpf() ) ) {
-			addMensagemErro("CPF: campo obrigatório não informado.");
 		}
 		if( ValidatorUtil.isEmpty( obj.getNomeMae() ) ) {
 			addMensagemErro("Nome da Mãe: campo obrigatório não informado.");
@@ -149,5 +159,44 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqEx
 			return "Ocorreu um erro ao tentar remover o registro. Por favor entre em contato com o administrador do sistema.";
 		}
 		return e.getMessage();
+	}
+
+	
+	public void changeEstadoNaturalidade(){
+		municipiosNaturalidade = new ArrayList<Municipio>();
+		if( ValidatorUtil.isNotEmpty( obj.getNaturalidade().getEstado() ) ) {
+			try {
+				municipiosNaturalidade = (List<Municipio>) municipioService.getByEstado( obj.getNaturalidade().getEstado() );
+			} catch (Exception e) {
+				e.getStackTrace();
+			}
+		}
+	}
+	
+	public void changeEstadoEndereco(){
+		municipiosEndereco = new ArrayList<Municipio>();
+		if( ValidatorUtil.isNotEmpty( obj.getEndereco().getEstado() ) ) {
+			try {
+				municipiosEndereco = (List<Municipio>) municipioService.getByEstado( obj.getEndereco().getEstado() );
+			} catch (Exception e) {
+				e.getStackTrace();
+			}
+		}
+	}
+
+	public Collection<Municipio> getMunicipiosEndereco() {
+		return municipiosEndereco;
+	}
+
+	public void setMunicipiosEndereco(Collection<Municipio> municipiosEndereco) {
+		this.municipiosEndereco = municipiosEndereco;
+	}
+
+	public Collection<Municipio> getMunicipiosNaturalidade() {
+		return municipiosNaturalidade;
+	}
+
+	public void setMunicipiosNaturalidade(Collection<Municipio> municipiosNaturalidade) {
+		this.municipiosNaturalidade = municipiosNaturalidade;
 	}
 }

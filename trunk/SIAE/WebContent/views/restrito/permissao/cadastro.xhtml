@@ -10,8 +10,8 @@
 		<ui:define name="content">
 		<h:form id="form-permissao"  acceptcharset="ISO-8859-1" >
 			<p:breadCrumb>  
-			    <p:menuitem value="Administração" action="#{permissaoMBean.home}"/>
-			    <p:menuitem value="Permissão" action="#{permissaoMBean.iniciarCadastro}" />
+			    <p:menuitem value="Administração" action="#{permissaoMBean.home}" immediate="true" ajax="false"/>
+			    <p:menuitem value="Permissão" action="#{permissaoMBean.iniciarCadastro}" immediate="true" ajax="false"/>
 			    <p:menuitem value="Cadastrar" />  
 			</p:breadCrumb> 
 			<br/>

@@ -22,7 +22,7 @@
 					<h:outputText value="Dados Pessoas do #{pessoaMBean.controlador.obj.nomeExibicao}" />
 				</caption>
 					<tr>
-						<th>
+						<th style="font-weight: bold;">
 							<h:outputText value="Nome:" />
 						</th>
 						<td>
@@ -30,7 +30,17 @@
 						</td>
 					</tr>
 					<tr>
-						<th>
+						<th style="font-weight: bold;">
+							<h:outputText value="CPF:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty pessoaMBean.obj.cpf ? pessoaMBean.obj.cpf : 'Não Informado' }"  >
+								<f:converter converterId="converterCPF"/>
+							</h:outputText>
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
 							<h:outputText value="Nome da Mãe:" />
 						</th>
 						<td>
@@ -38,7 +48,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>
+						<th style="font-weight: bold;">
 							<h:outputText value="Nome do Pai:" />
 						</th>
 						<td>
@@ -46,15 +56,17 @@
 						</td>
 					</tr>
 					<tr>
-						<th>
+						<th style="font-weight: bold;">
 							<h:outputText value="Data do Nascimento:" />
 						</th>
 						<td>
-							<h:outputText value="#{not empty pessoaMBean.obj.dataNascimento ? pessoaMBean.obj.dataNascimento : 'Não Informado'}" />
+							<h:outputText value="#{not empty pessoaMBean.obj.dataNascimento ? pessoaMBean.obj.dataNascimento : 'Não Informado'}" >
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
 						</td>
 					</tr>
 					<tr>
-						<th>
+						<th style="font-weight: bold;">
 							<h:outputText value="E-mail:" />
 						</th>
 						<td>
@@ -62,7 +74,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>
+						<th style="font-weight: bold;">
 							<h:outputText value="Celular:" />
 						</th>
 						<td>
@@ -70,7 +82,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>
+						<th style="font-weight: bold;">
 							<h:outputText value="Telefone:" />
 						</th>
 						<td>
@@ -78,7 +90,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>
+						<th style="font-weight: bold;">
 							<h:outputText value="Sexo:" />
 						</th>
 						<td>
@@ -92,7 +104,7 @@
 									<h:outputText value="Endereço" />
 								</caption>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="CEP:" />
 									</th>
 									<td>
@@ -100,17 +112,15 @@
 									</td>
 								</tr>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Logradouro:" />
 									</th>
 									<td>
-										<h:outputText  value="#{not empty pessoaMBean.obj.endereco.logradouro.denominacao ? pessoaMBean.obj.endereco.logradouro.denominacao : 'Não Informado'}" />
-										<h:outputText value="#{not empty pessoaMBean.obj.endereco.denominacao ? pessoaMBean.obj.endereco.denominacao  : ''}" />
-										<h:outputText value="#{pessoaMBean.obj.endereco.numero != 0 ? pessoaMBean.obj.endereco.numero : ''}" />
+										<h:outputText value="#{pessoaMBean.obj.endereco.nomeExibicao}"/>
 									</td>
 								</tr>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Bairro:" />
 									</th>
 									<td>
@@ -118,11 +128,11 @@
 									</td>
 								</tr>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Município:" />
 									</th>
 									<td>
-										<h:outputText value="#{not empty pessoaMBean.obj.endereco.municipio.nome ? pessoaMBean.obj.endereco.municipio.nome : 'Não Informado'}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.endereco.municipio.nome ? pessoaMBean.obj.endereco.municipio.nomeExibicao : 'Não Informado'}" />
 									</td>
 								</tr>
 							</table>
@@ -135,13 +145,13 @@
 									<h:outputText value="Documentação" />
 								</caption>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="RG:" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.identidade.numero != 0 ? pessoaMBean.obj.identidade.numero : 'Não Informado'}" />
 									</td>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Orgão de Expedição:" />
 									</th>
 									<td>
@@ -149,17 +159,19 @@
 									</td>
 								</tr>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="UF:" />
 									</th>
 									<td>
-										<h:outputText value="#{not empty pessoaMBean.obj.identidade.estado ? pessoaMBean.obj.identidade.estado.nome : 'Não Informado'}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.identidade.estado ? pessoaMBean.obj.identidade.estado.nomeExibicao : 'Não Informado'}" />
 									</td>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Data de Expedição:" />
 									</th>
 									<td>
-										<h:outputText value="#{not empty pessoaMBean.obj.identidade.dataExpedicao ? pessoaMBean.obj.identidade.dataExpedicao : 'Não Informado'}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.identidade.dataExpedicao ? pessoaMBean.obj.identidade.dataExpedicao : 'Não Informado'}" >
+											<f:convertDateTime pattern="dd/MM/yyyy"/>
+										</h:outputText>
 									</td>
 								</tr>
 								<tr>
@@ -168,27 +180,29 @@
 									</td>
 								</tr>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Certificado Militar" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.certificadoMilitar.numero !=0 ? pessoaMBean.obj.certificadoMilitar.numero : 'Não Informado'}" />
 									</td>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Data de Expedição:" />
 									</th>
 									<td>
-										<h:outputText value="#{not empty pessoaMBean.obj.certificadoMilitar.dataExpedicao ? pessoaMBean.obj.certificadoMilitar.dataExpedicao : 'Não Informado'}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.certificadoMilitar.dataExpedicao ? pessoaMBean.obj.certificadoMilitar.dataExpedicao : 'Não Informado'}" >
+											<f:convertDateTime pattern="dd/MM/yyyy"/>
+										</h:outputText>
 									</td>
 								</tr>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Série:" />
 									</th>
 									<td>
 										<h:outputText value="#{not empty pessoaMBean.obj.certificadoMilitar.serie ? pessoaMBean.obj.certificadoMilitar.serie : 'Não Informado'}" />
 									</td>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Categoria:" />
 									</th>
 									<td>
@@ -196,7 +210,7 @@
 									</td>
 								</tr>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Orgão:" />
 									</th>
 									<td>
@@ -209,21 +223,23 @@
 									</td>
 								</tr>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Certidão de Nascimento" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.certidaoNascimento.numero != 0 ? pessoaMBean.obj.certidaoNascimento.numero : 'Não Informado'}" />
 									</td>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Data de Expedição:" />
 									</th>
 									<td>
-										<h:outputText value="#{not empty pessoaMBean.obj.certidaoNascimento.dataExpedicao ? pessoaMBean.obj.certidaoNascimento.dataExpedicao : 'Não Informado'}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.certidaoNascimento.dataExpedicao ? pessoaMBean.obj.certidaoNascimento.dataExpedicao : 'Não Informado'}" >
+											<f:convertDateTime pattern="dd/MM/yyyy"/>
+										</h:outputText>
 									</td>
 								</tr>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Cartório:" />
 									</th>
 									<td>
@@ -231,13 +247,13 @@
 									</td>
 								</tr>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Livro:" />
 									</th>
 									<td>
 										<h:outputText value="#{not empty pessoaMBean.obj.certidaoNascimento.livro ? pessoaMBean.obj.certidaoNascimento.livro : 'Não Informado'}" />
 									</td>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Folha:" />
 									</th>
 									<td>
@@ -250,13 +266,13 @@
 									</td>
 								</tr>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Título de Eleitor:" />
 									</th>
 									<td>
 										<h:outputText value="#{pessoaMBean.obj.tituloEleitor.numero != 0 ? pessoaMBean.obj.tituloEleitor.numero : 'Não Informado'}" />
 									</td>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="UF:" />
 									</th>
 									<td>
@@ -264,13 +280,13 @@
 									</td>
 								</tr>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Zona:" />
 									</th>
 									<td>
 										<h:outputText value="#{not empty pessoaMBean.obj.tituloEleitor.zona ? pessoaMBean.obj.tituloEleitor.zona : 'Não Informado'}" />
 									</td>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Seção:" />
 									</th>
 									<td>
@@ -283,7 +299,7 @@
 									</td>
 								</tr>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Passaporte:" />
 									</th>
 									<td>
@@ -300,21 +316,21 @@
 									<h:outputText value="Naturalidade" />
 								</caption>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="País:" />
 									</th>
 									<td>
-										<h:outputText value="#{not empty pessoaMBean.obj.naturalidade.pais ? pessoaMBean.obj.naturalidade.pais : 'Não Informado'}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.naturalidade.pais ? pessoaMBean.obj.naturalidade.pais.nome : 'Não Informado'}" />
 									</td>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Município:" />
 									</th>
 									<td>
-										<h:outputText value="#{not empty pessoaMBean.obj.naturalidade.municipio ? pessoaMBean.obj.naturalidade.municipio.nome : 'Não Informado'}" />
+										<h:outputText value="#{not empty pessoaMBean.obj.naturalidade.municipio ? pessoaMBean.obj.naturalidade.municipio.nomeExibicao : 'Não Informado'}" />
 									</td>
 								</tr>
 								<tr>
-									<th>
+									<th style="font-weight: bold;">
 										<h:outputText value="Naturalidade:" />
 									</th>
 									<td>

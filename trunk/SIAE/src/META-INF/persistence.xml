@@ -20,14 +20,32 @@
 		<class>br.siae.arq.dominio.TituloEleitor</class>
 		<class>br.siae.arq.dominio.Usuario</class>
 		
-		
 		<!-- Pacote Segurança -->
     	<class>br.siae.arq.seguranca.Permissao</class>
     	<class>br.siae.arq.seguranca.PermissaoUsuario</class>
+    	
+		<!-- Pacote Acadêmico -->
+		<class>br.siae.dominio.academico.Aluno</class>
+		<class>br.siae.dominio.academico.RequerimentoMatricula</class>
+		<class>br.siae.dominio.academico.ItemRequerimentoMatricula</class>
+		<class>br.siae.dominio.academico.Turma</class>
+		<class>br.siae.dominio.academico.TurmaProfessor</class>
+		<class>br.siae.dominio.academico.ProfessorDisciplina</class>
+		<class>br.siae.dominio.academico.Serie</class>
+		<class>br.siae.dominio.academico.Nivel</class>
+		<class>br.siae.dominio.academico.Disciplina</class>
+		<class>br.siae.dominio.academico.Boletim</class>
+		<class>br.siae.dominio.academico.DisciplinaBoletim</class>
+		
+		<class>br.siae.dominio.comum.Turno</class>
+	
+		<!-- Pacote RH -->
+		<class>br.siae.dominio.rh.Professor</class>
+		
     	<properties>
         	<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
          	<property name="hibernate.show_sql"  value="true" />
-		 	<property name="hibernate.format_sql" value="true" />
+<!-- 		 	<property name="hibernate.format_sql" value="true" /> -->
 		    <property name="hibernate.use_sql_comments" value="true"/>
       </properties>
     </persistence-unit>

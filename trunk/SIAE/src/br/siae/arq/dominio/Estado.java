@@ -76,9 +76,21 @@ public class Estado implements Persistable{
 	public Pais getPais() {
 		return pais;
 	}
+	
+	public String getNomeExibicao() {
+		return nome + " - " + sigla; 
+	}
 
 	public void setPais(Pais pais) {
 		this.pais = pais;
+	}
+	
+	public Collection<Municipio> getMunicipios() {
+		return municipios;
+	}
+
+	public void setMunicipios(Collection<Municipio> municipios) {
+		this.municipios = municipios;
 	}
 
 	@Override

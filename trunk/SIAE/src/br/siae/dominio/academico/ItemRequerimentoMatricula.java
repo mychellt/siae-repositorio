@@ -66,4 +66,12 @@ public class ItemRequerimentoMatricula implements Persistable{
 	public void setTurma(Turma turma) {
 		this.turma = turma;
 	}
+
+	public RequerimentoMatricula getRequerimentoMatricula() {
+		return requerimentoMatricula;
+	}
+
+	public void setRequerimentoMatricula(RequerimentoMatricula requerimentoMatricula) {
+		this.requerimentoMatricula = requerimentoMatricula;
+	}
 }

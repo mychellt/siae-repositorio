@@ -24,7 +24,7 @@ import br.siae.arq.service.PessoaService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:WebContent/WEB-INF/applicationContext.xml" })  
+@ContextConfiguration(locations = {"file:WebContent/META-INF/applicationContext.xml" })  
 @Transactional  
 public class PessoaTest {
 	@Resource(name="pessoaService")
@@ -35,6 +35,7 @@ public class PessoaTest {
 		Pessoa pessoa = new Pessoa();  
 		pessoa.setNome("Pessoa Teste Unitário");
 		pessoa.setEndereco( new Endereco() );
+		pessoa.setCpf(null);
 		pessoa.setIdentidade( new Identidade() );
 		pessoa.setCertidaoNascimento( new CertidaoNascimento() );
 		pessoa.setCertificadoMilitar( new CertificadoMilitar() );

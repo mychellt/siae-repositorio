@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import br.siae.arq.dominio.Estado;
 import br.siae.arq.dominio.TipoPessoa;
 import br.siae.arq.erro.ArqException;
 import br.siae.arq.jsf.AbstractSiaeController;
@@ -38,6 +39,7 @@ public class AlunoMBean extends AbstractSiaeController<Aluno> implements ArqExce
 		pessoaMBean.setDescricaoCadastro("Cadastro de Aluno");
 		pessoaMBean.setControlador(this);
 		pessoaMBean.setExibirInfoCpf(true);
+		setConfirmButton("Cadastrar");
 		return getPaginaCadastro();
 	}
 	
@@ -53,7 +55,13 @@ public class AlunoMBean extends AbstractSiaeController<Aluno> implements ArqExce
 			resetObj();
 			return null;
 		}
+		obj.getPessoa().getEndereco().setEstado( ValidatorUtil.isNotEmpty( obj.getPessoa().getEndereco().getMunicipio() ) ?  
+				obj.getPessoa().getEndereco().getMunicipio().getEstado() : new Estado() );
+		obj.getPessoa().getNaturalidade().setEstado( ValidatorUtil.isNotEmpty( obj.getPessoa().getNaturalidade().getMunicipio() ) ?  
+				obj.getPessoa().getNaturalidade().getMunicipio().getEstado() : new Estado() );
+		
 		pessoaMBean.setObj( obj.getPessoa() );
+		
 		pessoaMBean.setControlador(this);
 		pessoaMBean.setExibirInfoCpf(false);
 		setConfirmButton("Alterar");
@@ -63,6 +71,7 @@ public class AlunoMBean extends AbstractSiaeController<Aluno> implements ArqExce
 	public String cadastrar() {
 		pessoaMBean.validate();
 		if( isContemErros() ) {
+			pessoaMBean.setExibirInfoCpf(false);
 			return getPaginaCadastro();
 		}
 		

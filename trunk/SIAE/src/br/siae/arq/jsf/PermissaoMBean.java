@@ -79,6 +79,7 @@ public class PermissaoMBean extends AbstractSiaeController<Permissao> implements
 			}
 			resetObj();
 		} catch (Exception e) {
+			obj.setId(0);
 			addMensagemErro( processaException(e) );
 		}
 		setConfirmButton("Cadastrar");

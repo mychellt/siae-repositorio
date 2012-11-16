@@ -41,7 +41,7 @@ public class ConverterCPF implements Converter{
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object obj) {
-		String v = 0 + obj.toString();
+		String v = obj.toString();
 		StringBuilder builder = new StringBuilder();
 		int tam = v.length();
 		for (int i = 0; i < tam; i++) {

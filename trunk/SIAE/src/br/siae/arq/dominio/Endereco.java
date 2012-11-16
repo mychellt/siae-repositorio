@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -45,6 +46,9 @@ public class Endereco implements Persistable{
 	
 	@Column(name="numero")
 	private long numero;
+	
+	@Transient
+	private Estado estado;
 
 	public Endereco() {
 		municipio = new Municipio();
@@ -108,5 +112,17 @@ public class Endereco implements Persistable{
 
 	public void setDenominacao(String denominacao) {
 		this.denominacao = denominacao;
+	}
+	
+	public String getNomeExibicao() {
+		return logradouro.getDenominacao() + ", " + getDenominacao() + " - " + getNumero();
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 }

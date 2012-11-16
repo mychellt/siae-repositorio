@@ -43,7 +43,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th class="obrigatorio">
+					<th>
 						<h:outputText value="CPF:" />
 					</th>
 					<td>
@@ -166,10 +166,10 @@
 									<h:outputText value="Estado" />
 								</th>
 								<td>
-									<p:selectOneMenu value="#{municipioMBean.estado}" converter="converterEstado" id="estado-endereco-pessoa">  
+									<p:selectOneMenu value="#{pessoaMBean.obj.endereco.estado}" converter="converterEstado" id="estado-endereco-pessoa">  
 										<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
 			            				<f:selectItems value="#{estadoMBean.all}" var="estado" itemLabel="#{estado.nome}" itemValue="#{estado}"/> 
-			            				<p:ajax update="municipio-endereco-pessoa" listener="#{municipioMBean.changeEstado}"/> 
+			            				<p:ajax update="municipio-endereco-pessoa" listener="#{pessoaMBean.changeEstadoEndereco}"/> 
 									</p:selectOneMenu>
 								</td>
 							</tr>
@@ -180,7 +180,7 @@
 								<td colspan="3">
 									<p:selectOneMenu id="municipio-endereco-pessoa"  value="#{pessoaMBean.obj.endereco.municipio}" converter="converterMunicipio">  
 										<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
-			            				<f:selectItems value="#{municipioMBean.all}" var="municipio" itemLabel="#{municipio.nome}" itemValue="#{municipio}"/> 
+			            				<f:selectItems value="#{pessoaMBean.municipiosEndereco}" var="municipio" itemLabel="#{municipio.nome}" itemValue="#{municipio}"/> 
 									</p:selectOneMenu>
 								</td>
 							</tr>
@@ -375,10 +375,10 @@
 									<h:outputText value="Estado:" />
 								</th>
 								<td>
-									<p:selectOneMenu value="#{municipioMBean.estado}" converter="converterEstado" id="estado-naturalidade-pessoa">  
+									<p:selectOneMenu value="#{pessoaMBean.obj.naturalidade.estado}" converter="converterEstado" id="estado-naturalidade-pessoa">  
 										<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
 			            				<f:selectItems value="#{estadoMBean.all}" var="estado" itemLabel="#{estado.nome}" itemValue="#{estado}"/>
-			            				<p:ajax update="municipio-naturalidade-pessoa" listener="#{municipioMBean.changeEstado}"/> 
+			            				<p:ajax update="municipio-naturalidade-pessoa" listener="#{pessoaMBean.changeEstadoNaturalidade}"/> 
 									</p:selectOneMenu>
 								</td>
 							</tr>
@@ -389,7 +389,7 @@
 								<td>
 									<p:selectOneMenu value="#{pessoaMBean.obj.naturalidade.municipio}" converter="converterMunicipio" id="municipio-naturalidade-pessoa">  
 										<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
-			            				<f:selectItems value="#{municipioMBean.all}" var="municipio" itemLabel="#{municipio.nome}" itemValue="#{municipio}"/> 
+			            				<f:selectItems value="#{pessoaMBean.municipiosNaturalidade}" var="municipio" itemLabel="#{municipio.nome}" itemValue="#{municipio}"/> 
 									</p:selectOneMenu>
 								</td>
 								<th>
@@ -405,7 +405,7 @@
 				<tfoot>
 					<tr style="text-align: center;">
 						<td colspan="2">
-							<p:commandButton ajax="false" value="#{pessoaMBean.controlador.confirmButton}" action="#{pessoaMBean.controlador.cadastrar}"/>
+							<p:commandButton ajax="false" value="#{pessoaMBean.controlador.confirmButton}" action="#{pessoaMBean.controlador.cadastrar}" />
 							<p:commandButton value="Cancelar" action="#{pessoaMBean.cancelar}"/>
 						</td>
 					</tr>

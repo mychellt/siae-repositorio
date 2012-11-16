@@ -1,7 +1,5 @@
 package br.siae.arq.service;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -9,7 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.dao.PessoaDAO;
 import br.siae.arq.dominio.Estado;
+import br.siae.arq.dominio.Logradouro;
+import br.siae.arq.dominio.Municipio;
+import br.siae.arq.dominio.Pais;
 import br.siae.arq.dominio.Pessoa;
+import br.siae.arq.dominio.Sexo;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.utils.ValidatorUtil;
 
@@ -21,7 +23,6 @@ public class PessoaService extends AbstractService{
 	private PessoaDAO pessoaDAO;
 	
 	public Pessoa executeCadastro( Pessoa pessoa ) throws NegocioException {
-		List<Pessoa> lista = (List<Pessoa>) getGenericDAO().findByExactField( Pessoa.class, "cpf", pessoa.getCpf() );
 		if( ValidatorUtil.isEmpty( pessoa.getEndereco().getMunicipio())) {
 			pessoa.getEndereco().setMunicipio(null);
 		}
@@ -44,20 +45,31 @@ public class PessoaService extends AbstractService{
 			pessoa.getIdentidade().setEstado(null);
 		}
 		if( ValidatorUtil.isEmpty(pessoa) ){
-			if( ValidatorUtil.isNotEmpty(lista)){
-				throw new NegocioException("Já existe um aluno cadastrado com o CPF informado.");
-			}
 			pessoa = (Pessoa) cadastrar(pessoa);
 		}
 		else {
-			if( ValidatorUtil.isNotEmpty(lista) && lista.get(0).getId() != pessoa.getId() ) {
-				throw new NegocioException("Já existe um aluno cadastrado com o CPF informado.");
-			}
 			pessoa = (Pessoa) alterar(pessoa);
 		}
 		if( ValidatorUtil.isNotEmpty( pessoa.getIdentidade().getEstado() ) ) {
 			pessoa.getIdentidade().setEstado( getGenericDAO().findByPrimaryKey(Estado.class, pessoa.getIdentidade().getEstado().getId() ) );
 		}
+		Logradouro logradouro = pessoa.getEndereco().getLogradouro();
+		if( ValidatorUtil.isNotEmpty( logradouro ) ) {
+			pessoa.getEndereco().setLogradouro( getGenericDAO().findByPrimaryKey(Logradouro.class, logradouro.getId() ) );
+		}
+		if( ValidatorUtil.isNotEmpty( pessoa.getTituloEleitor().getUf() ) ) {
+			pessoa.getTituloEleitor().setUf( getGenericDAO().findByPrimaryKey( Estado.class, pessoa.getTituloEleitor().getUf().getId() ) );
+		}
+		if( ValidatorUtil.isNotEmpty( pessoa.getNaturalidade().getPais() ) ) {
+			pessoa.getNaturalidade().setPais( getGenericDAO().findByPrimaryKey(Pais.class, pessoa.getNaturalidade().getPais().getId() ) );
+		}
+		if( ValidatorUtil.isNotEmpty( pessoa.getNaturalidade().getMunicipio() ) ) {
+			pessoa.getNaturalidade().setMunicipio( getGenericDAO().findByPrimaryKey(Municipio.class, pessoa.getNaturalidade().getMunicipio().getId()) );
+		}
+		if( ValidatorUtil.isNotEmpty( pessoa.getEndereco().getMunicipio() ) ) {
+			pessoa.getEndereco().setMunicipio( getGenericDAO().findByPrimaryKey(Municipio.class, pessoa.getEndereco().getMunicipio().getId()) );
+		}
+		pessoa.setSexo( getGenericDAO().findByPrimaryKey(Sexo.class, pessoa.getSexo().getId() ) );
 		return pessoa;
 	}
 	
