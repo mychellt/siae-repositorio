@@ -7,29 +7,28 @@
 		<p:menubar> 
 			 <p:submenu label="Aministração" >  
 			 	 <p:submenu label="Permissão">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{permissaoMBean.iniciarCadastro}" ajax="false" />
+			 	 	 <p:menuitem value="Cadastrar" action="#{permissaoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
 			 	 </p:submenu>
 			 </p:submenu>
 			 <p:submenu label="Cadastros" >  
 			 	 <p:submenu label="Aluno">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{alunoMBean.iniciarCadastro}" ajax="false" />
-			 	 	 <p:menuitem value="Listar/Alterar" action="#{consultadorAlunoMBean.iniciarListagem}" ajax="false" />
+			 	 	 <p:menuitem value="Cadastrar" action="#{alunoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
+			 	 	 <p:menuitem value="Listar/Alterar" action="#{consultadorAlunoMBean.iniciarListagem}" ajax="false" immediate="true"/>
 			 	 </p:submenu>
 			 	 <p:submenu label="Professor">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{professorMBean.iniciarCadastro}" ajax="false" />
-			 	 	 <p:menuitem value="Listar/Alterar" action="#{professorMBean.iniciarListagem}" ajax="false" />
+			 	 	 <p:menuitem value="Cadastrar" action="#{professorMBean.iniciarCadastro}" ajax="false" immediate="true"/>
+			 	 	 <p:menuitem value="Listar/Alterar" action="#{professorMBean.iniciarListagem}" ajax="false" immediate="true"/>
 			 	 </p:submenu>
 			 	 <p:submenu label="Funcionário">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{funcionarioMBean.iniciarCadastro}" ajax="false" />
-			 	 	 <p:menuitem value="Listar/Alterar" action="#{funcionarioMBean.iniciarListagem}" ajax="false" />
+			 	 	 <p:menuitem value="Cadastrar" action="#{funcionarioMBean.iniciarCadastro}" ajax="false"  immediate="true"/>
+			 	 	 <p:menuitem value="Listar/Alterar" action="#{funcionarioMBean.iniciarListagem}" ajax="false" immediate="true"/>
 			 	 </p:submenu>
 			 	 <p:submenu label="Turma">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{turmaMBean.iniciarCadastro}" ajax="false" />
-			 	 	 <p:menuitem value="Listar/Alterar" action="#{turmaMBean.iniciarListagem}" ajax="false" />
+			 	 	 <p:menuitem value="Cadastrar" action="#{turmaMBean.iniciarCadastro}" ajax="false"  immediate="true"/>
+			 	 	 <p:menuitem value="Listar/Alterar" action="#{turmaMBean.iniciarListagem}" ajax="false"  immediate="true"/>
 			 	 </p:submenu>
 			 	  <p:submenu label="Série">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{serieMBean.iniciarCadastro}" ajax="false" />
-			 	 	 <p:menuitem value="Listar/Alterar" action="#{serieMBean.iniciarListagem}" ajax="false" />
+			 	 	 <p:menuitem value="Cadastrar" action="#{serieMBean.iniciarCadastro}" ajax="false" immediate="true"/>
 			 	 </p:submenu>
 			 </p:submenu> 
 		</p:menubar>

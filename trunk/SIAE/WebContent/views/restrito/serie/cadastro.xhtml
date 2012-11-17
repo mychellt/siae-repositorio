@@ -10,9 +10,9 @@
 		<ui:define name="content">
 		<h:form id="form"  acceptcharset="ISO-8859-1">
 			<p:breadCrumb>  
-				<p:menuitem value="Home" action="#{serieMBean.home}"/>
-			    <p:menuitem value="Cadastros" action="#{serieMBean.home}"/>
-			    <p:menuitem value="Série" action="#{serieMBean.iniciarCadastro}" />
+				<p:menuitem value="Home" action="#{serieMBean.home}" ajax="false" immediate="true"/>
+			    <p:menuitem value="Cadastros" action="#{serieMBean.home}" ajax="false" immediate="true"/>
+			    <p:menuitem value="Série" action="#{serieMBean.iniciarCadastro}" ajax="false" immediate="true"/>
 			    <p:menuitem value="Cadastrar" />  
 			</p:breadCrumb> 
 			<br/>
@@ -21,7 +21,7 @@
 			<table style="width: 35%" class="formulario">
 				<caption>Cadastrar Série</caption>
 				<tr>
-					<th>
+					<th class="obrigatorio">
 						<h:outputText value="Denominação:" />
 					</th>
 					<td>
@@ -29,21 +29,21 @@
 					</td>
 				</tr>
 				<tr>
-					<th>
-						<h:outputText value="Nível" />
+					<th class="obrigatorio">
+						<h:outputText value="Nível:" />
 					</th>
 					<td>  
 						<p:selectOneMenu value="#{serieMBean.obj.nivel}" converter="converterNivel" id="nivel">  
-							<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}"/>  
+							<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
             				<f:selectItems value="#{nivelMBean.all}" var="nivel" itemLabel="#{nivel.denominacao}" itemValue="#{nivel}" />  
 						</p:selectOneMenu>
 					</td>
 				</tr>
 				<tfoot>
-					<tr>
+					<tr style="text-align: center;">
 						<td colspan="2"> 
-							<p:commandButton update="@form" value="#{serieMBean.confirmButton}" action="#{serieMBean.cadastrar}" />
-							<p:commandButton value="Cancelar" action="#{serieMBean.cancelar}"/>
+							<p:commandButton value="#{serieMBean.confirmButton}" action="#{serieMBean.cadastrar}" ajax="false"/>
+							<p:commandButton value="Cancelar" action="#{serieMBean.cancelar}" ajax="false" immediate="true"/>
 						</td>
 					</tr>
 				</tfoot>
@@ -77,17 +77,17 @@
 			          	</h:commandLink>			          	
 			          	<h:commandLink action="#{serieMBean.preAlterar}">
 			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Série"/>
-			          		<f:setPropertyActionListener target="#{serieMBean.obj}" value="#{serie}"/>
+			          		<f:param name="idSerie" value="#{serie.id}"/>
 			          	</h:commandLink>
-			          </p:column>  
+				         <p:confirmDialog id="confirmDialog" message="Deseja realmente remover o registro?"   header="Initiating destroy process" widgetVar="confirmation">  
+					        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{serieMBean.remover}" ajax="false">
+					        	<f:param name="idSerie" value="#{serie.id}"/>
+					        </p:commandButton>  
+				       	<p:commandButton id="decline" value="Nao" onclick="confirmation.hide()" type="button" />   
+					</p:confirmDialog>  
+			          </p:column>
 	    		</p:dataTable>
-	    		<br/><br/>    
-	    		<p:confirmDialog id="confirmDialog" message="Deseja realmente remover o registro?"   header="Initiating destroy process" widgetVar="confirmation">  
-			        <p:commandButton id="confirm" value="Sim" update="dataTable" oncomplete="confirmation.hide()" action="#{serieMBean.remover}">
-			        	<f:setPropertyActionListener target="#{serieMBean.obj}" value="#{serie}"/>
-			        </p:commandButton>  
-			       	<p:commandButton id="decline" value="Nao" onclick="confirmation.hide()" type="button" />   
-				</p:confirmDialog>   
+	    		<br/><br/>       
 		  </h:form>
 		</ui:define>
 		<ui:define name="footer">

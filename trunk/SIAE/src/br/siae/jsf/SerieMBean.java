@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import br.siae.arq.erro.ArqException;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.jsf.AbstractSiaeController;
+import br.siae.arq.utils.DAOUtils;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Nivel;
 import br.siae.dominio.academico.Serie;
@@ -32,6 +33,7 @@ public class SerieMBean extends AbstractSiaeController<Serie> implements ArqExce
 	}
 	
 	public String preAlterar() {
+		obj = serieService.getByPrimaryKey(Serie.class, getParameterInt("idSerie") );
 		if( ValidatorUtil.isEmpty(obj) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
@@ -58,12 +60,12 @@ public class SerieMBean extends AbstractSiaeController<Serie> implements ArqExce
 				lista.add(obj);
 				addMensagemInformacao("Série cadastrada com sucesso!");
 			}
+			resetObj();
 		} catch (Exception e) {
 			addMensagemErro( processaException(e) );
 		}
-		resetObj();
 		setConfirmButton("Cadastrar");
-		return null;
+		return getPaginaCadastro();
 	}
 
 	public String iniciarCadastro() {
@@ -86,6 +88,7 @@ public class SerieMBean extends AbstractSiaeController<Serie> implements ArqExce
 	}
 	
 	public String remover() {
+		obj = serieService.getByPrimaryKey(Serie.class, getParameterInt("idSerie") );
 		if( ValidatorUtil.isEmpty(obj) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
@@ -96,14 +99,16 @@ public class SerieMBean extends AbstractSiaeController<Serie> implements ArqExce
 			lista.remove(obj);
 		}
 		catch(NegocioException e) {
-			addMensagemErro( e.getMessage() );
+			addMensagemErro( processaException(e) );
 		}
 		return getPaginaCadastro();
 	}
 
 	@Override
 	public String processaException(Exception e) {
-		// TODO Auto-generated method stub
-		return null;
+		if( DAOUtils.isUniqueConstraintErro(e) ) {
+			return "Já existe um Série cadastrada com essa denominação para esse Niível.";
+		}
+		return e.getMessage();
 	}
 }

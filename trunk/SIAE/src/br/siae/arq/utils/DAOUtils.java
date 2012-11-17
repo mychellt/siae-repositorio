@@ -4,6 +4,8 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.persistence.PersistenceException;
+
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -45,7 +47,10 @@ public class DAOUtils {
 	}
 	
 	public static boolean isUniqueConstraintErro(Exception e ) {
-		if( e.getCause() instanceof ConstraintViolationException ) {
+		if( e.getCause() instanceof PersistenceException ) {
+			e = (Exception) e.getCause();
+		}
+		if( e.getCause() instanceof ConstraintViolationException) {
 			ConstraintViolationException cve = (ConstraintViolationException) e.getCause();
 			DataAccessException translatedException = SessionFactoryUtils.convertHibernateAccessException(cve);
 			if (translatedException instanceof DataIntegrityViolationException)
