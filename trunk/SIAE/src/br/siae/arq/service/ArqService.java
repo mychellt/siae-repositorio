@@ -10,6 +10,10 @@ import br.siae.arq.dominio.Municipio;
 import br.siae.arq.dominio.Pais;
 import br.siae.arq.dominio.Sexo;
 import br.siae.arq.erro.NegocioException;
+import br.siae.dominio.academico.Nivel;
+import br.siae.dominio.academico.NivelFormacao;
+import br.siae.dominio.academico.Serie;
+import br.siae.dominio.comum.Turno;
 
 @Service
 @Transactional
@@ -20,5 +24,9 @@ public class ArqService extends AbstractService{
 		ArqCache.setMunicipios( getAll(Municipio.class) );
 		ArqCache.setPaises( getAll(Pais.class) );
 		ArqCache.setLogradouros( getAll(Logradouro.class) );
+		ArqCache.setNiveis( getAll(Nivel.class) );
+		ArqCache.setTurnos( getAll(Turno.class) );
+		ArqCache.setSeries( getAll(Serie.class) );
+		ArqCache.setNiveisFormacao( getAll(NivelFormacao.class) );
 	}
 }

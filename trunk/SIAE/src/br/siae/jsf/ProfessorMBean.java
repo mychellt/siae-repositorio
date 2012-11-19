@@ -79,7 +79,7 @@ public class ProfessorMBean extends AbstractSiaeController<Professor> implements
 			addMensagemErro( processaException(e) );
 		}
 		
-		addMensagemErro("Cadastro do aluno efetuado com sucesso!");
+		addMensagemInformacao("Operação efetuada com sucesso!");
 		return PessoaMBean.COMPROVANTE_CADASTRO;
 	}
 

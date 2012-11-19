@@ -2,6 +2,9 @@ package br.siae.dao;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Query;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
@@ -46,5 +49,15 @@ public class ProfessorDAO extends GenericDAO{
 //			Collection<Professor> lista = c.list();
 //			return lista;
 			return null;
+	}
+	
+	public Collection<Professor> findByNome( String nome ) throws DataAccessException {
+		String hql = "select prof from Professor prof join prof.pessoa p where upper(p.nome) like upper(:nome) order by p.nome asc ";
+		Query q = getEntityManager().createQuery(hql);
+		q.setParameter("nome", "%" + nome + "%");
+		
+		@SuppressWarnings("unchecked")
+		List<Professor> lista = q.getResultList();
+		return lista;
 	}
 }

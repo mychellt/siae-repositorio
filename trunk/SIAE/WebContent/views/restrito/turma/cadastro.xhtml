@@ -11,17 +11,26 @@
 		<h:form id="form"  acceptcharset="ISO-8859-1">
 			<ui:include src="/views/restrito/includes/menu.xhtml" />
 			<p:breadCrumb> 
-				<p:menuitem value="Home" action="#{turmaMBean.home}"/>
-			    <p:menuitem value="Cadastros" action="#{turmaMBean.home}"/>
-			    <p:menuitem value="Turma" action="#{permissaoMBean.iniciarCadastro}" />
+				<p:menuitem value="Home" action="#{turmaMBean.home}"  ajax="false" immediate="true"/>
+			    <p:menuitem value="Cadastros" action="#{turmaMBean.home}" ajax="false" immediate="true"/>
+			    <p:menuitem value="Turma" action="#{turmaMBean.iniciarCadastro}" ajax="false" immediate="true"/>
 			    <p:menuitem value="Cadastrar" />  
 			</p:breadCrumb> 
 			<br/>
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
 			<br/>
-			<table style="width: 50%" class="formulario">
+			<table style="width: 70%" class="formulario">
 				<caption>Cadastrar Turma</caption>
 				<tr>
-					<th>
+					<th class="obrigatorio">
+						<h:outputText value="Ano:" />
+					</th>
+					<td>
+						<p:inputText value="#{turmaMBean.obj.ano}" size="4" maxlength="4"/>
+					</td>
+				</tr>
+				<tr>
+					<th class="obrigatorio">
 						<h:outputText value="Nome:" />
 					</th>
 					<td>
@@ -29,7 +38,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>
+					<th class="obrigatorio">
 						<h:outputText value="Serie:" />
 					</th>
 					<td>  
@@ -40,7 +49,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>
+					<th class="obrigatorio">
 						<h:outputText value="Turno:" />
 					</th>
 					<td>
@@ -50,6 +59,46 @@
 						</p:selectOneMenu>
 					</td>
 				</tr>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Número de Vagas:" />
+					</th>
+					<td>
+						<p:inputText value="#{turmaMBean.obj.numeroVagas}" size="9" maxlength="9"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table style="width: 100%" class="subformulario">
+							<caption>
+								<h:outputText value="Docente(s) da Turma" />
+							</caption>
+							<tr>
+								<td colspan="2">
+									<p:dataTable id="listagem-professor" var="professor" value="#{turmaMBean.professores}"   paginator="true" rows="10"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum registro encontrado.">
+						             	<p:column selectionMode="multiple" style="width:18px" />
+						             	<p:column headerText="Nome do Professor">  
+											<h:outputText value="#{professor.pessoa.nome}" />  
+								        </p:column>      
+										 <p:column headerText="CPF">  
+											<h:outputText value="#{professor.pessoa.cpf}" />  
+								        </p:column>      
+										 									        
+						    		</p:dataTable>
+									
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tfoot>
+					<tr style="text-align: center;">
+						<td colspan="2">
+							<p:commandButton value="#{turmaMBean.confirmButton}" action="#{turmaMBean.cadastrar}" ajax="false"/>
+							<p:commandButton value="Cancelar" action="#{turmaMBean.cancelar}" ajax="false" immediate="true"/>
+						</td>
+					</tr>
+				</tfoot>
 			</table>
 			
     	</h:form>

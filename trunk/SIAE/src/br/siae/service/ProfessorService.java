@@ -1,5 +1,7 @@
 package br.siae.service;
 
+import java.util.Collection;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import br.siae.arq.erro.NegocioException;
 import br.siae.arq.service.AbstractService;
 import br.siae.arq.service.PessoaService;
 import br.siae.arq.utils.ValidatorUtil;
+import br.siae.dao.ProfessorDAO;
 import br.siae.dominio.rh.Professor;
 
 @Service
@@ -17,6 +20,9 @@ public class ProfessorService extends AbstractService{
 	
 	@Resource(name="pessoaService")
 	private PessoaService pessoaService;
+	
+	@Resource(name="professorDAO")
+	private ProfessorDAO professorDAO;
 
 	public Professor executarCadastro( Professor professor ) throws NegocioException {
 		//Persiste a pessoa
@@ -28,5 +34,9 @@ public class ProfessorService extends AbstractService{
 			professor = (Professor) cadastrar(professor);
 		}
 		return professor;
+	}
+
+	public Collection<Professor> getByNome( String nome ) throws NegocioException {
+		return professorDAO.findByNome(nome);
 	}
 }

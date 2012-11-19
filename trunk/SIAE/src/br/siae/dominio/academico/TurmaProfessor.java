@@ -26,11 +26,11 @@ public class TurmaProfessor implements Persistable{
 	private long id;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_professor", insertable=true)
+	@JoinColumn(name="id_professor", insertable=true, nullable=false)
 	private Professor professor;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_turma", insertable=true)
+	@JoinColumn(name="id_turma", insertable=true, nullable=false)
 	private Turma turma;
 
 	public long getId() {

@@ -22,6 +22,8 @@ public class PessoaService extends AbstractService{
 	@Resource(name="pessoaDAO")
 	private PessoaDAO pessoaDAO;
 	
+	
+	
 	public Pessoa executeCadastro( Pessoa pessoa ) throws NegocioException {
 		if( ValidatorUtil.isEmpty( pessoa.getEndereco().getMunicipio())) {
 			pessoa.getEndereco().setMunicipio(null);
@@ -80,4 +82,5 @@ public class PessoaService extends AbstractService{
 	public Pessoa executeRemocao( Pessoa pessoa ) throws NegocioException {
 		return (Pessoa) remover(pessoa);
 	}
+	
 }

@@ -1,5 +1,6 @@
 package br.siae.jsf;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import br.siae.arq.cache.ArqCache;
 import br.siae.arq.erro.ArqException;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.jsf.AbstractSiaeController;
@@ -110,5 +112,9 @@ public class SerieMBean extends AbstractSiaeController<Serie> implements ArqExce
 			return "Já existe um Série cadastrada com essa denominação para esse Niível.";
 		}
 		return e.getMessage();
+	}
+	
+	public Collection<Serie> getAll() {
+		return ArqCache.getSeries();
 	}
 }
