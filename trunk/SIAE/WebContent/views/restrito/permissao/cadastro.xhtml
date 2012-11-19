@@ -50,8 +50,7 @@
 					<h:graphicImage library="images" name="/operacao/remover.png" />: Remover Permissão
 					<h:graphicImage library="images" name="/operacao/alterar.png" />: Alterar Permissão
 				</div>
-				<p:dataTable id="table-permissoes" var="permissao" value="#{permissaoMBean.lista}"   paginator="true" rows="10"  
-	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  rowsPerPageTemplate="5,10,15">  
+				<p:dataTable id="table-permissoes" var="permissao" value="#{permissaoMBean.lista}"   paginator="true" rows="10">  
 			        <f:facet name="header">  
 			            Permissões 
 			        </f:facet>  

@@ -77,10 +77,10 @@
 								<td colspan="2">
 									<p:dataTable id="listagem-professor" var="professor" value="#{turmaMBean.professores}"   paginator="true" rows="10"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum registro encontrado.">
 						             	<p:column selectionMode="multiple" style="width:18px" />
-						             	<p:column headerText="Nome do Professor">  
+						             	<p:column headerText="Nome do Professor" style="text-align: left;">  
 											<h:outputText value="#{professor.pessoa.nome}" />  
 								        </p:column>      
-										 <p:column headerText="CPF">  
+										 <p:column headerText="CPF" style="text-align: left;">  
 											<h:outputText value="#{professor.pessoa.cpf}" />  
 								        </p:column>      
 										 									        

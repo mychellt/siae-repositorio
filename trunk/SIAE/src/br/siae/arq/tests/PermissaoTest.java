@@ -11,14 +11,12 @@ import javax.annotation.Resource;
 import org.hibernate.ObjectDeletedException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.annotation.ExpectedException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.seguranca.Permissao;
 import br.siae.arq.service.PermissaoService;
-import br.siae.arq.utils.ValidatorUtil;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

@@ -10,23 +10,22 @@ import org.springframework.stereotype.Controller;
 
 import br.siae.arq.erro.ArqException;
 import br.siae.arq.jsf.AbstractController;
-import br.siae.dominio.academico.Nivel;
-import br.siae.service.NivelService;
+import br.siae.dominio.academico.NivelFormacao;
+import br.siae.service.NivelFormacaoService;
 
 @Controller
 @Scope("request")
-public class NivelMBean extends AbstractController implements ArqException{
+public class NivelFormacaoMBean extends AbstractController implements ArqException {
+	@Resource(name="nivelFormacaoService")
+	private NivelFormacaoService service;
 	
-	@Resource(name="nivelService")
-	private NivelService service;
-	
-	public Collection<Nivel> getAll( ) {
+	public Collection<NivelFormacao> getAll( ) {
 		try {
-			return service.getAll(Nivel.class);
+			return service.getAll(NivelFormacao.class);
 		} catch (Exception e) {
 			addMensagemErro( processaException(e) );
 		}
-		return new ArrayList<Nivel>();
+		return new ArrayList<NivelFormacao>();
 	}
 
 	@Override
@@ -34,5 +33,4 @@ public class NivelMBean extends AbstractController implements ArqException{
 		e.printStackTrace();
 		return e.getMessage();
 	}
-			
 }

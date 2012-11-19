@@ -74,4 +74,12 @@ public class ItemRequerimentoMatricula implements Persistable{
 	public void setRequerimentoMatricula(RequerimentoMatricula requerimentoMatricula) {
 		this.requerimentoMatricula = requerimentoMatricula;
 	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
 }

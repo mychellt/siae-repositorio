@@ -36,4 +36,7 @@ public class AbstractSiaeController<T extends Persistable> extends AbstractContr
 	public String getPaginaListagem() {
 		return "/views/restrito/" + obj.getClass().getSimpleName().toLowerCase() + "/listagem";
 	}
+	public String getPaginaComprovante() {
+		return "/views/restrito/" + obj.getClass().getSimpleName().toLowerCase() + "/comprovante";
+	}
 }

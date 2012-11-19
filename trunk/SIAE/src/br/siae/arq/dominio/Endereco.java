@@ -117,7 +117,10 @@ public class Endereco implements Persistable{
 	}
 	
 	public String getNomeExibicao() {
-		return ValidatorUtil.isNotEmpty( logradouro ) ? logradouro.getDenominacao() + ", " : "" + getDenominacao() + " - " + getNumero();
+		if( ValidatorUtil.isEmpty(logradouro) && ValidatorUtil.isEmpty(getDenominacao()) && ValidatorUtil.isEmpty(getNumero()) )  return "Não Informado"; 
+		return ValidatorUtil.isNotEmpty( logradouro ) ? logradouro.getDenominacao() + ", " : "" + 
+			   ( ValidatorUtil.isNotEmpty( getDenominacao() ) ? getDenominacao() : "" ) + 
+			   ( ValidatorUtil.isNotEmpty( getNumero() ) ?  " - " + getNumero() : "");
 	}
 
 	public Estado getEstado() {

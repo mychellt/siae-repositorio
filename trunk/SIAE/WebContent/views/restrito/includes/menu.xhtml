@@ -30,6 +30,13 @@
 			 	  <p:submenu label="Série">  
 			 	 	 <p:menuitem value="Cadastrar" action="#{serieMBean.iniciarCadastro}" ajax="false" immediate="true"/>
 			 	 </p:submenu>
+			 	 <p:submenu label="Instituição">  
+			 	 	 <p:menuitem value="Cadastrar" action="#{instituicaoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
+			 	 	 <p:menuitem value="Listar/Alterar" action="#{instituicaoMBean.iniciarListagem}" ajax="false" immediate="true"/>
+			 	 </p:submenu>
+			 	  <p:submenu label="Formação Acadêmica">  
+			 	 	 <p:menuitem value="Cadastrar" action="#{formacaoAcademicaMBean.iniciarCadastro}" ajax="false" immediate="true"/>
+			 	 </p:submenu>
 			 </p:submenu> 
 		</p:menubar>
 </ui:composition>

@@ -26,8 +26,11 @@ public class FormacaoAcademica implements Persistable{
 	@JoinColumn(name="id_nivel_formacao", insertable=true, nullable=false)
 	private NivelFormacao nivel;
 	
-	@Column(name="curso")
-	private String curso;
+	@Column(name="denominacao")
+	private String denominacao;
+	
+	@Column(name="instituicao_ensino")
+	private String instituicaoEnsino;
 	
 	public long getId() {
 		return id;
@@ -45,11 +48,41 @@ public class FormacaoAcademica implements Persistable{
 		this.nivel = nivel;
 	}
 
-	public String getCurso() {
-		return curso;
+	public String getDenominacao() {
+		return denominacao;
 	}
 
-	public void setCurso(String curso) {
-		this.curso = curso;
+	public void setDenominacao(String denominacao) {
+		this.denominacao = denominacao;
+	}
+
+	public String getInstituicaoEnsino() {
+		return instituicaoEnsino;
+	}
+
+	public void setInstituicaoEnsino(String instituicaoEnsino) {
+		this.instituicaoEnsino = instituicaoEnsino;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FormacaoAcademica other = (FormacaoAcademica) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 }

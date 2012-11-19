@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import br.siae.arq.dominio.Endereco;
 import br.siae.arq.dominio.Persistable;
@@ -18,7 +19,7 @@ import br.siae.dominio.academico.Nivel;
 
 
 @Entity
-@Table(name="instituicao", schema="comum")
+@Table(name="instituicao", schema="comum", uniqueConstraints={@UniqueConstraint(columnNames={"codigo_inep"})})
 public class Instituicao implements Persistable{
 	
 	@Id
@@ -35,13 +36,13 @@ public class Instituicao implements Persistable{
 	private Endereco endereco;
 	
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name="id_modalidade", insertable=true, nullable=false, updatable=true)
+	@JoinColumn(name="id_modalidade", nullable=false)
 	private Nivel modalidade;
 	
 	@Column(name="email")
 	private String email;
 	
-	@Column(name="codigo_inep")
+	@Column(name="codigo_inep", nullable=false, unique=true)
 	private String codigoInep;
 
 	public long getId() {

@@ -26,18 +26,22 @@
     	
 		<!-- Pacote Acadêmico -->
 		<class>br.siae.dominio.academico.Aluno</class>
-		<class>br.siae.dominio.academico.RequerimentoMatricula</class>
+		<class>br.siae.dominio.academico.Boletim</class>
+		<class>br.siae.dominio.academico.Disciplina</class>
+		<class>br.siae.dominio.academico.DisciplinaBoletim</class>
 		<class>br.siae.dominio.academico.ItemRequerimentoMatricula</class>
-		<class>br.siae.dominio.academico.Turma</class>
-		<class>br.siae.dominio.academico.TurmaProfessor</class>
+		<class>br.siae.dominio.academico.FormacaoAcademica</class>
+		<class>br.siae.dominio.academico.Nivel</class>
+		<class>br.siae.dominio.academico.NivelFormacao</class>
 		<class>br.siae.dominio.academico.ProfessorDisciplina</class>
 		<class>br.siae.dominio.academico.Serie</class>
-		<class>br.siae.dominio.academico.Nivel</class>
-		<class>br.siae.dominio.academico.Disciplina</class>
-		<class>br.siae.dominio.academico.Boletim</class>
-		<class>br.siae.dominio.academico.DisciplinaBoletim</class>
+		<class>br.siae.dominio.academico.RequerimentoMatricula</class>
+		<class>br.siae.dominio.academico.Turma</class>
+		<class>br.siae.dominio.academico.TurmaProfessor</class>
 		
+		<!-- Pacote comum do SIAE -->
 		<class>br.siae.dominio.comum.Turno</class>
+		<class>br.siae.dominio.comum.Instituicao</class>
 	
 		<!-- Pacote RH -->
 		<class>br.siae.dominio.rh.Professor</class>

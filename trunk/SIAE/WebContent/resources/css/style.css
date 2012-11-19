@@ -119,6 +119,15 @@ div.obrigatorio{
 	padding-left: 13px;
 	margin: auto 39%;
 }
+
+div.caption {
+	padding: 0.2em 1em 0.1em;
+	background:  #BED6F8;
+    border: 1px solid #BED6F8;
+    color: black;
+    font-weight: bold;
+    border-radius: 0px 0px 0px 0px;
+}
 div.obrigatorioModalPanel { 
 		background:  url("#{resource['images/layout/obrigatorio.png']}") no-repeat;
 		font-size: 0.9em;
