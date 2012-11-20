@@ -13,7 +13,10 @@ import br.siae.arq.erro.NegocioException;
 import br.siae.dominio.academico.Nivel;
 import br.siae.dominio.academico.NivelFormacao;
 import br.siae.dominio.academico.Serie;
+import br.siae.dominio.comum.Instituicao;
 import br.siae.dominio.comum.Turno;
+import br.siae.dominio.rh.Categoria;
+import br.siae.dominio.rh.NivelFuncional;
 
 @Service
 @Transactional
@@ -28,5 +31,8 @@ public class ArqService extends AbstractService{
 		ArqCache.setTurnos( getAll(Turno.class) );
 		ArqCache.setSeries( getAll(Serie.class) );
 		ArqCache.setNiveisFormacao( getAll(NivelFormacao.class) );
+		ArqCache.setInstituicoes( getAll(Instituicao.class) );
+		ArqCache.setNiveisFuncionais( getAll(NivelFuncional.class) );
+		ArqCache.setCategorias( getAll(Categoria.class) );
 	}
 }

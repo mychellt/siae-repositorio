@@ -23,26 +23,47 @@
 			</div>
 			<p:dataTable var="instituicao" value="#{instituicaoMBean.lista}" rowKey="#{instituicao.id}" paginator="true" rows="10"  
                 selection="#{instituicaoMBean.instituicaoSelecionada}" selectionMode="single" id="tabela-instituicoes">
+                
                 <p:ajax event="rowSelect" update=":form:display" oncomplete="instituicaoDialog.show()" />
+                
                 <f:facet name="header">  
 		            <h:outputText value="Instituições Cadastradas" /> 
 		        </f:facet>
-		        <p:column headerText="Nome" >  
-		            <h:outputText value="#{instituicao.nome}" />
-		        </p:column>
-		        <p:column headerText="Código INEP" >  
-		            <h:outputText value="#{instituicao.codigoInep}" />
-		        </p:column>
-		        <p:column headerText="Modalidade" >  
-		            <h:outputText value="#{instituicao.modalidade.denominacao}" />
-		        </p:column>
-		        <p:column style="width: 5%;	">
+		        
+                <p:column headerText="Nome" >
+                	<h:outputText value="#{instituicao.nome}" />
+                </p:column>  
+                
+                <p:column headerText="Código INEP" >
+                	<h:outputText value="#{instituicao.codigoInep}" />
+                </p:column>
+                  
+                <p:column headerText="Modalidade" >
+                	<h:outputText value="#{instituicao.modalidade.denominacao}" />
+                </p:column>
+                
+                <p:column style="width: 7%;">
+                
+	                <h:commandLink onclick="confirmation.show(); return false">
+		          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Instituição"/>
+		          	</h:commandLink>
+                
 		        	<h:commandLink action="#{instituicaoMBean.preAlterar}" >
 		        		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Instituição"/>
 		        		<f:setPropertyActionListener target="#{instituicaoMBean.obj}" value="#{instituicao}"/>
 		        	</h:commandLink>
-		        </p:column>
+		        	
+		        	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remoção de Permissão" severity="alert" widgetVar="confirmation">  
+				        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{instituicaoMBean.remover}"  ajax="false">
+				        	<f:setPropertyActionListener target="#{instituicaoMBean.obj}" value="#{instituicao}"/>  
+				        </p:commandButton>
+				        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+			        </p:confirmDialog>
+		        	
+                </p:column>
+	                  
              </p:dataTable>  
+
 	    	<br/><br/>
 	    	<p:dialog id="display" widgetVar="instituicaoDialog" resizable="false"  width="400" showEffect="fade" hideEffect="fade">  
   				<ui:include src="/views/restrito/instituicao/visualizacao.xhtml" />

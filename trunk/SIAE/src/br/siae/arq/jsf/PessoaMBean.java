@@ -27,6 +27,9 @@ import br.siae.arq.service.MunicipioService;
 import br.siae.arq.service.PessoaService;
 import br.siae.arq.utils.DAOUtils;
 import br.siae.arq.utils.ValidatorUtil;
+import br.siae.jsf.AlunoMBean;
+import br.siae.jsf.FuncionarioMBean;
+import br.siae.jsf.ProfessorMBean;
 
 @Controller
 @Scope("session")
@@ -203,5 +206,21 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqEx
 
 	public void setMunicipiosNaturalidade(Collection<Municipio> municipiosNaturalidade) {
 		this.municipiosNaturalidade = municipiosNaturalidade;
+	}
+	
+	public boolean isCadastroProfessor() {
+		return controlador instanceof ProfessorMBean;
+	}
+	
+	public boolean isCadastroAluno() {
+		return controlador instanceof AlunoMBean;
+	}
+	
+	public boolean isCadastroFuncionario() {
+		return controlador instanceof FuncionarioMBean;
+	}
+	
+	public boolean isAdministradorSistema() {
+		return true;
 	}
 }

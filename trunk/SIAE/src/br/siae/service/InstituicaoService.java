@@ -39,4 +39,9 @@ public class InstituicaoService extends AbstractService{
 		instituicao.setModalidade( getByPrimaryKey(Nivel.class, instituicao.getModalidade().getId() ) );
 		return instituicao;
 	}
+	
+	public Instituicao executeRemocao( Instituicao instituicao ) throws NegocioException {
+		remover(instituicao);
+		return instituicao;
+	}
 }

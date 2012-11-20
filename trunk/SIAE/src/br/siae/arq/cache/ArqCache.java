@@ -10,7 +10,10 @@ import br.siae.arq.dominio.Sexo;
 import br.siae.dominio.academico.Nivel;
 import br.siae.dominio.academico.NivelFormacao;
 import br.siae.dominio.academico.Serie;
+import br.siae.dominio.comum.Instituicao;
 import br.siae.dominio.comum.Turno;
+import br.siae.dominio.rh.Categoria;
+import br.siae.dominio.rh.NivelFuncional;
 
 public class ArqCache {
 	public static Collection<Sexo> sexos;
@@ -22,6 +25,9 @@ public class ArqCache {
 	public static Collection<Nivel> niveis;
 	public static Collection<Serie> series;
 	public static Collection<NivelFormacao> niveisFormacao;
+	public static Collection<Instituicao> instituicoes;
+	public static Collection<NivelFuncional> niveisFuncionais;
+	public static Collection<Categoria> categorias;
 	
 	public static Collection<Sexo> getSexos() {
 		return sexos;
@@ -93,6 +99,31 @@ public class ArqCache {
 
 	public static void setNiveisFormacao(Collection<NivelFormacao> niveisFormacao) {
 		ArqCache.niveisFormacao = niveisFormacao;
+	}
+
+	public static Collection<Instituicao> getInstituicoes() {
+		return instituicoes;
+	}
+
+	public static void setInstituicoes(Collection<Instituicao> instituicoes) {
+		ArqCache.instituicoes = instituicoes;
+	}
+
+	public static Collection<NivelFuncional> getNiveisFuncionais() {
+		return niveisFuncionais;
+	}
+
+	public static void setNiveisFuncionais(
+			Collection<NivelFuncional> niveisFuncionais) {
+		ArqCache.niveisFuncionais = niveisFuncionais;
+	}
+
+	public static Collection<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public static void setCategorias(Collection<Categoria> categorias) {
+		ArqCache.categorias = categorias;
 	}
 
 }

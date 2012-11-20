@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import br.siae.arq.cache.ArqCache;
 import br.siae.arq.dominio.Endereco;
 import br.siae.arq.dominio.Municipio;
 import br.siae.arq.erro.ArqException;
@@ -101,6 +102,36 @@ public class InstituicaoMBean extends AbstractSiaeController<Instituicao> implem
 			addMensagemErro("Modalidade: campo obrigatório não informado");
 		}
 	}
+	
+	public void changeEstadoEndereco(){
+		municipiosEndereco = new ArrayList<Municipio>();
+		if( ValidatorUtil.isNotEmpty( obj.getEndereco().getEstado() ) ) {
+			try {
+				municipiosEndereco = (List<Municipio>) municipioService.getByEstado( obj.getEndereco().getEstado() );
+			} catch (Exception e) {
+				e.getStackTrace();
+			}
+		}
+	}
+	
+	public String remover() {
+		if( ValidatorUtil.isEmpty(obj) ) {
+			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
+			resetObj();
+			return null;
+		}
+		try {
+			obj = service.executeRemocao(obj);
+			lista.remove(obj);
+		}
+		catch(Exception e) {
+			addMensagemErro( processaException(e) );
+		}
+		
+		resetObj();
+		return getPaginaListagem();
+	}
+	
 
 	@Override
 	public String processaException(Exception e) {
@@ -114,23 +145,9 @@ public class InstituicaoMBean extends AbstractSiaeController<Instituicao> implem
 		return e.getMessage();
 	}
 
-	public Collection<Municipio> getMunicipiosEndereco() {
-		return municipiosEndereco;
-	}
-
-	public void setMunicipiosEndereco(Collection<Municipio> municipiosEndereco) {
-		this.municipiosEndereco = municipiosEndereco;
-	}
 	
-	public void changeEstadoEndereco(){
-		municipiosEndereco = new ArrayList<Municipio>();
-		if( ValidatorUtil.isNotEmpty( obj.getEndereco().getEstado() ) ) {
-			try {
-				municipiosEndereco = (List<Municipio>) municipioService.getByEstado( obj.getEndereco().getEstado() );
-			} catch (Exception e) {
-				e.getStackTrace();
-			}
-		}
+	public Collection<Instituicao> getAll() {
+		return ArqCache.getInstituicoes();
 	}
 
 	public Instituicao getInstituicaoSelecionada() {
@@ -139,6 +156,13 @@ public class InstituicaoMBean extends AbstractSiaeController<Instituicao> implem
 
 	public void setInstituicaoSelecionada(Instituicao instituicaoSelecionada) {
 		this.instituicaoSelecionada = instituicaoSelecionada;
+	}
+	public Collection<Municipio> getMunicipiosEndereco() {
+		return municipiosEndereco;
+	}
+
+	public void setMunicipiosEndereco(Collection<Municipio> municipiosEndereco) {
+		this.municipiosEndereco = municipiosEndereco;
 	}
 
 }

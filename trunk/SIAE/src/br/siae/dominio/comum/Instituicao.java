@@ -35,7 +35,7 @@ public class Instituicao implements Persistable{
 	@JoinColumn(name="id_endereco", insertable=true, nullable=false, updatable=true)
 	private Endereco endereco;
 	
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_modalidade", nullable=false)
 	private Nivel modalidade;
 	
@@ -92,5 +92,30 @@ public class Instituicao implements Persistable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getNomeCodigo() {
+		return getNome() + " (" + getCodigoInep() + ")";
+	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Instituicao other = (Instituicao) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
 }

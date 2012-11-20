@@ -7,12 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.siae.arq.dominio.Persistable;
 import br.siae.arq.dominio.Pessoa;
+import br.siae.dominio.comum.Instituicao;
 
 
 @Entity
@@ -28,6 +30,10 @@ public class Funcionario implements Persistable{
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_pessoa", insertable=true, nullable=false)
 	private Pessoa pessoa;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_lotacao", nullable=false)
+	private Instituicao lotacao;
 
 	public long getId() {
 		return id;
@@ -47,5 +53,13 @@ public class Funcionario implements Persistable{
 	
 	public String getNomeExibicao()  {
 		return "Funcionário";
+	}
+
+	public Instituicao getLotacao() {
+		return lotacao;
+	}
+
+	public void setLotacao(Instituicao lotacao) {
+		this.lotacao = lotacao;
 	}
 }

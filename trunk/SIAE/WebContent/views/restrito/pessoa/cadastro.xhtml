@@ -109,6 +109,32 @@
 						</p:selectOneMenu>
 					</td>
 				</tr>
+				<h:panelGroup rendered="#{pessoaMBean.cadastroProfessor}">
+					<tr>
+						<th class="obrigatorio">
+							<h:outputText value="Lotação:" />
+						</th>
+						<td>
+							<p:selectOneMenu value="#{professorMBean.obj.lotacao}" id="lotacao-professor" converter="converterInstituicao">  
+								<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+	            				<f:selectItems value="#{instituicaoMBean.all}" var="instituicao" itemLabel="#{instituicao.nomeCodigo}" itemValue="#{instituicao}"/>  
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</h:panelGroup>
+				<h:panelGroup rendered="#{pessoaMBean.cadastroFuncionario}">
+					<tr>
+						<th class="obrigatorio">
+							<h:outputText value="Lotação:" />
+						</th>
+						<td>
+							<p:selectOneMenu value="#{funcionarioMBean.obj.lotacao}" id="lotacao-funcionario" converter="converterInstituicao">  
+								<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+	            				<f:selectItems value="#{instituicaoMBean.all}" var="instituicao" itemLabel="#{instituicao.nomeCodigo}" itemValue="#{instituicao}"/>  
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</h:panelGroup>
 				<tr>
 					<td colspan="2">
 						<table class="subformulario" style="width: 100%">
