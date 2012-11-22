@@ -94,7 +94,7 @@ public class Instituicao implements Persistable{
 	}
 	
 	public String getNomeCodigo() {
-		return getNome() + " (" + getCodigoInep() + ")";
+		return getNome() + " ( inep: " + getCodigoInep() + ")";
 	}
 
 	@Override

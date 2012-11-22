@@ -1,16 +1,23 @@
 package br.siae.jsf;
 
 import javax.annotation.Resource;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
+import javax.persistence.NoResultException;
 
+import org.primefaces.component.dialog.Dialog;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.siae.arq.dao.GenericDAO;
+import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.dominio.TipoPessoa;
 import br.siae.arq.erro.ArqException;
 import br.siae.arq.jsf.AbstractSiaeController;
 import br.siae.arq.jsf.PessoaMBean;
+import br.siae.arq.service.PessoaService;
 import br.siae.arq.service.ServiceFactory;
+import br.siae.arq.utils.DAOUtils;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.rh.Funcionario;
 import br.siae.service.FuncionarioService;
@@ -24,6 +31,9 @@ public class FuncionarioMBean extends AbstractSiaeController<Funcionario> implem
 	
 	@Resource(name="funcionarioService")
 	private FuncionarioService funcionarioService;
+	
+	@Resource(name="pessoaService")
+	private PessoaService pessoaService;
 	
 	public  FuncionarioMBean() {
 		resetObj();
@@ -65,13 +75,47 @@ public class FuncionarioMBean extends AbstractSiaeController<Funcionario> implem
 		obj.getPessoa().setTipo( new TipoPessoa( TipoPessoa.PESSOA_FISICA ) );
 		
 		try {
-			obj = funcionarioService.executarCadastro( obj );
+			obj = funcionarioService.executeCadastro( obj );
 		} catch (Exception e) {
 			addMensagemErro( processaException(e) );
 		}
 		
-		addMensagemErro("Cadastro do aluno efetuado com sucesso!");
+		addMensagemInformacao("Operação realizada com sucesso!");
 		return PessoaMBean.COMPROVANTE_CADASTRO;
+	}
+	
+	public String carregarDados() {
+		UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+		Dialog componente = (Dialog) viewRoot.findComponent("form:info-cpf");
+		if( ValidatorUtil.isEmpty( pessoaMBean.getCpf() ) ) {
+			pessoaMBean.setMensagemErroCpf("Informe o número do CPF");
+			pessoaMBean.setExibirInfoCpf(true);
+			return null;
+		}
+		try {
+			Pessoa pessoa = pessoaService.getByCpf( pessoaMBean.getCpf() );
+			if( ValidatorUtil.isNotEmpty(pessoa) ) {
+				pessoaMBean.setObj( pessoa );
+				obj = funcionarioService.getByPessoa( pessoa );
+				setConfirmButton("Alterar");
+				if( ValidatorUtil.isEmpty(obj) ) {
+					resetObj();
+					obj.setPessoa(pessoa);
+					setConfirmButton("Cadastrar");
+				}
+			}
+			else {
+				pessoaMBean.resetObj();
+				obj.getPessoa().setCpf(pessoaMBean.getCpf());				
+			}
+		} catch (Exception e) {
+			if( !(e instanceof NoResultException ) ) {
+				addMensagemErro( processaException(e) );
+			}
+		}
+		pessoaMBean.setExibirInfoCpf(false);
+		componente.setVisible(false);
+		return null;
 	}
 
 	
@@ -81,6 +125,13 @@ public class FuncionarioMBean extends AbstractSiaeController<Funcionario> implem
 
 	@Override
 	public String processaException(Exception e) {
-		return null;
+		e.printStackTrace();
+		if( DAOUtils.isUniqueConstraintErro(e) ) {
+			return "Já existe um(a) Funcionário(a) cadastrado(o) com o cpf informado.";
+		}
+		if( DAOUtils.isFKConstraintError(e) ) {
+			return "Ocorreu um erro ao tentar remover o registro. Por favor entre em contato com o administrador do sistema.";
+		}
+		return e.getMessage();
 	}
 }

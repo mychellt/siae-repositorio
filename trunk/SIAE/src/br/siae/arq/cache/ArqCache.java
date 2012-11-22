@@ -141,5 +141,13 @@ public class ArqCache {
 		int index = niveisFuncionais.indexOf(c);
 		return niveisFuncionais.get(index);
 	}
+	
+	public static Instituicao getInstituicaoById( long id ) {
+		if( id == 0 ) return null;
+		Instituicao  c = new Instituicao();
+		c.setId(id);
+		int index = instituicoes.indexOf(c);
+		return instituicoes.get(index);
+	}
 
 }

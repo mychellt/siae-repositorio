@@ -1,6 +1,7 @@
 package br.siae.arq.tests;
 
 import static junit.framework.Assert.assertNotNull;
+
 import static junit.framework.Assert.assertNotSame;
 import static junit.framework.Assert.assertNull;
 

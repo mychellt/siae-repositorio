@@ -14,17 +14,18 @@ import javax.persistence.Table;
 
 import br.siae.arq.dominio.Persistable;
 import br.siae.arq.dominio.Pessoa;
+import br.siae.arq.dominio.Usuario;
 import br.siae.dominio.comum.Instituicao;
 
 
 @Entity
-@Table(name="professor", schema="rh")
+@Table(name="funcionario", schema="rh")
 public class Funcionario implements Persistable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,  generator="SEQ_FUNCIONARIO")
 	@SequenceGenerator(name="SEQ_FUNCIONARIO", sequenceName="rh.seq_funcionario", allocationSize=1)
-	@Column(name="id_funcionario")
+	@Column(name="id_funcionario", nullable=false)
 	private long id;
 	
 	@OneToOne(fetch=FetchType.EAGER)
@@ -34,6 +35,10 @@ public class Funcionario implements Persistable{
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_lotacao", nullable=false)
 	private Instituicao lotacao;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_usuario", nullable=true)
+	private Usuario usuario;
 
 	public long getId() {
 		return id;
@@ -61,5 +66,13 @@ public class Funcionario implements Persistable{
 
 	public void setLotacao(Instituicao lotacao) {
 		this.lotacao = lotacao;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

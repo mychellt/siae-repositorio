@@ -24,7 +24,9 @@
 					<tfoot>
 						<tr>
 							<td colspan="2" style="text-align: center; ">
-								<p:commandButton value="Enviar" action="#{pessoaMBean.carregarDados}" ajax="false"/>
+								<p:commandButton value="Enviar" action="#{alunoMBean.carregarDados}" ajax="false" rendered="#{pessoaMBean.cadastroAluno}"/>
+								<p:commandButton value="Enviar" action="#{professorMBean.carregarDados}" ajax="false" rendered="#{pessoaMBean.cadastroProfessor}"/>
+								<p:commandButton value="Enviar" action="#{funcionarioMBean.carregarDados}" ajax="false" rendered="#{pessoaMBean.cadastroFuncionario}"/>
 							</td>
 						</tr>
 					</tfoot>

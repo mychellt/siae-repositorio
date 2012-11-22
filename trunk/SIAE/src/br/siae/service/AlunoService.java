@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.service.AbstractService;
 import br.siae.arq.service.PessoaService;
@@ -47,5 +48,9 @@ public class AlunoService extends AbstractService{
 	
 	public Aluno executeRemocao( Aluno aluno ) throws NegocioException  {
 		return (Aluno) remover(aluno);
+	}
+	
+	public Aluno getByPessoa( Pessoa pessoa ) throws NegocioException {
+		return dao.findByPessoa(pessoa);
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.dao.GenericDAO;
+import br.siae.arq.dominio.Pessoa;
 import br.siae.dominio.rh.Professor;
 
 
@@ -59,5 +60,13 @@ public class ProfessorDAO extends GenericDAO{
 		@SuppressWarnings("unchecked")
 		List<Professor> lista = q.getResultList();
 		return lista;
+	}
+	public Professor findByPessoa( Pessoa pessoa ) throws DataAccessException {
+		String hql = "select prof from Professor prof join prof.pessoa p where p.id = :idPessoa ";
+		Query q = getEntityManager().createQuery(hql);
+		q.setParameter("idPessoa", pessoa.getId() );
+		
+		Professor professor = (Professor) q.getSingleResult();
+		return professor;
 	}
 }

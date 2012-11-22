@@ -5,6 +5,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+import br.siae.arq.cache.ArqCache;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.comum.Instituicao;
 
@@ -14,7 +15,7 @@ public class ConverterInstituicao implements Converter{
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
 	  	Instituicao instituicao = new Instituicao();
       	if( ValidatorUtil.isNotEmpty(value)){
-      		instituicao.setId( Integer.parseInt(value));
+      		instituicao = ArqCache.getInstituicaoById( Integer.parseInt(value) );
       	}
         return instituicao;
     }

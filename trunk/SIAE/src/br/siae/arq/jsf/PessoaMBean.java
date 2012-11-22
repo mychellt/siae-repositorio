@@ -5,11 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.persistence.NoResultException;
 
-import org.primefaces.component.dialog.Dialog;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -108,29 +104,6 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqEx
 		if( ValidatorUtil.isEmpty( obj.getSexo() ) ) {
 			addMensagemErro("Sexo: campo obrigatório não informado.");
 		}
-	}
-	public String carregarDados() {
-		UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
-		Dialog componente = (Dialog) viewRoot.findComponent("form:info-cpf");
-		if( ValidatorUtil.isEmpty( getCpf() ) ) {
-			setMensagemErroCpf("Informe o número do CPF");
-			setExibirInfoCpf(true);
-			return null;
-		}
-		try {
-			obj = pessoaService.getByCpf( getCpf() );
-		} catch (Exception e) {
-			if( !(e instanceof NoResultException ) ) {
-				addMensagemErro( processaException(e) );
-			}
-		}
-		if( ValidatorUtil.isEmpty(obj)) {
-			resetObj();
-			obj.setCpf(getCpf());
-		}
-		setExibirInfoCpf(false);
-		componente.setVisible(false);
-		return null;
 	}
 
 	public boolean isExibirInfoCpf() {

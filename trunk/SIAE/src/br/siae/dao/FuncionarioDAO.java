@@ -3,11 +3,14 @@ package br.siae.dao;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Query;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.dao.GenericDAO;
+import br.siae.arq.dominio.Pessoa;
 import br.siae.dominio.rh.Funcionario;
 
 @Repository
@@ -45,4 +48,13 @@ public class FuncionarioDAO extends GenericDAO{
 //			Collection<Funcionario> lista = c.list();
 			return null;
 		}
+
+	public Funcionario findByPessoa( Pessoa pessoa ) throws DataAccessException {
+		String hql = "select func from Funcionario func join func.pessoa p where p.id = :idPessoa ";
+		Query q = getEntityManager().createQuery(hql);
+		q.setParameter("idPessoa", pessoa.getId() );
+		
+		Funcionario funcionario = (Funcionario) q.getSingleResult();
+		return funcionario;
+	}
 }

@@ -3,12 +3,16 @@ package br.siae.dao;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Query;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.siae.arq.dao.GenericDAO;
+import br.siae.arq.dominio.Pessoa;
 import br.siae.dominio.academico.Aluno;
+import br.siae.dominio.rh.Funcionario;
 
 @Repository
 @Transactional
@@ -44,5 +48,13 @@ public class AlunoDAO extends GenericDAO{
 //			@SuppressWarnings("unchecked")
 //			Collection<Aluno> lista = c.list();
 			return null;
+	}
+	public Aluno findByPessoa( Pessoa pessoa ) throws DataAccessException {
+		String hql = "select a from Aluno a join a.pessoa p where p.id = :idPessoa ";
+		Query q = getEntityManager().createQuery(hql);
+		q.setParameter("idPessoa", pessoa.getId() );
+		
+		Aluno aluno = (Aluno) q.getSingleResult();
+		return aluno;
 	}
 }

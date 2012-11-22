@@ -43,7 +43,7 @@
 					</th>
 					<td>  
 						<p:selectOneMenu value="#{turmaMBean.obj.serie}" converter="converterSerie" id="serie">  
-							<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}"/>  
+							<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
             				<f:selectItems value="#{serieMBean.all}" var="serie" itemLabel="#{serie.denominacao}" itemValue="#{serie}" />  
 						</p:selectOneMenu>
 					</td>
@@ -54,7 +54,7 @@
 					</th>
 					<td>
 						<p:selectOneMenu value="#{turmaMBean.obj.turno}" converter="converterTurno" id="turno">  
-							<f:selectItem itemLabel="-- Selecione --" itemValue="#{null}"/>  
+							<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
             				<f:selectItems value="#{turnoMBean.all}" var="turno" itemLabel="#{turno.denominacao}" itemValue="#{turno}" />  
 						</p:selectOneMenu>
 					</td>
@@ -75,8 +75,9 @@
 							</caption>
 							<tr>
 								<td colspan="2">
-									<p:dataTable id="listagem-professor" var="professor" value="#{turmaMBean.professores}"   paginator="true" rows="10"  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum registro encontrado.">
+									<p:dataTable id="listagem-professor" var="professor" value="#{turmaMBean.professores}" selection="#{turmaMBean.professoresSelecionados}" paginator="true" rows="10" emptyMessage="Nenhum registro encontrado.">
 						             	<p:column selectionMode="multiple" style="width:18px" />
+						             	
 						             	<p:column headerText="Nome do Professor" style="text-align: left;">  
 											<h:outputText value="#{professor.pessoa.nome}" />  
 								        </p:column>      

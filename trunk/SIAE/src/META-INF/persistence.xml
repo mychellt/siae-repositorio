@@ -45,6 +45,7 @@
 	
 		<!-- Pacote RH -->
 		<class>br.siae.dominio.rh.Professor</class>
+		<class>br.siae.dominio.rh.Funcionario</class>
 		<class>br.siae.dominio.rh.Cargo</class>
 		<class>br.siae.dominio.rh.Categoria</class>
 		<class>br.siae.dominio.rh.NivelFuncional</class>
