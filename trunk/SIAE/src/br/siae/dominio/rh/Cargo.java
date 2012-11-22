@@ -27,6 +27,9 @@ public class Cargo implements Persistable{
 	@Column(name="denominacao")
 	private String denominacao;
 	
+	@Column(name="sigla")
+	private String sigla;
+		
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_categoria", nullable=false)
 	private Categoria categoria;
@@ -66,4 +69,36 @@ public class Cargo implements Persistable{
 	public void setNivelFuncional(NivelFuncional nivelFuncional) {
 		this.nivelFuncional = nivelFuncional;
 	}
+
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cargo other = (Cargo) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
+	
 }

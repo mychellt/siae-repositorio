@@ -1,5 +1,7 @@
 package br.siae.arq.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,17 +24,17 @@ import br.siae.dominio.rh.NivelFuncional;
 @Transactional
 public class ArqService extends AbstractService{
 	public void executeCaching() throws NegocioException {
-		ArqCache.setSexos( getAll( Sexo.class ) );
-		ArqCache.setEstados( getAll( Estado.class ) );
-		ArqCache.setMunicipios( getAll(Municipio.class) );
-		ArqCache.setPaises( getAll(Pais.class) );
-		ArqCache.setLogradouros( getAll(Logradouro.class) );
-		ArqCache.setNiveis( getAll(Nivel.class) );
-		ArqCache.setTurnos( getAll(Turno.class) );
-		ArqCache.setSeries( getAll(Serie.class) );
-		ArqCache.setNiveisFormacao( getAll(NivelFormacao.class) );
-		ArqCache.setInstituicoes( getAll(Instituicao.class) );
-		ArqCache.setNiveisFuncionais( getAll(NivelFuncional.class) );
-		ArqCache.setCategorias( getAll(Categoria.class) );
+		ArqCache.setSexos( (List<Sexo>) getAll( Sexo.class ) );
+		ArqCache.setEstados( (List<Estado>) getAll( Estado.class ) );
+		ArqCache.setMunicipios( (List<Municipio>) getAll(Municipio.class) );
+		ArqCache.setPaises( (List<Pais>) getAll(Pais.class) );
+		ArqCache.setLogradouros( (List<Logradouro>) getAll(Logradouro.class) );
+		ArqCache.setNiveis( (List<Nivel>) getAll(Nivel.class) );
+		ArqCache.setTurnos( (List<Turno>) getAll(Turno.class) );
+		ArqCache.setSeries( (List<Serie>) getAll(Serie.class) );
+		ArqCache.setNiveisFormacao( (List<NivelFormacao>) getAll(NivelFormacao.class) );
+		ArqCache.setInstituicoes( (List<Instituicao>) getAll(Instituicao.class) );
+		ArqCache.setNiveisFuncionais( (List<NivelFuncional>) getAll(NivelFuncional.class) );
+		ArqCache.setCategorias( (List<Categoria>) getAll(Categoria.class) );
 	}
 }

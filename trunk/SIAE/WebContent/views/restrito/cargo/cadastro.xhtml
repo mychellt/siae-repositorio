@@ -1,0 +1,122 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form-permissao"  acceptcharset="ISO-8859-1" >
+			<p:breadCrumb>  
+			    <p:menuitem value="Administração" action="#{cargoMBean.home}" immediate="true" ajax="false"/>
+			    <p:menuitem value="Cargo" action="#{cargo.iniciarCadastro}" immediate="true" ajax="false"/>
+			    <p:menuitem value="Cadastrar" />  
+			</p:breadCrumb> 
+			<br/>
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  
+			<br/>
+
+					 <table class="formulario" style="width: 45%;">
+						<caption>Cadastro de Cargo</caption>
+						<tr>
+							<th class="obrigatorio">
+								<h:outputText value="Nome do Cargo:"/>
+							</th>
+							<td>
+								 <p:inputText size="40" value="#{cargoMBean.obj.denominacao}"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h:outputText value="Sigla:"/>
+							</th>
+							<td>
+								  <p:inputText value="#{cargoMBean.obj.sigla}"/>
+							</td>
+						</tr>
+						<tr>
+							<th class="obrigatorio">
+								<h:outputText value="Nível Funcional:" />
+							</th>
+							<td>  
+								<p:selectOneMenu value="#{cargoMBean.obj.nivelFuncional}" converter="converterNivelFuncional" id="nivel">  
+									<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
+		            				<f:selectItems value="#{nivelFuncionalMBean.all}" var="nivelFuncional" itemLabel="#{nivelFuncional.denominacao}" itemValue="#{nivelFuncional}" />  
+								</p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<th class="obrigatorio">
+								<h:outputText value="Categoria" />
+							</th>
+							<td>  
+								<p:selectOneMenu value="#{cargoMBean.obj.categoria}" converter="converterCategoria" id="categoria">  
+									<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
+		            				<f:selectItems value="#{categoriaMBean.all}" var="categoria" itemLabel="#{categoria.denominacao}" itemValue="#{categoria}" />  
+								</p:selectOneMenu>
+							</td>
+						</tr>
+						<tfoot>
+							<tr>
+								<td colspan="2" style="text-align: center;">
+									 <p:commandButton value="#{cargoMBean.confirmButton}" ajax="false" actionListener="#{cargoMBean.cadastrar}" update="@Form"/>
+		                			 <p:commandButton value="Cancelar" ajax="false" actionListener="#{cargoMBean.cancelar}" immediate="true"/>
+								</td>
+							</tr>
+						</tfoot>
+				</table>
+				<br/><br/>
+				<div class="legenda">
+					<h:graphicImage library="images" name="/operacao/remover.png" />: Remover Cargo
+					<h:graphicImage library="images" name="/operacao/alterar.png" />: Alterar Cargo
+				</div>
+				<p:dataTable id="table-cargos" var="cargo" value="#{cargoMBean.lista}"   paginator="true" rows="10">  
+			        <f:facet name="header">  
+			            <h:outputText value="Cargos Cadastrados" /> 
+			        </f:facet>
+			          
+			        <p:column headerText="Nome do Cargo" style="text-align: left;">  
+			            <h:outputText value="#{cargo.denominacao}" />  
+			        </p:column>    
+			        
+			        <p:column headerText="Sigla" style="text-align: left;">  
+			            <h:outputText value="#{not empty cargo.sigla ?  cargo.sigla : 'Não Informado'}" />  
+			        </p:column>
+			        
+			        <p:column headerText="Categoria" style="text-align: left;">  
+			            <h:outputText value="#{cargo.categoria.denominacao}" />  
+			        </p:column>
+			        
+			        <p:column headerText="Nível Funcional" style="text-align: left;">  
+			            <h:outputText value="#{cargo.nivelFuncional.denominacao}" />  
+			        </p:column>
+			        
+		         	<p:column style="width: 7%; text-align: right;"> 
+			          	<h:commandLink onclick="confirmation.show(); return false">
+			          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Cargo"/>
+			          	</h:commandLink>
+		          	
+			          	<h:commandLink action="#{cargoMBean.preAlterar}">
+			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Cargo"/>
+			          		<f:setPropertyActionListener target="#{cargoMBean.obj}" value="#{cargo}"/>
+			          	</h:commandLink>    
+			          	
+			          	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remoção de Cargo" severity="alert" widgetVar="confirmation">  
+					        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{cargoMBean.remover}"  ajax="false">
+					     		<f:param name="idCargo" value="#{cargo.id}"/>  
+					        </p:commandButton>
+					        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+				        </p:confirmDialog>
+			        
+		           </p:column>  
+			          
+	    		</p:dataTable>
+	    		<br/><br/> 
+    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

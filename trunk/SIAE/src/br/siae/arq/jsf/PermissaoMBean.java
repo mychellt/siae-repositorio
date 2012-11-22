@@ -108,7 +108,7 @@ public class PermissaoMBean extends AbstractSiaeController<Permissao> implements
 	public String processaException(Exception e) {
 		e.printStackTrace();
 		if( DAOUtils.isUniqueConstraintErro(e) ) {
-			return "Já existe uma Permissão cadastrar com essa denominação";
+			return "Já existe uma Permissão cadastrada com essa denominação";
 		}
 		if( DAOUtils.isFKConstraintError(e) ) {
 			return "Ocorreu um erro ao tentar remover o registro. Por favor entre em contato com o administrador do sistema.";

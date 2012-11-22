@@ -19,4 +19,8 @@ public class CargoService extends AbstractService {
 		}
 		return cargo;
 	}
+	public Cargo executeRemocao( Cargo cargo ) throws NegocioException {
+		cargo = (Cargo) remover(cargo);
+		return cargo;
+	}
 }
