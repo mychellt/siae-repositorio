@@ -1,6 +1,8 @@
 package br.siae.jsf;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.faces.component.UIViewRoot;
@@ -11,8 +13,7 @@ import org.primefaces.component.dialog.Dialog;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import sun.print.resources.serviceui;
-
+import br.siae.arq.cache.ArqCache;
 import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.dominio.TipoPessoa;
@@ -142,7 +143,18 @@ public class ProfessorMBean extends AbstractSiaeController<Professor> implements
 
 	@Override
 	public String processaException(Exception e) {
-		// TODO Auto-generated method stub
-		return null;
+		e.printStackTrace();
+		return e.getMessage();
+	}
+	public Collection<Professor> getAll() {
+		try {
+			if( ValidatorUtil.isEmpty(ArqCache.getProfessores() ) ) {
+				ArqCache.setProfessores( (List<Professor>) professorService.getAll() );				
+			}
+			return ArqCache.getProfessores();
+		} catch (NegocioException e) {
+			addMensagemErro(processaException(e));
+		}
+		return new ArrayList<Professor>();
 	}
 }

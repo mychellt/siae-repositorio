@@ -1,0 +1,163 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form-cadastro-disciplina"  acceptcharset="ISO-8859-1" >
+			<p:breadCrumb>  
+			    <p:menuitem value="Administração" action="#{disciplinaMBean.home}" immediate="true" ajax="false"/>
+			    <p:menuitem value="Disciplina" action="#{disciplinaMBean.iniciarCadastro}" immediate="true" ajax="false"/>
+			    <p:menuitem value="Cadastrar" />  
+			</p:breadCrumb> 
+			<br/>
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  
+			<br/>
+
+					 <table class="formulario" style="width: 50%">
+						<caption>
+							<h:outputText value="Cadastro de Disciplina" />
+						</caption>
+						<tr>
+							<th class="obrigatorio">
+								<h:outputText value="Nome:"/>
+							</th>
+							<td>
+								 <p:inputText size="40" value="#{disciplinaMBean.obj.nome}"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h:outputText value="Sigla:"/>
+							</th>
+							<td>
+								  <p:inputText value="#{disciplinaMBean.obj.sigla}"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h:outputText value="Carga Horária"/>
+							</th>
+							<td>
+								 <p:inputText size="6" maxlength="6" value="#{disciplinaMBean.obj.cargaHoraria}"/>
+							</td>
+						</tr>
+						<tr>
+							<th class="obrigatorio">
+								<h:outputText value="Nível:" />
+							</th>
+							<td>  
+								<p:selectOneMenu value="#{disciplinaMBean.obj.nivel}" converter="converterNivel" id="nivel">  
+									<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
+		            				<f:selectItems value="#{nivelMBean.all}" var="nivel" itemLabel="#{nivel.denominacao}" itemValue="#{nivel}" />  
+								</p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h:outputText value="Reprova:" />
+							</th>
+							<td>
+								<p:selectOneRadio value="#{disciplinaMBean.obj.reprova}">
+									<f:selectItem itemLabel="SIM" itemValue="#{true}"/>
+									<f:selectItem itemLabel="NÃO" itemValue="#{false}"/>
+								</p:selectOneRadio>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h:outputText value="Suplementar:" />
+							</th>
+							<td>
+								<p:selectOneRadio value="#{disciplinaMBean.obj.suplementar}">
+									<f:selectItem itemLabel="SIM" itemValue="#{true}"/>
+									<f:selectItem itemLabel="NÃO" itemValue="#{false}"/>
+								</p:selectOneRadio>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h:outputText value="Valor para Dependência:" />
+							</th>
+							<td>
+								<h:inputText size="8" maxlength="8" value="#{disciplinaMBean.obj.valorDependencia}" />
+							</td>
+						</tr>
+						<tfoot>
+							<tr>
+								<td colspan="2" style="text-align: center;">
+									 <p:commandButton value="#{disciplinaMBean.confirmButton}" action="#{disciplinaMBean.cadastrar}" ajax="false" />
+		                			 <p:commandButton value="Cancelar" action="#{permissaoMBean.cancelar}" ajax="false" immediate="true" />
+								</td>
+							</tr>
+						</tfoot>
+				</table>
+				<br/><br/>
+				<div class="legenda">
+					<h:graphicImage library="images" name="/operacao/remover.png" />: Remover Disciplina
+					<h:graphicImage library="images" name="/operacao/alterar.png" />: Alterar Disciplina
+				</div>
+				<p:dataTable id="table-disciplina" var="disciplina" value="#{disciplinaMBean.lista}"   paginator="true" rows="10">  
+			        <f:facet name="header">  
+			            <h:outputText value="Disiciplina(s) Cadastrada(s)" />
+			        </f:facet> 
+			        
+			        <p:column headerText="Nome" style="text-align: left;">
+			        	<h:outputText value="#{disciplina.nome}" />
+			        	<h:outputText value=" ( #{disciplina.sigla})" rendered="#{not empty disciplina.sigla}">
+			        	</h:outputText>
+			        </p:column>
+			        
+			        <p:column headerText="Nível" style="text-align: left;">
+			        	<h:outputText value="#{disciplina.nivel.denominacao}" />
+			        </p:column>
+			        
+			        <p:column headerText="Reprova?" style="text-align: center;">
+			        	<h:outputText value="#{disciplina.reprova ? 'Sim' : 'Não'}" />
+			        </p:column>
+			        
+			         <p:column headerText="Suplemetar" style="text-align: center;">
+			        	<h:outputText value="#{disciplina.suplementar ? 'Sim' : 'Não'}" />
+			        </p:column>
+			        
+			        <p:column headerText="Carga Horária" style="text-align: center;">
+			        	<h:outputText value="#{disciplina.cargaHoraria}" />
+			        </p:column>
+			        
+			         <p:column headerText="Valor para Dependência" style="text-align: center;">
+			        	<h:outputText value="#{disciplina.valorDependencia}" />
+			        </p:column>
+			         
+			       
+		          	<p:column style="width: 7%; text-align: right;"> 
+		          	
+			          	<h:commandLink onclick="confirmation.show(); return false">
+			          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Disciplina"/>
+			          	</h:commandLink>
+			          	
+			          	<h:commandLink action="#{disciplinaMBean.preAlterar}">
+			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Disciplina"/>
+			          		<f:setPropertyActionListener target="#{disciplinaMBean.obj}" value="#{disciplina}"/>
+			          	</h:commandLink>
+			          	    
+			          	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remoção de Disciplina" severity="alert" widgetVar="confirmation">  
+					        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{disciplinaMBean.remover}"  ajax="false" >
+					        	<f:param name="idDisciplina" value="#{disciplina.id}"/>
+					        </p:commandButton>
+					        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+				        </p:confirmDialog>
+				        
+		          	</p:column>  
+		          
+	    		</p:dataTable>
+	    		<br/><br/> 
+    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

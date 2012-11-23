@@ -15,10 +15,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.siae.arq.dominio.Persistable;
 import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.dominio.Usuario;
+import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.ProfessorDisciplina;
 import br.siae.dominio.academico.TurmaProfessor;
 import br.siae.dominio.comum.Instituicao;
@@ -51,6 +53,9 @@ public class Professor implements Persistable{
 	@JoinColumn(name="id_lotacao", nullable=false)
 	private Instituicao lotacao;
 	
+	@Transient
+	private String disciplinasExibicao;
+	
 
 	public Pessoa getPessoa() {
 		return pessoa;
@@ -82,10 +87,6 @@ public class Professor implements Persistable{
 
 	public void setDisciplinas(Collection<ProfessorDisciplina> disciplinas) {
 		this.disciplinas = disciplinas;
-	}
-	
-	public String getNomeExibicao() {
-		return "Professor";
 	}
 
 	@Override
@@ -124,6 +125,19 @@ public class Professor implements Persistable{
 
 	public void setLotacao(Instituicao lotacao) {
 		this.lotacao = lotacao;
+	}
+	
+	public String getNomeExibicao( ) {
+		if( ValidatorUtil.isEmpty(getPessoa() ) ) return "";
+		return getPessoa().getNome() + " (cpf: " + getPessoa().getCpf() + ")"; 
+	}
+
+	public String getDisciplinasExibicao() {
+		return disciplinasExibicao;
+	}
+
+	public void setDisciplinasExibicao(String disciplinasExibicao) {
+		this.disciplinasExibicao = disciplinasExibicao;
 	}
 	
 }

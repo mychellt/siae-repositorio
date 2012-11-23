@@ -5,28 +5,26 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import br.siae.arq.cache.ArqCache;
 import br.siae.arq.utils.ValidatorUtil;
-import br.siae.dominio.rh.Professor;
+import br.siae.dominio.academico.Disciplina;
 
-
-@FacesConverter(value = "converterProfessor")
-public class ConverterProfessor implements Converter{
+@FacesConverter(value = "converterDisciplina")
+public class ConverterDisciplina implements Converter{
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		Professor professor = new Professor();
+		Disciplina disciplina = new Disciplina();
       	if( ValidatorUtil.isNotEmpty(value)){
-      		professor = ArqCache.getProfessorById( Integer.parseInt(value) ) ;
+      		disciplina.setId( Integer.parseInt(value) );
       	}
-        return professor;
+        return disciplina;
 	}
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object obj) {
-		if( obj instanceof Professor ){
-			Professor professor = (Professor) obj;
-    		return String.valueOf( professor.getId() );
+		if( obj instanceof Disciplina ){
+			Disciplina disciplina = (Disciplina) obj;
+    		return String.valueOf( disciplina.getId() );
     	}
     	return String.valueOf(0);
 	}

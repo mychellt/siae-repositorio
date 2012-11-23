@@ -1,6 +1,8 @@
 package br.siae.jsf;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 import javax.annotation.Resource;
 
@@ -11,8 +13,11 @@ import br.siae.arq.erro.ArqException;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.jsf.AbstractSiaeController;
 import br.siae.arq.utils.ValidatorUtil;
+import br.siae.dominio.academico.Disciplina;
+import br.siae.dominio.academico.ProfessorDisciplina;
 import br.siae.dominio.academico.Serie;
 import br.siae.dominio.academico.Turma;
+import br.siae.dominio.academico.TurmaProfessor;
 import br.siae.dominio.comum.Turno;
 import br.siae.dominio.rh.Professor;
 import br.siae.service.TurmaService;
@@ -20,8 +25,11 @@ import br.siae.service.TurmaService;
 @Controller
 @Scope("session")
 public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqException{
-	private ProfessorDataModel professores;
-	private Professor[] professoresSelecionados;
+	private Professor professor;
+	private Disciplina disciplina;
+	private DisciplinaDataModel disciplinas;
+	private Disciplina[] disciplinasSelecionadas;
+	private Collection<Professor> professores;
 	
 	@Resource(name="turmaService")
 	private TurmaService service;
@@ -40,14 +48,73 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 	
 	public String iniciarCadastro() {
 		resetObj();
-		setConfirmButton("Cadastrar");
+		disciplinas = new DisciplinaDataModel();
 		try {
-			professores = new ProfessorDataModel();
-			professores.setWrappedData( service.getAll(Professor.class) );
-
+			disciplinas.setWrappedData( service.getAll(Disciplina.class) );
 		} catch (NegocioException e) {
-			addMensagemErro( processaException(e) );
+			addMensagemErro(processaException(e));
 		}
+		setConfirmButton("Cadastrar");
+		return getPaginaCadastro();
+	}
+	
+	public String inserirProfessor() {
+		if( ValidatorUtil.isEmpty(professor) ) {
+			addMensagemErro("Informe o docente da turma.");
+		}
+		if(ValidatorUtil.isEmpty( Arrays.asList(disciplinasSelecionadas) ) ) {
+			addMensagemErro("Selecione pelo menos uma disciplina lecionada pelo professor.");
+		}
+		if( isContemErros() ) {
+			return getPaginaCadastro();
+		}
+		
+		if( ValidatorUtil.isEmpty( professor.getDisciplinas())) {
+			professor.setDisciplinas( new ArrayList<ProfessorDisciplina>() );
+		}
+		
+		Collection<TurmaProfessor> turmas = professor.getTurmas();
+		if( ValidatorUtil.isEmpty(turmas) ) {
+			professor.setTurmas( new ArrayList<TurmaProfessor>() );
+		}
+		
+		
+		boolean contemTurma = false;
+		for( TurmaProfessor turmaProfessor : professor.getTurmas() ) {
+			if( turmaProfessor.getProfessor().equals(professor) && turmaProfessor.getTurma().equals(obj) ) {
+				contemTurma = true;
+				break;
+			}
+		}
+		
+		for( Disciplina disiplina : Arrays.asList(disciplinasSelecionadas) ){
+			ProfessorDisciplina pDisciplina = new ProfessorDisciplina();
+			pDisciplina.setDisciplina(disiplina);
+			pDisciplina.setProfessor(professor);
+			pDisciplina.setTurma(obj);
+			professor.getDisciplinas().add(pDisciplina);
+		}
+		
+		
+		if( !contemTurma ) {
+			TurmaProfessor tp = new TurmaProfessor();
+			tp.setProfessor(professor);
+			tp.setTurma(obj);
+			professor.getTurmas().add(tp);
+		}
+		
+		
+		if( ValidatorUtil.isEmpty(professores) ) {
+			professores = new ArrayList<Professor>();
+		}
+		String stringExibicao = "";
+		for( ProfessorDisciplina pd : professor.getDisciplinas() ){
+			stringExibicao += pd.getDisciplina().getNome() + ",";
+		}
+		professor.setDisciplinasExibicao(stringExibicao);
+		
+		professores.add(professor);
+		disciplinasSelecionadas = null;
 		return getPaginaCadastro();
 	}
 	
@@ -58,7 +125,7 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 		}
 		
 		try {
-			service.executeCadastro(obj, Arrays.asList(professoresSelecionados) );
+			service.executeCadastro(obj, professores );
 		} catch (NegocioException e) {
 			addMensagemErro(processaException(e));
 			return getPaginaCadastro();
@@ -84,9 +151,6 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 		if( ValidatorUtil.isEmpty( obj.getNumeroVagas() ) ) {
 			addMensagemErro("Número de Vagas: campo obrigatório não informado");
 		}
-		if( ValidatorUtil.isEmpty( Arrays.asList(professoresSelecionados) ) ){
-			addMensagemErro("Selecione pelo menos um professor para a turma");
-		}
 	}
 
 	@Override
@@ -95,20 +159,44 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 		return e.getMessage();
 	}
 
-	public ProfessorDataModel getProfessores() {
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
+
+	public DisciplinaDataModel getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(DisciplinaDataModel disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+
+	public Disciplina[] getDisciplinasSelecionadas() {
+		return disciplinasSelecionadas;
+	}
+
+	public void setDisciplinasSelecionadas(Disciplina[] disciplinasSelecionadas) {
+		this.disciplinasSelecionadas = disciplinasSelecionadas;
+	}
+
+	public Collection<Professor> getProfessores() {
 		return professores;
 	}
 
-	public void setProfessores(ProfessorDataModel professores) {
+	public void setProfessores(Collection<Professor> professores) {
 		this.professores = professores;
-	}
-	
-	public Professor[] getProfessoresSelecionados() {
-		return professoresSelecionados;
-	}
-
-	public void setProfessoresSelecionados(Professor[] professoresSelecionados) {
-		this.professoresSelecionados = professoresSelecionados;
 	}
 
 }

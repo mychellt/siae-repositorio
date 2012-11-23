@@ -4,9 +4,12 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,23 +24,30 @@ public class Disciplina implements Persistable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,  generator="SEQ_DISCIPLINA")
 	@SequenceGenerator(name="SEQ_DISCIPLINA", sequenceName="academico.seq_disciplina", allocationSize=1)
-	@Column(name="id_disciplina")
+	@Column(name="id_disciplina", nullable=false)
 	private long id;
 
-	@Column(name="nome")
+	@Column(name="nome", nullable=false)
 	private String nome;
 	
-	@Column(name="sigla")
+	@Column(name="sigla", nullable=true)
 	private String sigla;
 	
-	@Column(name="reprova")
+	@Column(name="reprova", nullable=false)
 	private boolean reprova;
 	
-	@Column(name="suplementar")
+	@Column(name="suplementar", nullable=true)
 	private boolean suplementar;
 	
-	@Column(name="valor_dependencia")
+	@Column(name="valor_dependencia", nullable=true)
 	private BigDecimal valorDependencia;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_nivel", nullable=false)
+	private Nivel nivel;
+	
+	@Column(name="carga_horaria")
+	private int cargaHoraria;
 	
 	public long getId() {
 		return id;
@@ -86,4 +96,43 @@ public class Disciplina implements Persistable{
 	public void setValorDependencia(BigDecimal valorDependencia) {
 		this.valorDependencia = valorDependencia;
 	}
+
+	public Nivel getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(Nivel nivel) {
+		this.nivel = nivel;
+	}
+
+	public int getCargaHoraria() {
+		return cargaHoraria;
+	}
+
+	public void setCargaHoraria(int cargaHoraria) {
+		this.cargaHoraria = cargaHoraria;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Disciplina other = (Disciplina) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
 }

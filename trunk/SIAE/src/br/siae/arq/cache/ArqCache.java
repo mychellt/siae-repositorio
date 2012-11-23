@@ -14,6 +14,7 @@ import br.siae.dominio.comum.Instituicao;
 import br.siae.dominio.comum.Turno;
 import br.siae.dominio.rh.Categoria;
 import br.siae.dominio.rh.NivelFuncional;
+import br.siae.dominio.rh.Professor;
 
 public class ArqCache {
 	public static List<Sexo> sexos;
@@ -28,6 +29,7 @@ public class ArqCache {
 	public static List<Instituicao> instituicoes;
 	public static List<NivelFuncional> niveisFuncionais;
 	public static List<Categoria> categorias;
+	public static List<Professor> professores;
 	
 	public static List<Sexo> getSexos() {
 		return sexos;
@@ -148,6 +150,30 @@ public class ArqCache {
 		c.setId(id);
 		int index = instituicoes.indexOf(c);
 		return instituicoes.get(index);
+	}
+	
+	public static Nivel getNivelById( long id ) {
+		if( id == 0 ) return null;
+		Nivel  c = new Nivel();
+		c.setId(id);
+		int index = niveis.indexOf(c);
+		return niveis.get(index);
+	}
+	
+	public static Professor getProfessorById( long id ) {
+		if( id == 0 ) return null;
+		Professor  c = new Professor();
+		c.setId(id);
+		int index = professores.indexOf(c);
+		return professores.get(index);
+	}
+
+	public static List<Professor> getProfessores() {
+		return professores;
+	}
+
+	public static void setProfessores(List<Professor> professores) {
+		ArqCache.professores = professores;
 	}
 
 }

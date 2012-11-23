@@ -43,4 +43,7 @@ public class ProfessorService extends AbstractService{
 	public Professor getByPessoa( Pessoa pessoa ) throws NegocioException {
 		return professorDAO.findByPessoa(pessoa);
 	}
+	public Collection<Professor> getAll() throws NegocioException {
+		return professorDAO.findAll();
+	}
 }

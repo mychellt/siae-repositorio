@@ -74,19 +74,59 @@
 								<h:outputText value="Docente(s) da Turma" />
 							</caption>
 							<tr>
+								<th class="obrigatorio">
+									<h:outputText value="Professor:" />
+								</th>
 								<td colspan="2">
-									<p:dataTable id="listagem-professor" var="professor" value="#{turmaMBean.professores}" selection="#{turmaMBean.professoresSelecionados}" paginator="true" rows="10" emptyMessage="Nenhum registro encontrado.">
-						             	<p:column selectionMode="multiple" style="width:18px" />
-						             	
-						             	<p:column headerText="Nome do Professor" style="text-align: left;">  
-											<h:outputText value="#{professor.pessoa.nome}" />  
-								        </p:column>      
-										 <p:column headerText="CPF" style="text-align: left;">  
-											<h:outputText value="#{professor.pessoa.cpf}" />  
-								        </p:column>      
-										 									        
-						    		</p:dataTable>
-									
+									<p:selectOneMenu value="#{turmaMBean.professor}" converter="converterProfessor" id="professor-turma">  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
+			            				<f:selectItems value="#{professorMBean.all}" var="professor" itemLabel="#{professor.nomeExibicao}" itemValue="#{professor}" />  
+									</p:selectOneMenu>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<p:dataTable id="disciplinas" style="width:100%" var="disciplina" value="#{turmaMBean.disciplinas}" paginator="false" rows="10"  selection="#{turmaMBean.disciplinasSelecionadas}">
+										<f:facet name="header" >  
+								            <h:outputText value="Disicplinas" />  
+								        </f:facet>
+								        <p:column selectionMode="multiple" style="width:18px" /> 
+								        
+								        <p:column headerText="Nome da Disciplina" style="text-align: left;">
+								        	<h:outputText value="#{disciplina.nome}" />
+								        </p:column>    
+								        
+								        <p:column headerText="Nível" style="text-align: left;">
+								        	<h:outputText value="#{disciplina.nivel.denominacao}" />
+								        </p:column>    
+								        
+								        <p:column headerText="Reprova" style="text-align: Center;">
+								        	<h:outputText value="#{disciplina.reprova ? 'Sim' : 'Não'}" />
+								        </p:column>    
+								        
+									</p:dataTable>
+								</td>
+							</tr>
+							<tfoot>
+								<tr>
+									<td style="text-align: center;" colspan="3">
+										<h:commandButton action="#{turmaMBean.inserirProfessor}" value="Inserir Professor" />
+									</td>
+								</tr>
+							</tfoot>
+							<tr>
+								<td colspan="3">
+									<p:dataTable id="professores" var="professor" value="#{turmaMBean.professores}" paginator="false">
+										<f:facet name="header" >  
+								            <h:outputText value="Professores Adicionados" />  
+								        </f:facet>
+								        <p:column headerText="Nome da Professor" style="text-align: left;">
+								        	<h:outputText value="#{professor.nomeExibicao}" />
+								        </p:column>    
+								        <p:column headerText="Disciplinas" style="text-align: left;">
+								        	<h:outputText value="#{professor.disciplinasExibicao}" />
+								        </p:column>    
+									</p:dataTable>
 								</td>
 							</tr>
 						</table>
