@@ -60,7 +60,6 @@ public class Serie implements Persistable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((nivel == null) ? 0 : nivel.hashCode());
 		return result;
 	}
 
@@ -75,11 +74,7 @@ public class Serie implements Persistable{
 		Serie other = (Serie) obj;
 		if (id != other.id)
 			return false;
-		if (nivel == null) {
-			if (other.nivel != null)
-				return false;
-		} else if (!nivel.equals(other.nivel))
-			return false;
 		return true;
 	}
+	
 }
