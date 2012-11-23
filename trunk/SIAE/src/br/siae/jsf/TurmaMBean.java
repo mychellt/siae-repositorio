@@ -65,16 +65,24 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 		if(ValidatorUtil.isEmpty( Arrays.asList(disciplinasSelecionadas) ) ) {
 			addMensagemErro("Selecione pelo menos uma disciplina lecionada pelo professor.");
 		}
+		if(ValidatorUtil.isNotEmpty(professores) && professores.contains(professor) ) {
+			addMensagemErro("O professor já foi inserido na turma");
+		}
 		if( isContemErros() ) {
 			return getPaginaCadastro();
 		}
 		
+		try {
+			professor.setTurmas( service.getByExactField(TurmaProfessor.class, "professor.id", professor.getId() ) );
+			professor.setDisciplinas( service.getByExactField(ProfessorDisciplina.class, "professor.id", professor.getId() ) );
+		} catch (NegocioException e) {
+			addMensagemErro( processaException(e) );
+		}
 		if( ValidatorUtil.isEmpty( professor.getDisciplinas())) {
 			professor.setDisciplinas( new ArrayList<ProfessorDisciplina>() );
 		}
 		
-		Collection<TurmaProfessor> turmas = professor.getTurmas();
-		if( ValidatorUtil.isEmpty(turmas) ) {
+		if( ValidatorUtil.isEmpty(professor.getTurmas())) {
 			professor.setTurmas( new ArrayList<TurmaProfessor>() );
 		}
 		
@@ -115,6 +123,7 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 		
 		professores.add(professor);
 		disciplinasSelecionadas = null;
+		professor = new Professor();
 		return getPaginaCadastro();
 	}
 	
@@ -130,7 +139,7 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 			addMensagemErro(processaException(e));
 			return getPaginaCadastro();
 		}
-	
+		
 		return getPaginaComprovante();
 	}
 	
