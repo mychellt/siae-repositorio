@@ -1,5 +1,8 @@
 package br.siae.dominio.academico;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,10 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.siae.arq.dominio.Persistable;
+import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.rh.Professor;
 
 
@@ -32,6 +37,9 @@ public class TurmaProfessor implements Persistable{
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_turma",nullable=false)
 	private Turma turma;
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="turmaProfessor")
+	private Collection<DisciplinaTurmaProfessor> disciplinas;
 
 	public long getId() {
 		return id;
@@ -55,6 +63,24 @@ public class TurmaProfessor implements Persistable{
 
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
+	}
+
+	public Collection<DisciplinaTurmaProfessor> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(Collection<DisciplinaTurmaProfessor> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+	
+	public String getDisciplinasExibicao() {
+		StringBuffer exibicao  =  new StringBuffer();
+		if( ValidatorUtil.isEmpty(disciplinas) ) return exibicao.toString();
+		for( DisciplinaTurmaProfessor disciplina : disciplinas ) {
+			exibicao.append( disciplina.getDisciplina().getNome() ).append(", ");			
+		}
+		exibicao = new StringBuffer( exibicao.substring(0, exibicao.length() - 2) );  				
+		return exibicao.append(".").toString();
 	}
 	
 

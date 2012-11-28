@@ -1,6 +1,7 @@
 package br.siae.dominio.rh;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,8 +21,9 @@ import javax.persistence.Transient;
 import br.siae.arq.dominio.Persistable;
 import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.dominio.Usuario;
+import br.siae.arq.jsf.converter.ConverterCPF;
 import br.siae.arq.utils.ValidatorUtil;
-import br.siae.dominio.academico.ProfessorDisciplina;
+import br.siae.dominio.academico.Disciplina;
 import br.siae.dominio.academico.TurmaProfessor;
 import br.siae.dominio.comum.Instituicao;
 
@@ -39,11 +41,8 @@ public class Professor implements Persistable{
 	@JoinColumn(name="id_pessoa", insertable=true, nullable=false)
 	private Pessoa pessoa;
 	
-	@OneToMany(mappedBy="turma", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="turma", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private Collection<TurmaProfessor> turmas;
-	
-	@OneToMany(mappedBy="disciplina", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private Collection<ProfessorDisciplina> disciplinas;
 	
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_usuario", insertable=true)
@@ -54,7 +53,7 @@ public class Professor implements Persistable{
 	private Instituicao lotacao;
 	
 	@Transient
-	private String disciplinasExibicao;
+	private List<Disciplina> disciplinas;
 	
 
 	public Pessoa getPessoa() {
@@ -79,14 +78,6 @@ public class Professor implements Persistable{
 
 	public void setTurmas(Collection<TurmaProfessor> turmas) {
 		this.turmas = turmas;
-	}
-
-	public Collection<ProfessorDisciplina> getDisciplinas() {
-		return disciplinas;
-	}
-
-	public void setDisciplinas(Collection<ProfessorDisciplina> disciplinas) {
-		this.disciplinas = disciplinas;
 	}
 
 	@Override
@@ -129,15 +120,15 @@ public class Professor implements Persistable{
 	
 	public String getNomeExibicao( ) {
 		if( ValidatorUtil.isEmpty(getPessoa() ) ) return "";
-		return getPessoa().getNome() + " (cpf: " + getPessoa().getCpf() + ")"; 
+		return getPessoa().getNome() + " (CPF: " + ConverterCPF.formate( getPessoa().getCpf() ) + ")"; 
 	}
 
-	public String getDisciplinasExibicao() {
-		return disciplinasExibicao;
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
 	}
 
-	public void setDisciplinasExibicao(String disciplinasExibicao) {
-		this.disciplinasExibicao = disciplinasExibicao;
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
 	}
 	
 }

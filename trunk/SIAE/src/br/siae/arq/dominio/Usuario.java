@@ -52,12 +52,6 @@ public class Usuario implements Persistable, UserDetails{
 	@Transient
 	private Collection<GrantedAuthority> authorities;
 	
-	
-//	@OneToOne(fetch=FetchType.EAGER)
-//	@JoinColumn(name="id_pessoa", updatable=true)
-//	private Pessoa pessoa;
-	
-	
 	@Override
 	public long getId() {
 		return id;
@@ -83,14 +77,6 @@ public class Usuario implements Persistable, UserDetails{
 	public String getSenha() {
 		return senha;
 	}
-
-//	public void setPessoa(Pessoa pessoa) {
-//		this.pessoa = pessoa;
-//	}
-//
-//	public Pessoa getPessoa() {
-//		return pessoa;
-//	}
 
 	@Override
 	public int hashCode() {
@@ -167,5 +153,13 @@ public class Usuario implements Persistable, UserDetails{
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public Collection<PermissaoUsuario> getPermissoes() {
+		return permissoes;
+	}
+
+	public void setPermissoes(Collection<PermissaoUsuario> permissoes) {
+		this.permissoes = permissoes;
 	}
 }

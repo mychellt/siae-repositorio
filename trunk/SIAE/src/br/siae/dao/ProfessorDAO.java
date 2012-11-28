@@ -69,15 +69,4 @@ public class ProfessorDAO extends GenericDAO{
 		Professor professor = (Professor) q.getSingleResult();
 		return professor;	
 	}
-	
-	public Collection<Professor> findAll() throws DataAccessException {
-		String hql = "select prof From Professor prof " +
-					"	join prof.pessoa p " +
-					"	left join prof.disciplinas d " +
-					"	left join prof.turmas t ";
-		Query q = getEntityManager().createQuery(hql);
-		@SuppressWarnings("unchecked")
-		List<Professor> lista = q.getResultList();
-		return lista;
-	}
 }

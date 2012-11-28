@@ -24,7 +24,6 @@ import br.siae.arq.jsf.PessoaMBean;
 import br.siae.arq.service.PessoaService;
 import br.siae.arq.service.ServiceFactory;
 import br.siae.arq.utils.ValidatorUtil;
-import br.siae.dominio.academico.ProfessorDisciplina;
 import br.siae.dominio.academico.TurmaProfessor;
 import br.siae.dominio.rh.Professor;
 import br.siae.service.ProfessorService;
@@ -48,7 +47,6 @@ public class ProfessorMBean extends AbstractSiaeController<Professor> implements
 
 	private void resetObj() {
 		obj = new Professor();
-		obj.setDisciplinas( new ArrayList<ProfessorDisciplina>() );
 		obj.setTurmas( new ArrayList<TurmaProfessor>() );
 	}
 	
@@ -149,7 +147,7 @@ public class ProfessorMBean extends AbstractSiaeController<Professor> implements
 	public Collection<Professor> getAll() {
 		try {
 			if( ValidatorUtil.isEmpty(ArqCache.getProfessores() ) ) {
-				ArqCache.setProfessores( (List<Professor>) professorService.getAll() );				
+				ArqCache.setProfessores( (List<Professor>) professorService.getAll(Professor.class) );				
 			}
 			return ArqCache.getProfessores();
 		} catch (NegocioException e) {

@@ -56,4 +56,21 @@ public class ConverterCPF implements Converter{
 		}
 		return builder.toString();
 	}
+	
+	public static String formate(long cpf ) {
+		String v =  String.valueOf(cpf);
+		StringBuilder builder = new StringBuilder();
+		int tam = v.length();
+		for (int i = 0; i < tam; i++) {
+			if (i == 3 || i == 6)
+				builder.append(".");
+			else if (i == 9)
+				builder.append("-");
+			if (i < 11)
+				builder.append(v.charAt(i));
+			else
+				break;
+		}
+		return builder.toString();
+	}
 }

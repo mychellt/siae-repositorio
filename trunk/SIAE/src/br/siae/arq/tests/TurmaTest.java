@@ -45,7 +45,7 @@ public class TurmaTest {
 		professores.add( service.getByPrimaryKey(Professor.class, 10));
 	
 		try {
-			service.executeCadastro(turma, new ArrayList<Professor>() );
+			service.executeCadastro(turma);
 		} catch (Exception e) {
 			assertNull(e);
 			e.printStackTrace();
