@@ -1,0 +1,68 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form-listagem-turma"  acceptcharset="ISO-8859-1" >
+			<p:breadCrumb>  
+			    <p:menuitem value="Cadastros" action="#{turmaMBean.home}" immediate="true" ajax="false"/>
+			    <p:menuitem value="Turma" action="#{turmaMBean.iniciarListagem}" immediate="true" ajax="false"/>
+			    <p:menuitem value="Listar/Alterar" />  
+			</p:breadCrumb> 
+			<br/>
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  
+				<br/><br/>
+				<div class="legenda">
+					<h:graphicImage library="images" name="/operacao/remover.png" />: Remover Turma
+					<h:graphicImage library="images" name="/operacao/alterar.png" />: Alterar Turma
+				</div>
+				<p:dataTable id="tabela-turmas" var="turma" value="#{turmaMBean.lista}"   paginator="true" rows="10">  
+			        <f:facet name="header">  
+			            <h:outputText value="Turma(s) Cadastrada(s)" /> 
+			        </f:facet>
+			          
+			        <p:column style="text-align: left;" headerText="Nome">  
+			            <h:outputText value="#{turma.nome}" />  
+			        </p:column>
+			            
+			        <p:column style="text-align: left;"  headerText="Série">  
+			            <h:outputText value="#{turma.serie.denominacao}" />  
+			        </p:column>
+			        
+			        <p:column style="text-align: left;"  headerText="Turno">  
+			            <h:outputText value="#{turma.turno.denominacao}" />  
+			        </p:column>
+			        
+			        <p:column style="text-align: center;"  headerText="Quantidade de Vagas">  
+			            <h:outputText value="#{turma.numeroVagas}" />  
+			        </p:column>
+			        
+			          <p:column style="width: 7%; text-align: right;"> 
+			          	<f:facet name="header"/>
+			          	<h:commandLink onclick="confirmation.show(); return false">
+			          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Permissão"/>
+			          	</h:commandLink>
+			          	<h:commandLink action="#{permissaoMBean.preAlterar}">
+			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Permissão"/>
+			          		<f:setPropertyActionListener target="#{permissaoMBean.obj}" value="#{permissao}"/>
+			          	</h:commandLink>    
+			          	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remoção de Permissão" severity="alert" widgetVar="confirmation">  
+					        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{permissaoMBean.remover}"  ajax="false">
+					        	<f:setPropertyActionListener target="#{permissaoMBean.obj}" value="#{permissao}"/>  
+					        </p:commandButton>
+					        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+				        </p:confirmDialog>
+			          </p:column>  
+	    		</p:dataTable>
+	    		<br/><br/> 
+    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

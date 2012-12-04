@@ -47,6 +47,15 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 		obj.setNome( new String() );
 	}
 	
+	public String iniciarListagem() {
+		try {
+			lista = (List<Turma>) service.getAll(Turma.class);
+		} catch (NegocioException e) {
+			addMensagemErro(processaException(e));
+		}
+		return getPaginaListagem();
+	}
+	
 	public String iniciarCadastro() {
 		resetObj();
 		disciplinas = new DisciplinaDataModel();
