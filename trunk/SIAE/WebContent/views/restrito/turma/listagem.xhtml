@@ -45,15 +45,15 @@
 			          <p:column style="width: 7%; text-align: right;"> 
 			          	<f:facet name="header"/>
 			          	<h:commandLink onclick="confirmation.show(); return false">
-			          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Permissão"/>
+			          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Turma"/>
 			          	</h:commandLink>
-			          	<h:commandLink action="#{permissaoMBean.preAlterar}">
-			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Permissão"/>
-			          		<f:setPropertyActionListener target="#{permissaoMBean.obj}" value="#{permissao}"/>
+			          	<h:commandLink action="#{turmaMBean.preAlterar}">
+			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Turma"/>
+			          		<f:setPropertyActionListener target="#{turmaMBean.obj}" value="#{turma}"/>
 			          	</h:commandLink>    
-			          	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remoção de Permissão" severity="alert" widgetVar="confirmation">  
-					        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{permissaoMBean.remover}"  ajax="false">
-					        	<f:setPropertyActionListener target="#{permissaoMBean.obj}" value="#{permissao}"/>  
+			          	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remoção de Turma" severity="alert" widgetVar="confirmation">  
+					        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{turmaMBean.remover}"  ajax="false">
+					        	<f:setPropertyActionListener target="#{turmaMBean.obj}" value="#{turma}"/>  
 					        </p:commandButton>
 					        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
 				        </p:confirmDialog>

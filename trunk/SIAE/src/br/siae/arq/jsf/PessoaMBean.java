@@ -196,4 +196,11 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqEx
 	public boolean isAdministradorSistema() {
 		return true;
 	}
+	
+	public String getNomeObjCadastro() {
+		if( isCadastroAluno() ) return "Aluno";
+		if( isCadastroFuncionario() ) return "Funcionário";
+		if( isCadastroProfessor() ) return "Professor";
+		return "";
+	}
 }

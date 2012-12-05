@@ -13,6 +13,8 @@ import org.primefaces.component.dialog.Dialog;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import sun.print.resources.serviceui_zh_CN;
+
 import br.siae.arq.cache.ArqCache;
 import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.dominio.Pessoa;
@@ -62,13 +64,15 @@ public class ProfessorMBean extends AbstractSiaeController<Professor> implements
 	
 
 	public String preAlterar() {
-		GenericDAO dao = (GenericDAO) ServiceFactory.getBean("genericDAO");
-		obj =  dao.findByPrimaryKey( Professor.class, obj.getId() );
 		if( ValidatorUtil.isEmpty(obj) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
 			return null;
 		}
+		pessoaMBean.setObj( obj.getPessoa() );
+		pessoaMBean.setDescricaoCadastro("Cadastrar Professor");
+		pessoaMBean.setControlador(this);
+		pessoaMBean.setExibirInfoCpf(false);
 		setConfirmButton("Alterar");
 		return getPaginaCadastro();
 	}
@@ -133,10 +137,6 @@ public class ProfessorMBean extends AbstractSiaeController<Professor> implements
 		if( ValidatorUtil.isEmpty( obj.getLotacao()) ) {
 			addMensagemErro("Lotação: campo obrigatório não informado.");
 		}
-	}
-
-	public String iniciarListagem() {
-		return getPaginaListagem();
 	}
 
 	@Override

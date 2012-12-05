@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Hibernate;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -21,6 +22,7 @@ import br.siae.dominio.academico.Turma;
 import br.siae.dominio.academico.TurmaProfessor;
 import br.siae.dominio.comum.Turno;
 import br.siae.dominio.rh.Professor;
+import br.siae.service.TurmaProfessorService;
 import br.siae.service.TurmaService;
 
 @Controller
@@ -34,6 +36,9 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 	
 	@Resource(name="turmaService")
 	private TurmaService service;
+	
+	@Resource(name="turmaProfessorService")
+	private TurmaProfessorService tpService;
 	
 	
 	public TurmaMBean() {
@@ -68,6 +73,25 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 			addMensagemErro(processaException(e));
 		}
 		setConfirmButton("Cadastrar");
+		return getPaginaCadastro();
+	}
+	
+	public String preAlterar() {
+		if( ValidatorUtil.isEmpty(obj) ) {
+			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
+			resetObj();
+			return null;
+		}
+		
+		try {
+			disciplinas = new DisciplinaDataModel();
+			disciplinas.setWrappedData( service.getAll(Disciplina.class) );
+			professores = tpService.getByTurma(obj);
+			obj.setProfessores( professores );
+		} catch (NegocioException e) {
+			addMensagemErro(processaException(e));
+		}
+		setConfirmButton("Alterar");
 		return getPaginaCadastro();
 	}
 	
