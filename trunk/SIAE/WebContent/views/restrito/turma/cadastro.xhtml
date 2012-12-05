@@ -78,7 +78,7 @@
 									<h:outputText value="Professor:" />
 								</th>
 								<td colspan="2">
-									<p:selectOneMenu value="#{turmaMBean.professor}" converter="converterProfessor" id="professor-turma">  
+									<p:selectOneMenu value="#{turmaMBean.turmaProfessor.professor}" converter="converterProfessor" id="professor-turma">  
 										<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
 			            				<f:selectItems value="#{professorMBean.all}" var="professor" itemLabel="#{professor.nomeExibicao}" itemValue="#{professor}" />  
 									</p:selectOneMenu>
@@ -109,7 +109,7 @@
 							</tr>
 							<tr>
 								<td style="text-align: center;" colspan="3">
-									<h:commandButton action="#{turmaMBean.inserirProfessor}" value="Inserir Professor" />
+									<h:commandButton action="#{turmaMBean.inserirProfessor}" value="Inserir" />
 								</td>
 							</tr>
 							<tr>
@@ -118,20 +118,29 @@
 										<f:facet name="header" >  
 								            <h:outputText value="Professores Adicionados" />  
 								        </f:facet>
-								        <p:column headerText="Nome da Professor" style="text-align: left;">
+								        
+								        <p:column headerText="Nome da Professor" style="text-align: left; width: 40%;">
 								        	<h:outputText value="#{turmaProfessor.professor.nomeExibicao}" />
 								        </p:column>    
-								        <p:column headerText="Disciplinas" style="text-align: left;">
+								        
+								        <p:column headerText="Disciplinas" style="text-align: left; width: 40%;">
 								        	<h:outputText value="#{turmaProfessor.disciplinasExibicao}" />
-								        </p:column>    
-								        <p:column>
+								        </p:column>
+								            
+								        <p:column style="text-align: right; width: 10%;">
+								        
 								       		 <h:commandLink onclick="confirmation.show(); return false">
 								          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Permissão"/>
 								          	</h:commandLink>
+								          	
+								          	 <h:commandLink action="#{turmaMBean.preAlterarProfessor}">
+								          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Turma"/>
+								          		<f:setPropertyActionListener target="#{turmaMBean.turmaProfessor}" value="#{turmaProfessor}"/>
+								          	</h:commandLink>   
 			      
 								          	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Desassociar Professor" severity="alert" widgetVar="confirmation">  
 										        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{turmaMBean.removerProfessor}"  ajax="false">
-										        	<f:setPropertyActionListener target="#turmaMBean.professor}" value="#{professor}"/>  
+										        	<f:setPropertyActionListener target="#{turmaMBean.turmaProfessor}" value="#{turmaProfessor}"/>  
 										        </p:commandButton>
 										        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
 									        </p:confirmDialog>

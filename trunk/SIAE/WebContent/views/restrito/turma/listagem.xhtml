@@ -26,23 +26,23 @@
 			            <h:outputText value="Turma(s) Cadastrada(s)" /> 
 			        </f:facet>
 			          
-			        <p:column style="text-align: left;" headerText="Nome">  
+			        <p:column style="text-align: left; width: 30%;" headerText="Nome">  
 			            <h:outputText value="#{turma.nome}" />  
 			        </p:column>
 			            
-			        <p:column style="text-align: left;"  headerText="Série">  
+			        <p:column style="text-align: left; width: 30%;"  headerText="Série">  
 			            <h:outputText value="#{turma.serie.denominacao}" />  
 			        </p:column>
 			        
-			        <p:column style="text-align: left;"  headerText="Turno">  
+			        <p:column style="text-align: left; width: 20%;"  headerText="Turno">  
 			            <h:outputText value="#{turma.turno.denominacao}" />  
 			        </p:column>
 			        
-			        <p:column style="text-align: center;"  headerText="Quantidade de Vagas">  
+			        <p:column style="text-align: center; width: 12%;"  headerText="Quantidade de Vagas">  
 			            <h:outputText value="#{turma.numeroVagas}" />  
 			        </p:column>
 			        
-			          <p:column style="width: 7%; text-align: right;"> 
+			          <p:column style="width: 8%; text-align: right;"> 
 			          	<f:facet name="header"/>
 			          	<h:commandLink onclick="confirmation.show(); return false">
 			          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Turma"/>

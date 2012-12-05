@@ -59,35 +59,26 @@
 				<p:dataTable id="listagem-professor" var="professor" value="#{consultadorProfessorMBean.lista}"   paginator="true" rows="10"  
 	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum registro encontrado.">  
 			        <f:facet name="header">  
-			           <h:outputText value="Professores Encontrados" />
-			        </f:facet>    
-			        <p:column style="width: 40%; text-align: left;">  
-			            <f:facet name="header">  
-			                <h:outputText value="Nome" />  
-			            </f:facet>  
+			           <h:outputText value="Professor(es) Cadastrado(s)" />
+			        </f:facet>
+			        <p:column style="width: 30%; text-align: left;" headerText="Nome">
 			            <h:outputText value="#{professor.pessoa.nome}" />  
 			        </p:column>
-			        <p:column style="width: 10%; text-align: center;">  
-			            <f:facet name="header">  
-			                <h:outputText value="CPF" />  
-			            </f:facet>  
+			         <p:column style="width: 30%; text-align: left;" headerText="Lotação">
+			            <h:outputText value="#{professor.lotacao.nome}" />  
+			        </p:column>
+			        <p:column style="width: 10%; text-align: center;" headerText="CPF">
 			            <h:outputText value="#{professor.pessoa.cpf}" >
 			            	<f:converter converterId="converterCPF"/>
 			            </h:outputText>  
 			        </p:column>
-			        <p:column style="width: 10%; text-align: center;">  
-			            <f:facet name="header">  
-			                <h:outputText value="RG" />  
-			            </f:facet>  
+			        <p:column style="width: 10%; text-align: center;" headerText="RG">
 			            <h:outputText value="#{professor.pessoa.identidade.numero != 0 ? pessoa.identidade.numero : 'Não Informado'}" />  
 			        </p:column>
-			        <p:column style="width: 10%; text-align: center;">  
-			            <f:facet name="header">  
-			                <h:outputText value="Registro de Nascimento" />  
-			            </f:facet>  
+			        <p:column style="width: 10%; text-align: center;" headerText="Registro de Nascimento">
 			            <h:outputText value="#{professor.pessoa.certidaoNascimento.numero != 0 ? pessoa.certidaoNascimento.numero : 'Não Informado'}" />  
 			        </p:column>
-			          <p:column style="width: 7%; text-align: right;"> 
+			          <p:column style="width: 4%; text-align: right;"> 
 			          	<f:facet name="header"/>
 			          	<h:commandLink action="#{professorMBean.preAlterar}">
 			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar professor"/>

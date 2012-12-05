@@ -13,6 +13,7 @@ import br.siae.arq.service.AbstractService;
 import br.siae.arq.service.PessoaService;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dao.ProfessorDAO;
+import br.siae.dominio.comum.Instituicao;
 import br.siae.dominio.rh.Professor;
 
 @Service
@@ -34,6 +35,7 @@ public class ProfessorService extends AbstractService{
 		else {
 			professor = (Professor) cadastrar(professor);
 		}
+		professor.setLotacao( getByPrimaryKey(Instituicao.class, professor.getLotacao().getId() ) );
 		return professor;
 	}
 

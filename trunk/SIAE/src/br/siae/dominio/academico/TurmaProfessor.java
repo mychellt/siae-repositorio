@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.siae.arq.dominio.Persistable;
 import br.siae.arq.utils.ValidatorUtil;
@@ -40,6 +41,9 @@ public class TurmaProfessor implements Persistable{
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="turmaProfessor")
 	private Collection<DisciplinaTurmaProfessor> disciplinas;
+	
+	@Transient
+	private Collection<DisciplinaTurmaProfessor> disciplinasRemoacao;
 
 	public long getId() {
 		return id;
@@ -82,6 +86,48 @@ public class TurmaProfessor implements Persistable{
 		exibicao = new StringBuffer( exibicao.substring(0, exibicao.length() - 2) );  				
 		return exibicao.append(".").toString();
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result
+				+ ((professor == null) ? 0 : professor.hashCode());
+		result = prime * result + ((turma == null) ? 0 : turma.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TurmaProfessor other = (TurmaProfessor) obj;
+		if (id != other.id)
+			return false;
+		if (professor == null) {
+			if (other.professor != null)
+				return false;
+		} else if (!professor.equals(other.professor))
+			return false;
+		if (turma == null) {
+			if (other.turma != null)
+				return false;
+		} else if (!turma.equals(other.turma))
+			return false;
+		return true;
+	}
+
+	public Collection<DisciplinaTurmaProfessor> getDisciplinasRemoacao() {
+		return disciplinasRemoacao;
+	}
+
+	public void setDisciplinasRemoacao(Collection<DisciplinaTurmaProfessor> disciplinasRemoacao) {
+		this.disciplinasRemoacao = disciplinasRemoacao;
+	}
 
 }
