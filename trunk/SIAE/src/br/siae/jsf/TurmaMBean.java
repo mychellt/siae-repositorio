@@ -120,29 +120,43 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 	}
 	
 	public String inserirProfessor() {
+		
 		validateInserirProfessor();
 		
 		if( isContemErros() ) {
 			return getPaginaCadastro();
 		}
 		
-		if( isAlteracaoAssociacaoProfessor()  ) {
-			
-		}
-		for( Disciplina disciplina : disciplinasSelecionadas ) {
-			DisciplinaTurmaProfessor dtp = new DisciplinaTurmaProfessor();
-			dtp.setDisciplina(disciplina);
-			dtp.setTurmaProfessor(turmaProfessor);
-			if( ValidatorUtil.isEmpty( turmaProfessor.getDisciplinas() ) ) {
-				turmaProfessor.setDisciplinas( new ArrayList<DisciplinaTurmaProfessor>() ); 
+		if( isAlteracaoAssociacaoProfessor() ) {
+			if( ValidatorUtil.isEmpty( turmaProfessor.getDisciplinasRemoacao() ) ) {
+				turmaProfessor.setDisciplinasRemoacao( new ArrayList<DisciplinaTurmaProfessor>() );
 			}
-			turmaProfessor.getDisciplinas().add(dtp);
+			//Verifica se existem disciplinas a serem removidas
+			for( DisciplinaTurmaProfessor dtp : turmaProfessor.getDisciplinas() ) {
+				List<Disciplina> asList = Arrays.asList(disciplinasSelecionadas);
+				if( !asList.contains(dtp.getDisciplina() ) ) {
+					turmaProfessor.getDisciplinasRemoacao().add(dtp);
+					turmaProfessor.getDisciplinas().remove(dtp);
+				}
+			}
 		}
-		if( ValidatorUtil.isEmpty(professores) ) {
-			professores = new ArrayList<TurmaProfessor>();
+		else {
+			for( Disciplina disciplina : disciplinasSelecionadas ) {
+				DisciplinaTurmaProfessor dtp = new DisciplinaTurmaProfessor();
+				dtp.setDisciplina(disciplina);
+				dtp.setTurmaProfessor(turmaProfessor);
+				if( ValidatorUtil.isEmpty( turmaProfessor.getDisciplinas() ) ) {
+					turmaProfessor.setDisciplinas( new ArrayList<DisciplinaTurmaProfessor>() ); 
+				}
+				turmaProfessor.getDisciplinas().add(dtp);
+			}
+			
+			if( ValidatorUtil.isEmpty(professores) ) {
+				professores = new ArrayList<TurmaProfessor>();
+			}
+			professores.add(turmaProfessor);
 		}
 		
-		professores.add(turmaProfessor);
 		disciplinasSelecionadas = null;
 		alteracaoAssociacaoProfessor = false;
 		return getPaginaCadastro();
