@@ -167,6 +167,22 @@ public class ArqCache {
 		int index = professores.indexOf(c);
 		return professores.get(index);
 	}
+	
+	public static Turno getTurnoById( long id ) {
+		if( id == 0 ) return null;
+		Turno  c = new Turno();
+		c.setId(id);
+		int index = turnos.indexOf(c);
+		return turnos.get(index);
+	}
+	
+	public static Serie getSerieById( long id ) {
+		if( id == 0 ) return null;
+		Serie  c = new Serie();
+		c.setId(id);
+		int index = series.indexOf(c);
+		return series.get(index);
+	}
 
 	public static List<Professor> getProfessores() {
 		return professores;

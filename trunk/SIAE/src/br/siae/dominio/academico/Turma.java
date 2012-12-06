@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.siae.arq.dominio.Persistable;
 import br.siae.dominio.comum.Turno;
@@ -46,6 +47,9 @@ public class Turma implements Persistable{
 	
 	@OneToMany(mappedBy="turma", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private Collection<TurmaProfessor> professores;
+	
+	@Transient
+	private Collection<TurmaProfessor> professoresRemocao;
 	
 
 	public long getId() {
@@ -124,5 +128,13 @@ public class Turma implements Persistable{
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	public Collection<TurmaProfessor> getProfessoresRemocao() {
+		return professoresRemocao;
+	}
+
+	public void setProfessoresRemocao(Collection<TurmaProfessor> professoresRemocao) {
+		this.professoresRemocao = professoresRemocao;
 	}
 }

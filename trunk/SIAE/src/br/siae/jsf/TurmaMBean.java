@@ -30,7 +30,6 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 	private TurmaProfessor turmaProfessor;
 	private DisciplinaDataModel disciplinas;
 	private Disciplina[] disciplinasSelecionadas;
-	private Collection<TurmaProfessor> professores;
 	private boolean alteracaoAssociacaoProfessor;
 	
 	@Resource(name="turmaService")
@@ -49,6 +48,8 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 		obj.setSerie( new Serie() );
 		obj.setTurno( new Turno() );
 		obj.setNome( new String() );
+		obj.setProfessores( new ArrayList<TurmaProfessor>() );
+		obj.setProfessoresRemocao( new ArrayList<TurmaProfessor>() );
 	}
 	
 	public String iniciarListagem() {
@@ -70,7 +71,6 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 			turmaProfessor.setTurma( new Turma() );
 			turmaProfessor.setDisciplinas( new ArrayList<DisciplinaTurmaProfessor>() );
 			
-			professores = new ArrayList<TurmaProfessor>();
 			disciplinasSelecionadas = null;
 			disciplinas = new DisciplinaDataModel();
 			disciplinas.setWrappedData( service.getAll(Disciplina.class) );
@@ -93,11 +93,10 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 		try {
 			disciplinas = new DisciplinaDataModel();
 			disciplinas.setWrappedData( service.getAll(Disciplina.class) );
-			professores = tpService.getByTurma(obj);
-			for( TurmaProfessor tp : professores ) {
+			obj.setProfessores( tpService.getByTurma(obj) );
+			for( TurmaProfessor tp : obj.getProfessores() ) {
 				tp.setDisciplinas( tpService.getByExactField(DisciplinaTurmaProfessor.class, "turmaProfessor.id", tp.getId() ) );
 			}
-			obj.setProfessores( professores );
 		} catch (NegocioException e) {
 			addMensagemErro(processaException(e));
 		}
@@ -111,11 +110,19 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 			lista.add(dtp.getDisciplina());
 		}
 		disciplinasSelecionadas = lista.toArray( disciplinasSelecionadas );	
-		alteracaoAssociacaoProfessor = false;
+		alteracaoAssociacaoProfessor = true;
 		return getPaginaCadastro();
 	}
 	
 	public String removerProfessor() {
+		obj.getProfessoresRemocao().add(turmaProfessor);
+		obj.getProfessores().remove(turmaProfessor);
+		turmaProfessor = new TurmaProfessor();
+		turmaProfessor.setDisciplinas( new ArrayList<DisciplinaTurmaProfessor>() );
+		turmaProfessor.setProfessor( new Professor() );
+		turmaProfessor.setTurma( new Turma() );
+		turmaProfessor.setDisciplinasRemoacao( new ArrayList<DisciplinaTurmaProfessor>() );
+		disciplinasSelecionadas = null;
 		return getPaginaCadastro();
 	}
 	
@@ -126,37 +133,55 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 		if( isContemErros() ) {
 			return getPaginaCadastro();
 		}
+		TurmaProfessor tp = new TurmaProfessor();
+		try {
+			tp = (TurmaProfessor) turmaProfessor.clone();
+		} catch (CloneNotSupportedException e) {
+			addMensagemErro(processaException(e));
+		}
 		
 		if( isAlteracaoAssociacaoProfessor() ) {
-			if( ValidatorUtil.isEmpty( turmaProfessor.getDisciplinasRemoacao() ) ) {
-				turmaProfessor.setDisciplinasRemoacao( new ArrayList<DisciplinaTurmaProfessor>() );
+			if( ValidatorUtil.isEmpty( tp.getDisciplinasRemoacao() ) ) {
+				tp.setDisciplinasRemoacao( new ArrayList<DisciplinaTurmaProfessor>() );
 			}
 			//Verifica se existem disciplinas a serem removidas
-			for( DisciplinaTurmaProfessor dtp : turmaProfessor.getDisciplinas() ) {
+			Collection<DisciplinaTurmaProfessor> disciplinasAnteriores =  new ArrayList<DisciplinaTurmaProfessor>( tp.getDisciplinas() );
+			Collection<Disciplina> disciplinas = new ArrayList<Disciplina>();
+			for( DisciplinaTurmaProfessor dtp : disciplinasAnteriores ) {
 				List<Disciplina> asList = Arrays.asList(disciplinasSelecionadas);
 				if( !asList.contains(dtp.getDisciplina() ) ) {
-					turmaProfessor.getDisciplinasRemoacao().add(dtp);
-					turmaProfessor.getDisciplinas().remove(dtp);
+					tp.getDisciplinasRemoacao().add(dtp);
+					tp.getDisciplinas().remove(dtp);
+				}
+				disciplinas.add(dtp.getDisciplina());
+			}
+			//Verifica disciplinas adicionadas
+			for( Disciplina disciplina : Arrays.asList(disciplinasSelecionadas) ) {
+				if( !disciplinas.contains(disciplina) ) {
+					DisciplinaTurmaProfessor dtp = new DisciplinaTurmaProfessor();
+					dtp.setDisciplina(disciplina);
+					dtp.setTurmaProfessor(tp);
+					tp.getDisciplinas().add(dtp);
 				}
 			}
+			
+
 		}
 		else {
 			for( Disciplina disciplina : disciplinasSelecionadas ) {
 				DisciplinaTurmaProfessor dtp = new DisciplinaTurmaProfessor();
 				dtp.setDisciplina(disciplina);
-				dtp.setTurmaProfessor(turmaProfessor);
-				if( ValidatorUtil.isEmpty( turmaProfessor.getDisciplinas() ) ) {
-					turmaProfessor.setDisciplinas( new ArrayList<DisciplinaTurmaProfessor>() ); 
+				dtp.setTurmaProfessor(tp);
+				if( ValidatorUtil.isEmpty( tp.getDisciplinas() ) ) {
+					tp.setDisciplinas( new ArrayList<DisciplinaTurmaProfessor>() ); 
 				}
-				turmaProfessor.getDisciplinas().add(dtp);
+				tp.getDisciplinas().add(dtp);
 			}
-			
-			if( ValidatorUtil.isEmpty(professores) ) {
-				professores = new ArrayList<TurmaProfessor>();
-			}
-			professores.add(turmaProfessor);
+			tp.setTurma(obj);
+			obj.getProfessores().add(tp);
 		}
 		
+		turmaProfessor = new TurmaProfessor();
 		disciplinasSelecionadas = null;
 		alteracaoAssociacaoProfessor = false;
 		return getPaginaCadastro();
@@ -171,7 +196,7 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 			addMensagemErro("Selecione pelo menos uma disciplinas para associar o professor a turma");
 		}
 		//Verificar se o professor já foi associado à turma.
-		if( professores.contains(turmaProfessor.getProfessor()) ) {
+		if( obj.getProfessores().contains(turmaProfessor.getProfessor()) ) {
 			addMensagemErro("O professor já está associado à turma");
 		}
 	}
@@ -183,10 +208,6 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 		}
 		
 		try {
-			obj.setProfessores( new ArrayList<TurmaProfessor>() );
-			for( TurmaProfessor tp : professores ) {
-				obj.getProfessores().add(tp);
-			}
 			service.executeCadastro(obj);
 		} catch (NegocioException e) {
 			addMensagemErro(processaException(e));
@@ -235,14 +256,6 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 
 	public void setDisciplinasSelecionadas(Disciplina[] disciplinasSelecionadas) {
 		this.disciplinasSelecionadas = disciplinasSelecionadas;
-	}
-
-	public Collection<TurmaProfessor> getProfessores() {
-		return professores;
-	}
-
-	public void setProfessores(Collection<TurmaProfessor> professores) {
-		this.professores = professores;
 	}
 
 	public TurmaProfessor getTurmaProfessor() {

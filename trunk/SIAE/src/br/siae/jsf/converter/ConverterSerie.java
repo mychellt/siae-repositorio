@@ -5,6 +5,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+import br.siae.arq.cache.ArqCache;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Serie;
 
@@ -16,7 +17,7 @@ public class ConverterSerie implements Converter{
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		Serie serie = new Serie();
       	if( ValidatorUtil.isNotEmpty(value)){
-      		serie.setId( Integer.parseInt(value));
+      		serie =  ArqCache.getSerieById( Integer.parseInt(value) );
       	}
         return serie;
 	}

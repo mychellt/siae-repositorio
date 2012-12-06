@@ -23,7 +23,7 @@ import br.siae.dominio.rh.Professor;
 
 @Entity
 @Table(name="turma_professor", schema="academico")
-public class TurmaProfessor implements Persistable{
+public class TurmaProfessor implements Persistable, Cloneable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,  generator="SEQ_TURMA_PROFESSOR")
@@ -128,6 +128,12 @@ public class TurmaProfessor implements Persistable{
 
 	public void setDisciplinasRemoacao(Collection<DisciplinaTurmaProfessor> disciplinasRemoacao) {
 		this.disciplinasRemoacao = disciplinasRemoacao;
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		TurmaProfessor tp =  (TurmaProfessor) super.clone();
+		return tp;
 	}
 
 }

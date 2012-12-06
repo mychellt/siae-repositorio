@@ -22,7 +22,7 @@
 					<h:outputText value="Informações da Turma"/>
 				</caption>
 				<tr>
-					<th style="font-weight: bold;">
+					<th style="font-weight: bold; width: 50%">
 						<h:outputText value="Ano:" />
 					</th>
 					<td>
@@ -63,19 +63,19 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<table style="width: 100%;">
-							<caption>
-								<h:outputText value="Docente(s) da Turma" />
-							</caption>
-							<p:dataTable value="#{turmaMBean.obj.professores}" var="turmaProfessor">
-								<p:column headerText="Nome do Professor">
-									<h:outputText value="#{turmaProfessor.professor.pessoa.nome}" />
-								</p:column>
-								<p:column headerText="CPF do Professor">
-									<h:outputText value="#{turmaProfessor.professor.pessoa.cpf}" />
-								</p:column>
-							</p:dataTable>
-						</table>
+						<p:dataTable id="professores" var="turmaProfessor" value="#{turmaMBean.obj.professores}" paginator="false" styleClass="subformulario">
+							<f:facet name="header" >  
+					            <h:outputText value="Professor(es) Adicionado(s)" />  
+					        </f:facet>
+					        
+					        <p:column headerText="Nome da Professor" style="text-align: left; width: 49%;">
+					        	<h:outputText value="#{turmaProfessor.professor.nomeExibicao}" />
+					        </p:column>    
+					        
+					        <p:column headerText="Disciplina(s)" style="text-align: left; width: 49%;">
+					        	<h:outputText value="#{turmaProfessor.disciplinasExibicao}" />
+					        </p:column>
+						</p:dataTable>
 					</td>
 				</tr>
 				<tfoot>
