@@ -94,6 +94,7 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 			disciplinas = new DisciplinaDataModel();
 			disciplinas.setWrappedData( service.getAll(Disciplina.class) );
 			obj.setProfessores( tpService.getByTurma(obj) );
+			obj.setProfessoresRemocao( new ArrayList<TurmaProfessor>() );
 			for( TurmaProfessor tp : obj.getProfessores() ) {
 				tp.setDisciplinas( tpService.getByExactField(DisciplinaTurmaProfessor.class, "turmaProfessor.id", tp.getId() ) );
 			}
@@ -165,6 +166,9 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 				}
 			}
 			
+			obj.getProfessores().remove(turmaProfessor);
+			obj.getProfessores().add(tp);
+			
 
 		}
 		else {
@@ -214,6 +218,7 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 			return getPaginaCadastro();
 		}
 		
+		addMensagemInformacao("Operação realizada com sucesso!");
 		return getPaginaComprovante();
 	}
 	
