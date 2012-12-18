@@ -1,0 +1,165 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form-associar-usuario"  acceptcharset="ISO-8859-1" >
+			<p:breadCrumb>  
+				<p:menuitem value="Home" action="#{associarUsuarioMBean.home}" ajax="false" immediate="true"/>
+			    <p:menuitem value="Cadastros"/>
+			    <p:menuitem value="Aluno" action="#{alunoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
+			    <p:menuitem value="Cadastrar" />  
+			</p:breadCrumb> 
+			<br/>
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
+			<br/>
+			<table class="formulario" style="width: 80%">
+				<caption>
+					<h:outputText value="Dados Pessoas do #{pessoaMBean.nomeObjCadastro}" />
+				</caption>
+					<tr>
+						<th style="font-weight: bold; width: 40%;">
+							<h:outputText value="Nome:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty pessoaMBean.obj.nome ? pessoaMBean.obj.nome : 'Não Informado' }"/>
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="CPF:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty pessoaMBean.obj.cpf ? pessoaMBean.obj.cpf : 'Não Informado' }"  >
+								<f:converter converterId="converterCPF"/>
+							</h:outputText>
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="Nome da Mãe:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty pessoaMBean.obj.nomeMae ? pessoaMBean.obj.nomeMae : 'Não Informado'}" />
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="Nome do Pai:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty pessoaMBean.obj.nomePai ? pessoaMBean.obj.nomePai : 'Não Informado'}" />
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="Data do Nascimento:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty pessoaMBean.obj.dataNascimento ? pessoaMBean.obj.dataNascimento : 'Não Informado'}" >
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="E-mail:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty pessoaMBean.obj.email ? pessoaMBean.obj.email : 'Não Informado'}" />
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="Celular:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty pessoaMBean.obj.celular ? pessoaMBean.obj.celular : 'Não Informado'}" />
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="Telefone:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty pessoaMBean.obj.telefone ? pessoaMBean.obj.telefone : 'Não Informado'}" />
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="Sexo:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty pessoaMBean.obj.sexo.denominacao ? pessoaMBean.obj.sexo.denominacao : 'Não Informado'}" />
+						</td>
+					</tr>
+					<h:panelGroup rendered="#{pessoaMBean.cadastroProfessor}">
+						<tr>
+							<th style="font-weight: bold;">
+								<h:outputText value="Lotação:" />
+							</th>
+							<td>
+								<h:outputText value="#{professorMBean.obj.lotacao.nome}" />
+							</td>
+						</tr>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{pessoaMBean.cadastroFuncionario}">
+						<tr>
+							<th style="font-weight: bold;">
+								<h:outputText value="Lotação:" />
+							</th>
+							<td>
+								<h:outputText value="#{funcionarioMBean.obj.lotacao.nome}" />
+							</td>
+						</tr>
+					</h:panelGroup>
+			</table>
+			<br/><br/>
+			<table class="formulario" style="width: 40%;">
+				<caption>
+					<h:outputText value="Associar Usuário" />
+				</caption>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Login:" />
+					</th>
+					<td>
+						<p:inputText value="#{pessoaMBean.usuario.login}" />
+					</td>
+				</tr>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Senha:" />
+					</th>
+					<td>
+						<p:password value="#{pessoaMBean.usuario.senha}" />
+					</td>
+				</tr>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Confirmação de Senha:" />
+					</th>
+					<td>
+						<p:password value="#{pessoaMBean.usuario.senhaConfirmacao}" />
+					</td>
+				</tr>
+				<tfoot>
+					<tr>
+						<td colspan="2" style="text-align: center;">
+							<p:commandButton value="Associar" action="#{pessoaMBean.associarUsuario}" ajax="false"/>
+							<p:commandButton value="Cancelar" action="#{pessoaMBean.cancelar}" immediate="true" ajax="false"/>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

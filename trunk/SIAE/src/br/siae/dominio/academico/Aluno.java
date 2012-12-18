@@ -15,7 +15,6 @@ import javax.persistence.Table;
 
 import br.siae.arq.dominio.Persistable;
 import br.siae.arq.dominio.Pessoa;
-import br.siae.arq.dominio.Usuario;
 
 @Entity
 @Table(name="aluno", schema="academico")
@@ -30,10 +29,6 @@ public class Aluno implements Persistable{
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="id_pessoa", insertable=true, nullable=false, updatable=true)
 	private Pessoa pessoa;
-	
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_usuario", insertable=true)
-	private Usuario usuario;
 	
 	@Column(name="responsavel")
 	private String responsavel;
@@ -58,15 +53,7 @@ public class Aluno implements Persistable{
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
+	
 	public String getResponsavel() {
 		return responsavel;
 	}

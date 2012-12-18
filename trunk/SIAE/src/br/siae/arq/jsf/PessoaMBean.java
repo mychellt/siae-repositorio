@@ -18,9 +18,13 @@ import br.siae.arq.dominio.Municipio;
 import br.siae.arq.dominio.Naturalidade;
 import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.dominio.TituloEleitor;
+import br.siae.arq.dominio.Usuario;
 import br.siae.arq.erro.ArqException;
+import br.siae.arq.erro.NegocioException;
+import br.siae.arq.seguranca.PermissaoUsuario;
 import br.siae.arq.service.MunicipioService;
 import br.siae.arq.service.PessoaService;
+import br.siae.arq.service.UsuarioService;
 import br.siae.arq.utils.DAOUtils;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.jsf.AlunoMBean;
@@ -30,6 +34,9 @@ import br.siae.jsf.ProfessorMBean;
 @Controller
 @Scope("session")
 public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqException{
+	/** xhtml para associação de usuário a pessoa cadastrada.*/
+	public static final String FORM_ASSOCIAR_USUARIO = "/views/restrito/usuario/associar_usuario.jsf";
+	
 	/** Xhtml para o comprovante de cadastro da pessoa.*/
 	public static final String COMPROVANTE_CADASTRO = "/views/restrito/pessoa/comprovante.jsf";
 	
@@ -55,7 +62,13 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqEx
 	private Collection<Municipio> municipiosEndereco;
 	
 	@Resource(name="pessoaService")
-	private PessoaService pessoaService;
+	private PessoaService service;
+	
+	@Resource(name="usuarioService")
+	private UsuarioService usuarioService;
+	
+	/** Usuário que será associado à pessoa. */
+	private Usuario usuario;
 	
 	@Resource(name="municipioService")
 	private MunicipioService municipioService;
@@ -164,6 +177,51 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqEx
 			}
 		}
 	}
+	
+	public String iniciarAssociacaoUsuario() {
+		Collection<Usuario> usuarios;
+		try {
+			usuarios = service.getByExactField(Usuario.class, "pessoa.id", obj.getId() );
+			if( ValidatorUtil.isEmpty( usuarios ) ) {
+				usuario = new Usuario();
+				usuario.setPermissoes( new ArrayList<PermissaoUsuario>() );
+				usuario.setPessoa( obj );
+				
+			}
+			else {
+				usuario = ((List<Usuario>) usuarios).get(0);			
+			}
+		} catch (NegocioException e) {
+			addMensagemErro(processaException(e));
+			return null;
+		}
+		return FORM_ASSOCIAR_USUARIO; 
+
+	}
+	
+	public String associarUsuario() {
+		try {
+			if( ValidatorUtil.isEmpty(usuario.getLogin() ) ) {
+				addMensagemErro("Login: campo obrigatório não informado");
+			}
+			if( ValidatorUtil.isEmpty(usuario.getSenha() ) ) {
+				addMensagemErro("Senha: campo obrigatório não informado");
+			}
+			if( ValidatorUtil.isEmpty(usuario.getSenhaConfirmacao() ) ){
+				addMensagemErro("Confirmação de Senha: campo obrigatório não informado");
+			}
+			
+			if( isContemErros() ) {
+				return FORM_ASSOCIAR_USUARIO;
+			}
+			usuarioService.executeAssociacao(usuario);
+		} catch (Exception e) {
+			addMensagemErro( processaException(e) );
+			return FORM_ASSOCIAR_USUARIO;
+		}
+		addMensagemInformacao("Operação efetuada com sucesso!");
+		return COMPROVANTE_CADASTRO;
+	}
 
 	public Collection<Municipio> getMunicipiosEndereco() {
 		return municipiosEndereco;
@@ -202,5 +260,13 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqEx
 		if( isCadastroFuncionario() ) return "Funcionário";
 		if( isCadastroProfessor() ) return "Professor";
 		return "";
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }

@@ -10,7 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -39,12 +41,19 @@ public class Usuario implements Persistable, UserDetails{
 	@Column(name="senha")
 	private String senha;
 	
+	@Transient
+	private String senhaConfirmacao;
+	
 	@Column(name="ativo")
 	private boolean ativo;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_cadastro")
 	private Date dataCadastro;
+	
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_pessoa", nullable=false)
+	private Pessoa pessoa;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="usuario")
 	private Collection<PermissaoUsuario> permissoes;
@@ -161,5 +170,21 @@ public class Usuario implements Persistable, UserDetails{
 
 	public void setPermissoes(Collection<PermissaoUsuario> permissoes) {
 		this.permissoes = permissoes;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public String getSenhaConfirmacao() {
+		return senhaConfirmacao;
+	}
+
+	public void setSenhaConfirmacao(String senhaConfirmacao) {
+		this.senhaConfirmacao = senhaConfirmacao;
 	}
 }
