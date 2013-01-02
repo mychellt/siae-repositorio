@@ -20,7 +20,7 @@ public class PermissaoUsuario implements Persistable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,  generator="SEQ_PERMISSAO_USUARIO")
-	@SequenceGenerator(name="SEQ_PERMISSAO_USUARIO", sequenceName="seq_permissao_usuario", allocationSize=1)
+	@SequenceGenerator(name="SEQ_PERMISSAO_USUARIO", sequenceName="seguranca.seq_permissao_usuario", allocationSize=1)
 	@Column(name="id_permissao_usuario")
 	private long id;
 	

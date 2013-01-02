@@ -38,19 +38,21 @@
 			            <h:outputText value="#{turma.turno.denominacao}" />  
 			        </p:column>
 			        
-			        <p:column style="text-align: center; width: 12%;"  headerText="Quantidade de Vagas">  
+			        <p:column style="text-align: center; width: 10%;"  headerText="Quantidade de Vagas">  
 			            <h:outputText value="#{turma.numeroVagas}" />  
 			        </p:column>
 			        
-			          <p:column style="width: 8%; text-align: right;"> 
-			          	<f:facet name="header"/>
+			          <p:column style="width: 10%; text-align: right;"> 
+			          
 			          	<h:commandLink onclick="confirmation.show(); return false">
 			          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Turma"/>
 			          	</h:commandLink>
+			          	
 			          	<h:commandLink action="#{turmaMBean.preAlterar}">
 			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Turma"/>
 			          		<f:setPropertyActionListener target="#{turmaMBean.obj}" value="#{turma}"/>
-			          	</h:commandLink>    
+			          	</h:commandLink>
+			          	
 			          	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remoção de Turma" severity="alert" widgetVar="confirmation">  
 					        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{turmaMBean.remover}"  ajax="false">
 					        	<f:setPropertyActionListener target="#{turmaMBean.obj}" value="#{turma}"/>  
@@ -59,7 +61,22 @@
 				        </p:confirmDialog>
 			          </p:column>  
 	    		</p:dataTable>
-	    		<br/><br/> 
+	    		<br/><br/>
+	    		<p:dialog id="display" widgetVar="turmaDialog" resizable="false"  width="400" showEffect="fade" hideEffect="fade">  
+  					<p:dataTable id="professores" var="turmaProfessor" value="#{turmaMBean.obj.professores}" paginator="false" styleClass="subformulario">
+						<f:facet name="header" >  
+				            <h:outputText value="Professor(es) Adicionado(s)" />  
+				        </f:facet>
+				        
+				        <p:column headerText="Nome da Professor" style="text-align: left; width: 49%;">
+				        	<h:outputText value="#{turmaProfessor.professor.nomeExibicao}" />
+				        </p:column>    
+				        
+				        <p:column headerText="Disciplina(s)" style="text-align: left; width: 49%;">
+				        	<h:outputText value="#{turmaProfessor.disciplinasExibicao}" />
+				        </p:column>
+					</p:dataTable>
+		    	</p:dialog> 
     	</h:form>
 		</ui:define>
 		<ui:define name="footer">

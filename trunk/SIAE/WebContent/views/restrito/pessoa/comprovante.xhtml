@@ -17,20 +17,6 @@
 			</p:breadCrumb> 
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
 			<br/>
-			<table style="width: 85%;" align="center">
-				<tr>
-					<td>
-						<p:commandLink action="#{usuarioMBean.iniciarAssociacaoUsuario}" ajax="false">
-							<div class="bt" style="text-align: right;" >
-								<p:graphicImage library="images" name="operacao/usuario/novo_usuario.gif" />
-								<h:outputText value="Usuário"  />
-								<f:setPropertyActionListener target="#{usuarioMBean.obj.pessoa}" value="#{pessoaMBean.obj}"/>
-							</div>
-						</p:commandLink>
-					</td>
-				</tr>
-			</table>
-			<br/>
 			<table class="formulario" style="width: 80%">
 				<caption>
 					<h:outputText value="Dados Pessoas do #{pessoaMBean.nomeObjCadastro}" />
