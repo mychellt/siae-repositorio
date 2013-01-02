@@ -148,6 +148,33 @@
 						<p:password value="#{pessoaMBean.usuario.senhaConfirmacao}" />
 					</td>
 				</tr>
+				<tr>
+					<td colspan="2">
+						<table style="width: 100%;">
+							<caption>
+								<h:outputText value="Permissões" />
+							</caption>
+							<tr>
+								<th>
+									<h:outputText value="Permissão:" />
+								</th>
+								<td>
+									<p:selectOneMenu value="#{usuarioMBean.permissao}" id="permissao-usuario" converter="converterPermissao">  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+			            				<f:selectItems value="#{permissaoMBean.all}" var="permissao" itemLabel="#{permissao.denominacao}" itemValue="#{permissao}"/>  
+									</p:selectOneMenu>
+								</td>
+							</tr>
+							<tfoot>
+								<tr>
+									<td colspan="2" style="text-align: center;	">
+										<h:commandButton action="#{usuarioMBean.inserirPermissao}" value="Associar" />
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</td>
+				</tr>
 				<tfoot>
 					<tr>
 						<td colspan="2" style="text-align: center;">

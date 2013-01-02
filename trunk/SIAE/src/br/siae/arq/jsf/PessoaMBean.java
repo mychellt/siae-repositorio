@@ -34,9 +34,7 @@ import br.siae.jsf.ProfessorMBean;
 @Controller
 @Scope("session")
 public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqException{
-	/** xhtml para associação de usuário a pessoa cadastrada.*/
-	public static final String FORM_ASSOCIAR_USUARIO = "/views/restrito/usuario/associar_usuario.jsf";
-	
+
 	/** Xhtml para o comprovante de cadastro da pessoa.*/
 	public static final String COMPROVANTE_CADASTRO = "/views/restrito/pessoa/comprovante.jsf";
 	
@@ -63,9 +61,6 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqEx
 	
 	@Resource(name="pessoaService")
 	private PessoaService service;
-	
-	@Resource(name="usuarioService")
-	private UsuarioService usuarioService;
 	
 	/** Usuário que será associado à pessoa. */
 	private Usuario usuario;
@@ -176,51 +171,6 @@ public class PessoaMBean extends AbstractSiaeController<Pessoa> implements ArqEx
 				e.getStackTrace();
 			}
 		}
-	}
-	
-	public String iniciarAssociacaoUsuario() {
-		Collection<Usuario> usuarios;
-		try {
-			usuarios = service.getByExactField(Usuario.class, "pessoa.id", obj.getId() );
-			if( ValidatorUtil.isEmpty( usuarios ) ) {
-				usuario = new Usuario();
-				usuario.setPermissoes( new ArrayList<PermissaoUsuario>() );
-				usuario.setPessoa( obj );
-				
-			}
-			else {
-				usuario = ((List<Usuario>) usuarios).get(0);			
-			}
-		} catch (NegocioException e) {
-			addMensagemErro(processaException(e));
-			return null;
-		}
-		return FORM_ASSOCIAR_USUARIO; 
-
-	}
-	
-	public String associarUsuario() {
-		try {
-			if( ValidatorUtil.isEmpty(usuario.getLogin() ) ) {
-				addMensagemErro("Login: campo obrigatório não informado");
-			}
-			if( ValidatorUtil.isEmpty(usuario.getSenha() ) ) {
-				addMensagemErro("Senha: campo obrigatório não informado");
-			}
-			if( ValidatorUtil.isEmpty(usuario.getSenhaConfirmacao() ) ){
-				addMensagemErro("Confirmação de Senha: campo obrigatório não informado");
-			}
-			
-			if( isContemErros() ) {
-				return FORM_ASSOCIAR_USUARIO;
-			}
-			usuarioService.executeAssociacao(usuario);
-		} catch (Exception e) {
-			addMensagemErro( processaException(e) );
-			return FORM_ASSOCIAR_USUARIO;
-		}
-		addMensagemInformacao("Operação efetuada com sucesso!");
-		return COMPROVANTE_CADASTRO;
 	}
 
 	public Collection<Municipio> getMunicipiosEndereco() {

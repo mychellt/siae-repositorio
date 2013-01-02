@@ -20,10 +20,11 @@
 			<table style="width: 85%;" align="center">
 				<tr>
 					<td>
-						<p:commandLink action="#{pessoaMBean.iniciarAssociacaoUsuario}" ajax="false">
+						<p:commandLink action="#{usuarioMBean.iniciarAssociacaoUsuario}" ajax="false">
 							<div class="bt" style="text-align: right;" >
 								<p:graphicImage library="images" name="operacao/usuario/novo_usuario.gif" />
-								<h:outputText value="Associar Usuário"  />
+								<h:outputText value="Usuário"  />
+								<f:setPropertyActionListener target="#{usuarioMBean.obj.pessoa}" value="#{pessoaMBean.obj}"/>
 							</div>
 						</p:commandLink>
 					</td>

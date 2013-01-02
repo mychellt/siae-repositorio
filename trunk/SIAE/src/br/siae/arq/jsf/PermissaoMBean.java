@@ -1,5 +1,7 @@
 package br.siae.arq.jsf;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -19,7 +21,7 @@ import br.siae.arq.utils.ValidatorUtil;
 @Scope("session")
 public class PermissaoMBean extends AbstractSiaeController<Permissao> implements ArqException{	
 	@Resource(name="permissaoService")
-	private PermissaoService permissaoService;
+	private PermissaoService service;
 	
 	public PermissaoMBean() {
 		resetObj();
@@ -32,7 +34,7 @@ public class PermissaoMBean extends AbstractSiaeController<Permissao> implements
 	public String iniciarCadastro()  {
 		resetObj();
 		try {
-			lista = (List<Permissao>) permissaoService.getAll(Permissao.class);
+			lista = (List<Permissao>) service.getAll(Permissao.class);
 		} catch (NegocioException e) {
 			addMensagemErro( processaException(e) );
 		}
@@ -48,8 +50,15 @@ public class PermissaoMBean extends AbstractSiaeController<Permissao> implements
 		}
 	}
 	
-	
-	public String preAlterar() {
+	public Collection<Permissao> getAll() {
+		try {
+			return service.getAll( Permissao.class );
+		} catch (NegocioException e) {
+			addMensagemErro( processaException(e) );
+		}
+		return new ArrayList<Permissao>();
+	}
+ 	public String preAlterar() {
 		if( ValidatorUtil.isEmpty(obj) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
@@ -67,13 +76,13 @@ public class PermissaoMBean extends AbstractSiaeController<Permissao> implements
 		try {
 			if( ValidatorUtil.isNotEmpty(obj)) {
 				Permissao ObjRemocao = lista.get( lista.indexOf(obj) );
-				obj = permissaoService.executeCadastro(obj);
+				obj = service.executeCadastro(obj);
 				addMensagemInformacao("Permissão alterada com sucesso!");
 				lista.remove(ObjRemocao);
 				lista.add(obj);
 			}
 			else {
-				obj = permissaoService.executeCadastro(obj);
+				obj = service.executeCadastro(obj);
 				lista.add(obj);
 				addMensagemInformacao("Permissão cadastrada com sucesso!");
 			}
@@ -93,7 +102,7 @@ public class PermissaoMBean extends AbstractSiaeController<Permissao> implements
 			return null;
 		}
 		try {
-			obj = permissaoService.executeRemocao(obj);
+			obj = service.executeRemocao(obj);
 			lista.remove(obj);
 		}
 		catch(Exception e) {
