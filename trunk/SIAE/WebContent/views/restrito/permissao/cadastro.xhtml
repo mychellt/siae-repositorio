@@ -10,9 +10,9 @@
 		<ui:define name="content">
 		<h:form id="form-cadastro-evento"  acceptcharset="ISO-8859-1" >
 			<p:breadCrumb>  
-			    <p:menuitem value="Evento" action="#{eventoMBean.home}" immediate="true" ajax="false"/>
-			    <p:menuitem value="Evento" action="#{eventoMBean.iniciarCadastro}" immediate="true" ajax="false"/>
-			    <p:menuitem value="Cadastrar" />  
+			    <p:menuitem value="Home" action="#{permissaoMBean.home}" immediate="true" ajax="false"/>
+			    <p:menuitem value="Permissão" action="#{permissaoMBean.iniciarCadastro}" immediate="true" ajax="false"/>
+			    <p:menuitem value="Cadastrar" immediate="true" ajax="false"/>  
 			</p:breadCrumb> 
 			<br/>
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  

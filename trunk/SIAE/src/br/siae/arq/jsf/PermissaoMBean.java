@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import br.siae.arq.erro.ArqException;
@@ -31,6 +32,7 @@ public class PermissaoMBean extends AbstractSiaeController<Permissao> implements
 		obj = new Permissao();
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String iniciarCadastro()  {
 		resetObj();
 		try {

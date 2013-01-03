@@ -14,8 +14,8 @@
 	<sec:http auto-config="true" use-expressions="true" >
 		<sec:form-login login-page="/views/publico/login.jsf" default-target-url="/views/restrito/principal.jsf" 
 		always-use-default-target="true" authentication-failure-url="/views/publico/login.jsf?erro=true" />
-		<sec:access-denied-handler error-page="/publica/acesso_negado.jsf"/>
-		<sec:intercept-url pattern="/views/restrito/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_SYSADMIN', 'ROLE_SPRINGSECURITY')" />
+		<sec:access-denied-handler error-page="/views/restrito/includes/acesso_negado.jsf"/>
+		<sec:intercept-url pattern="/views/**" />
 		<sec:intercept-url pattern="/publico/**" />
 	</sec:http>
 
@@ -32,8 +32,15 @@
 		<sec:authentication-provider user-service-ref="userDetailsService" >
 			<sec:password-encoder hash="md5" />
 		</sec:authentication-provider>		
-	</sec:authentication-manager>	
+	</sec:authentication-manager>		
 	
+	
+	<bean id="securityExpressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler" /> 
+
+	<sec:global-method-security pre-post-annotations="enabled" proxy-target-class="true">
+	    <sec:expression-handler ref="securityExpressionHandler" />
+	</sec:global-method-security>
+
 	<bean id="defaultAuthEventPublisher" class="org.springframework.security.authentication.DefaultAuthenticationEventPublisher"/>
 	
 	<bean id="segurancaDAO" class="br.siae.arq.dao.SegurancaDAO">

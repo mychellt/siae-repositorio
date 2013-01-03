@@ -3,13 +3,16 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
 		<p:menubar> 
-			 <p:submenu label="Aministração" >  
-			 	 <p:submenu label="Permissão">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{permissaoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
-			 	 </p:submenu>
-			 </p:submenu>
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN')" >
+				 <p:submenu label="Aministração" >  
+				 	 <p:submenu label="Permissão">  
+				 	 	 <p:menuitem value="Cadastrar" action="#{permissaoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
+				 	 </p:submenu>
+				 </p:submenu>
+			</sec:authorize>
 			 <p:submenu label="Cadastros" >  
 			 	 <p:submenu label="Aluno">  
 			 	 	 <p:menuitem value="Cadastrar" action="#{alunoMBean.iniciarCadastro}" ajax="false" immediate="true"/>

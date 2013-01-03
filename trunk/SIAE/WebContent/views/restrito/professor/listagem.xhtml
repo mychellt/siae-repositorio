@@ -53,21 +53,22 @@
 				</p:dialog> 
 			</center>
 			<br/><br/>
-			<div class="legenda">
+				<div class="legenda">
 					<h:graphicImage library="images" name="/operacao/alterar.png" />: <h:outputText value="Alterar professor" />
+					<p:graphicImage height="25" library="images" name="operacao/usuario/novo_usuario.gif" />: <h:outputText value="Associação de Usúario" />
 				</div>
 				<p:dataTable id="listagem-professor" var="professor" value="#{consultadorProfessorMBean.lista}"   paginator="true" rows="10"  
 	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum registro encontrado.">  
 			        <f:facet name="header">  
 			           <h:outputText value="Professor(es) Cadastrado(s)" />
 			        </f:facet>
-			        <p:column style="width: 30%; text-align: left;" headerText="Nome">
+			        <p:column style="width: 25%; text-align: left;" headerText="Nome">
 			            <h:outputText value="#{professor.pessoa.nome}" />  
 			        </p:column>
-			         <p:column style="width: 30%; text-align: left;" headerText="Lotação">
+			         <p:column style="width: 25%; text-align: left;" headerText="Lotação">
 			            <h:outputText value="#{professor.lotacao.nome}" />  
 			        </p:column>
-			        <p:column style="width: 10%; text-align: center;" headerText="CPF">
+			        <p:column style="width: 12%; text-align: center;" headerText="CPF">
 			            <h:outputText value="#{professor.pessoa.cpf}" >
 			            	<f:converter converterId="converterCPF"/>
 			            </h:outputText>  
@@ -78,12 +79,18 @@
 			        <p:column style="width: 10%; text-align: center;" headerText="Registro de Nascimento">
 			            <h:outputText value="#{professor.pessoa.certidaoNascimento.numero != 0 ? pessoa.certidaoNascimento.numero : 'Não Informado'}" />  
 			        </p:column>
-			          <p:column style="width: 4%; text-align: right;"> 
-			          	<f:facet name="header"/>
+			          <p:column style="width: 8%; text-align: right;">
+			           
+			           	<p:commandLink action="#{usuarioMBean.iniciarAssociacaoUsuario}" ajax="false">
+							<p:graphicImage height="23" library="images" name="operacao/usuario/novo_usuario.gif" title="Associação de Usuário"/>
+							<f:setPropertyActionListener target="#{usuarioMBean.obj.pessoa}" value="#{professor.pessoa}"/>
+						</p:commandLink>
+						
 			          	<h:commandLink action="#{professorMBean.preAlterar}">
 			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar professor"/>
 							<f:setPropertyActionListener target="#{professorMBean.obj}" value="#{professor}"/>
 			          	</h:commandLink>
+			          	
 			          </p:column>  
 	    		</p:dataTable>
 	    		<br/><br/> 
