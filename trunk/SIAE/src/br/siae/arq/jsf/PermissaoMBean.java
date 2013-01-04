@@ -70,6 +70,7 @@ public class PermissaoMBean extends AbstractSiaeController<Permissao> implements
 		return getPaginaCadastro();
 	}
 	
+ 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String cadastrar() {
 		validar();
 		if( isContemErros() ) {

@@ -34,6 +34,19 @@ public class UsuarioService extends AbstractService{
 			cadastrar(usuario);
 		}
 		else {
+			Collection<PermissaoUsuario> colecao = new ArrayList<PermissaoUsuario>( usuario.getPermissoes() );
+			for( PermissaoUsuario pu : colecao ) {
+				if( !permissoes.contains(pu.getPermissao())) {
+					remover(pu);
+					usuario.getPermissoes().remove(pu);
+				}
+			}
+			for( Permissao permissao : permissoes ) {
+				PermissaoUsuario pu = new PermissaoUsuario();
+				pu.setPermissao( permissao );
+				pu.setUsuario(usuario);
+				usuario.getPermissoes().add(pu);
+			}
 			usuario.setSenha( DAOUtils.toMD5(usuario.getSenha(), null) );
 			alterar(usuario);
 		}
@@ -44,8 +57,8 @@ public class UsuarioService extends AbstractService{
 		if( !usuario.getSenha().trim().equals( usuario.getSenhaConfirmacao().trim() ) ) {
 			throw new NegocioException("As senhas informadas não são iguais");
 		}
-		Collection<Usuario> lista = getByExactField(Usuario.class, "login", usuario.getLogin() );
-		if( ValidatorUtil.isNotEmpty(lista) ) {
+		List<Usuario> lista = (List<Usuario>) getByExactField(Usuario.class, "login", usuario.getLogin() );
+		if( ValidatorUtil.isNotEmpty(lista) && lista.get(0).getId() != usuario.getId()) {
 			throw new NegocioException("Já existe um usuário cadastrado com o login informado.");
 		}
 	}

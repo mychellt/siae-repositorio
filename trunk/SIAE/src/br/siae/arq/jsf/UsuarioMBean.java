@@ -51,7 +51,14 @@ public class UsuarioMBean extends AbstractSiaeController<Usuario>  implements Ar
 				
 			}
 			else {
-				obj = ((List<Usuario>) usuarios).get(0);			
+				obj = ((List<Usuario>) usuarios).get(0);
+				obj.setPermissoes( service.getByExactField(PermissaoUsuario.class,"usuario.id", obj.getId() ) );
+				ArrayList<Permissao> lista = new ArrayList<Permissao>();
+				for( PermissaoUsuario pu : obj.getPermissoes() ) {
+					lista.add(pu.getPermissao());
+				}
+				permissoesSelecionadas = new Permissao[lista.size()];
+				permissoesSelecionadas =  lista.toArray(permissoesSelecionadas);
 			}
 			permissoes = new PermissaoDataModel();
 			permissoes.setWrappedData( service.getAll(Permissao.class) );
