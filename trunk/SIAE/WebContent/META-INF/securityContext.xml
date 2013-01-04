@@ -37,7 +37,7 @@
 	
 	<bean id="securityExpressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler" /> 
 
-	<sec:global-method-security pre-post-annotations="enabled" proxy-target-class="true">
+	<sec:global-method-security pre-post-annotations="enabled" proxy-target-class="true" >
 	    <sec:expression-handler ref="securityExpressionHandler" />
 	</sec:global-method-security>
 
