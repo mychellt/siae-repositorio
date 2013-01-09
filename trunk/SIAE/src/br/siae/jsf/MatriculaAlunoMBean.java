@@ -53,6 +53,13 @@ public class MatriculaAlunoMBean extends AbstractSiaeController<RequerimentoMatr
 	}
 
 	public String preSelecionar() {
+		if( ValidatorUtil.isEmpty(aluno) ) {
+			addMensagemErro("O elemento selecionado não existe mais no banco de dados.");
+			return null;
+		}
+		if( ValidatorUtil.isNotEmpty( aluno.getRequerimentoMatricula() ) ){
+			obj = aluno.getRequerimentoMatricula();
+		}
 		return FORM_SELECAO_TURMA;
 	}
 	
