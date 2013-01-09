@@ -11,6 +11,9 @@
 			 	 	 <p:menuitem value="Cadastrar" action="#{permissaoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
 			 	 </p:submenu>
 			 </p:submenu>
+			  <p:submenu label="Matrículas" rendered="#{facesContext.externalContext.isUserInRole('ROLE_ADMIN')}">
+			  		<p:menuitem value="Realizar Matrícula de Aluno" action="#{matriculaAlunoMBean.iniciarMatricula}" ajax="false" immediate="true"/>
+			  </p:submenu>
 			 <p:submenu label="Cadastros" rendered="#{facesContext.externalContext.isUserInRole('ROLE_ADMIN')}">  
 			 	 <p:submenu label="Aluno">  
 			 	 	 <p:menuitem value="Cadastrar" action="#{alunoMBean.iniciarCadastro}" ajax="false" immediate="true"/>

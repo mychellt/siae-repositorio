@@ -137,4 +137,8 @@ public class Turma implements Persistable{
 	public void setProfessoresRemocao(Collection<TurmaProfessor> professoresRemocao) {
 		this.professoresRemocao = professoresRemocao;
 	}
+	
+	public String getNomeExibicao() {
+		return getNome() + " - " + getTurno().getDenominacao();
+	}
 }

@@ -241,6 +241,16 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 		}
 	}
 
+	
+	public Collection<Turma> getAll() {
+		try {
+			return service.getAll(Turma.class);
+		} catch (NegocioException e) {
+			addMensagemErro( processaException(e) );
+		}
+		return new ArrayList<Turma>();
+	}
+	
 	@Override
 	public String processaException(Exception e) {
 		e.printStackTrace();
