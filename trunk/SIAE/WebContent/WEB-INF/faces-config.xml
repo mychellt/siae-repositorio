@@ -7,5 +7,17 @@
 	<application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>	
 	</application>
-	 
+	
+	<lifecycle>
+		<phase-listener> br.siae.arq.seguranca.AuthorizationListener</phase-listener>
+	</lifecycle>
+	
+	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/views/publico/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
 </faces-config>
