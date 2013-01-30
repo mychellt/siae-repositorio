@@ -5,9 +5,12 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.siae.arq.dao.UsuarioDAO;
 import br.siae.arq.dominio.Usuario;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.seguranca.Permissao;
@@ -18,6 +21,10 @@ import br.siae.arq.utils.ValidatorUtil;
 @Transactional
 @Service
 public class UsuarioService extends AbstractService{
+	@Resource(name="usuarioDAO")
+	private UsuarioDAO dao;
+	
+	
 	public Usuario executeAssociacao( Usuario usuario,  List<Permissao> permissoes ) throws NegocioException {
 		validate(usuario);
 		if( ValidatorUtil.isEmpty(usuario ) ) {
@@ -61,5 +68,9 @@ public class UsuarioService extends AbstractService{
 		if( ValidatorUtil.isNotEmpty(lista) && lista.get(0).getId() != usuario.getId()) {
 			throw new NegocioException("Já existe um usuário cadastrado com o login informado.");
 		}
+	}
+	
+	public Usuario getByLogin( String login ) throws NegocioException {
+		return dao.findByLogin(login);
 	}
 }

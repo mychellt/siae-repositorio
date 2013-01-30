@@ -10,6 +10,11 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import br.siae.arq.dominio.Usuario;
+import br.siae.arq.utils.ValidatorUtil;
+
 public class AuthorizationListener implements PhaseListener{
 	private static final long serialVersionUID = 1L;
 	public static final String PAGINA_LOGIN = "/views/publico/login.jsf";
@@ -25,8 +30,15 @@ public class AuthorizationListener implements PhaseListener{
 		Boolean restrito = ((HttpServletRequest) facesContext.getExternalContext().getRequest()).getRequestURI().indexOf(requestContextPath+ "/views/restrito/") == 0;
 		Boolean login = ((HttpServletRequest) facesContext.getExternalContext().getRequest()).getRequestURI().indexOf(PAGINA_LOGIN) == 0;
 		Boolean logado = Boolean.TRUE;
+		Usuario usuario = null;
 		if (restrito) {  
-            logado = facesContext.getExternalContext().getSessionMap().get("usuario") != null;
+			if( SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof String ) {
+				logado = false;
+			}
+			else {
+				usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				logado =  ValidatorUtil.isNotEmpty(usuario);
+			}
         } 
 		
 		if( !login && !logado ) {

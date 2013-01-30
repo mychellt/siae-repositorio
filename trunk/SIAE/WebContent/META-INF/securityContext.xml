@@ -17,6 +17,7 @@
 		<sec:access-denied-handler error-page="/views/restrito/includes/acesso_negado.jsf"/>
 		<sec:intercept-url pattern="/views/**" />
 		<sec:intercept-url pattern="/publico/**" />
+		<sec:logout logout-success-url="/views/publico/login.jsf" />
 	</sec:http>
 
 	<bean id="userDetailsService" class="br.siae.arq.seguranca.UserDetailsService">

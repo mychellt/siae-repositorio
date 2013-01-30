@@ -1,5 +1,7 @@
 package br.siae.arq.dao;
 
+import javax.persistence.Query;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,10 +23,11 @@ public class UsuarioDAO extends GenericDAO{
 	}
 	
 	public Usuario findByLogin( String login ) throws DataAccessException {
-//			Query q = getSession().createQuery("select u from Usuario u where u.login = :login");
-//			q.setParameter("login", login);
-//			Usuario u = (Usuario) q.uniqueResult();
-//			return u;
-			return null;
+			String hql = "select u from Usuario u where lower(u.login)=lower(:login) ";
+			Query q = getEntityManager().createQuery(hql);
+			q.setParameter("login", login );
+			
+			Usuario usuario = (Usuario) q.getSingleResult();
+			return usuario;
 		}
 }
