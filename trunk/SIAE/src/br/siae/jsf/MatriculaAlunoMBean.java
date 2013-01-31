@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.siae.arq.erro.ArqException;
-import br.siae.arq.erro.NegocioException;
 import br.siae.arq.jsf.AbstractSiaeController;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Aluno;

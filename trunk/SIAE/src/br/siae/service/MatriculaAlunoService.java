@@ -1,5 +1,6 @@
 package br.siae.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -19,21 +20,19 @@ import br.siae.dominio.academico.Turma;
 @Transactional
 public class MatriculaAlunoService extends AbstractService{
 	public RequerimentoMatricula executeRealizacaoMatricula( Aluno aluno, Turma turma ) throws NegocioException {
-		RequerimentoMatricula requerimentoMatricula = new RequerimentoMatricula();
 		if( ValidatorUtil.isEmpty( aluno.getRequerimentoMatricula() ) ) {
-			requerimentoMatricula = aluno.getRequerimentoMatricula();
-		}
-		else {
-			requerimentoMatricula.setNumeroMatricula(1);
+			RequerimentoMatricula requerimentoMatricula = new RequerimentoMatricula();
+			requerimentoMatricula.setNumeroMatricula(201300001);
+			requerimentoMatricula.setItens( new ArrayList<ItemRequerimentoMatricula>() );
 			aluno.setRequerimentoMatricula(requerimentoMatricula);
+			Calendar calendar = GregorianCalendar.getInstance();  
+			ItemRequerimentoMatricula item = new ItemRequerimentoMatricula();
+			item.setId( calendar.get(Calendar.YEAR) );
+			item.setRequerimentoMatricula( requerimentoMatricula );
+			item.setTurma(turma);
+			item.setData( new Date() );
+			return requerimentoMatricula;
 		}
-		Calendar calendar = GregorianCalendar.getInstance();  
-		ItemRequerimentoMatricula item = new ItemRequerimentoMatricula();
-		item.setId( calendar.get(Calendar.YEAR) );
-		item.setRequerimentoMatricula( requerimentoMatricula );
-		item.setTurma(turma);
-		item.setData( new Date() );
-		cadastrar(requerimentoMatricula);
-		return requerimentoMatricula;
+		return null;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.Query;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -120,6 +121,15 @@ public class GenericDAO {
 		return lista;
 	}
 	
+	
+	public <T> void updateField(Class<T> classe, long id, String campo, Object valor) throws DataAccessException{
+		Query q = (Query) getEntityManager().createQuery("UPDATE "+classe.getSimpleName()+" SET "+ campo +" = ? WHERE id = ?");
+		int idx = 1;
+		q.setParameter(idx++, valor);
+		q.setParameter(idx++, id);
+		q.executeUpdate();
+	}
+
 	public JdbcTemplate getJdbcTemplate() {
 		return (JdbcTemplate) ServiceFactory.getBean("jdbcTemplate");
 	}
