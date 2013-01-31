@@ -27,7 +27,7 @@ public class MatriculaAlunoService extends AbstractService{
 			aluno.setRequerimentoMatricula(requerimentoMatricula);
 			Calendar calendar = GregorianCalendar.getInstance();  
 			ItemRequerimentoMatricula item = new ItemRequerimentoMatricula();
-			item.setId( calendar.get(Calendar.YEAR) );
+			item.setAno( calendar.get(Calendar.YEAR) );
 			item.setRequerimentoMatricula( requerimentoMatricula );
 			item.setTurma(turma);
 			item.setData( new Date() );
