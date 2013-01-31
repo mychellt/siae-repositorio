@@ -31,6 +31,9 @@ public class MatriculaAlunoService extends AbstractService{
 			item.setRequerimentoMatricula( requerimentoMatricula );
 			item.setTurma(turma);
 			item.setData( new Date() );
+			requerimentoMatricula.getItens().add(item);
+			requerimentoMatricula =  (RequerimentoMatricula) cadastrar(requerimentoMatricula);
+			getGenericDAO().updateField(Aluno.class, aluno.getId(), "requerimentoMatricula.id", requerimentoMatricula.getId() );
 			return requerimentoMatricula;
 		}
 		return null;

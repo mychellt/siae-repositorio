@@ -40,7 +40,7 @@ public class ItemRequerimentoMatricula implements Persistable{
 	
 
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="id_requerimento_matricula", insertable=true)
+	@JoinColumn(name="id_requerimento_matricula")
 	private RequerimentoMatricula requerimentoMatricula;
 
 	public long getId() {
