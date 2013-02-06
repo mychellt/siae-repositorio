@@ -36,6 +36,8 @@ public class MatriculaAlunoService extends AbstractService{
 			getGenericDAO().updateField(Aluno.class, aluno.getId(), "requerimentoMatricula.id", requerimentoMatricula.getId() );
 			return requerimentoMatricula;
 		}
-		return null;
+		else {
+			return (RequerimentoMatricula) alterar( aluno.getRequerimentoMatricula() );
+		}
 	}
 }
