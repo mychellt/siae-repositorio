@@ -28,7 +28,6 @@ public class FuncionarioMBean extends AbstractSiaeController<Funcionario> implem
 
 	@Resource(name="pessoaMBean")
 	private PessoaMBean pessoaMBean;
-	
 	@Resource(name="funcionarioService")
 	private FuncionarioService funcionarioService;
 	

@@ -15,7 +15,7 @@
 			    <p:menuitem value="Cadastros" action="#{turmaMBean.home}" ajax="false" immediate="true"/>
 			    <p:menuitem value="Turma" action="#{turmaMBean.iniciarCadastro}" ajax="false" immediate="true"/>
 			    <p:menuitem value="Cadastrar" />  
-			</p:breadCrumb> 
+			</p:breadCrumb>
 			<br/>
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
 			<br/>
@@ -155,7 +155,7 @@
 				<tfoot>
 					<tr style="text-align: center;">
 						<td colspan="2">
-							<p:commandButton value="#{turmaMBean.confirmButton}" action="#{turmaMBean.cadastrar}" ajax="false"/>
+							<p:commandButton value="#{turmaMBean.confirmButton}" actionT="#{turmaMBean.cadastrar}" ajax="false"/>
 							<p:commandButton value="Cancelar" action="#{turmaMBean.cancelar}" ajax="false" immediate="true"/>
 						</td>
 					</tr>
