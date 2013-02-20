@@ -5,40 +5,6 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:sec="http://www.springframework.org/security/tags">
-		<p:menubar> 
-			 <p:submenu label="Cadastros" rendered="#{facesContext.externalContext.isUserInRole('ROLE_ADMIN')}">  
-			 	 <p:submenu label="Aluno">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{alunoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
-			 	 	 <p:menuitem value="Listar/Alterar" action="#{consultadorAlunoMBean.iniciarListagem}" ajax="false" immediate="true"/>
-			 	 </p:submenu>
-			 	 <p:submenu label="Professor">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{professorMBean.iniciarCadastro}" ajax="false" immediate="true"/>
-			 	 	 <p:menuitem value="Listar/Alterar" action="#{consultadorProfessorMBean.iniciarListagem}" ajax="false" immediate="true"/>
-			 	 </p:submenu>
-			 	 <p:submenu label="Funcionário">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{funcionarioMBean.iniciarCadastro}" ajax="false"  immediate="true"/>
-			 	 	 <p:menuitem value="Listar/Alterar" action="#{consultadorFuncionarioMBean.iniciarListagem}" ajax="false" immediate="true"/>
-			 	 </p:submenu>
-			 	 <p:submenu label="Turma">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{turmaMBean.iniciarCadastro}" ajax="false"  immediate="true"/>
-			 	 	 <p:menuitem value="Listar/Alterar" action="#{turmaMBean.iniciarListagem}" ajax="false"  immediate="true"/>
-			 	 </p:submenu>
-			 	  <p:submenu label="Série">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{serieMBean.iniciarCadastro}" ajax="false" immediate="true"/>
-			 	 </p:submenu>
-			 	 <p:submenu label="Instituição">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{instituicaoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
-			 	 	 <p:menuitem value="Listar/Alterar" action="#{instituicaoMBean.iniciarListagem}" ajax="false" immediate="true"/>
-			 	 </p:submenu>
-			 	  <p:submenu label="Formação Acadêmica">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{formacaoAcademicaMBean.iniciarCadastro}" ajax="false" immediate="true"/>
-			 	 </p:submenu>
-			 	 <p:submenu label="Cargo">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{cargoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
-			 	 </p:submenu>
-			 	  <p:submenu label="Disciplina">  
-			 	 	 <p:menuitem value="Cadastrar" action="#{disciplinaMBean.iniciarCadastro}" ajax="false" immediate="true"/>
-			 	 </p:submenu>
-			 </p:submenu> 
-		</p:menubar>
+
+	  
 </ui:composition>
