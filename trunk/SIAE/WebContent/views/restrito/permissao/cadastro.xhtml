@@ -7,11 +7,21 @@
 		<ui:define name="header">
 			<ui:include src="/template/header.xhtml" />
 		</ui:define>
-			<ui:define name="menu">
-				<h:form id="form-menu"  acceptcharset="ISO-8859-1" >
-					<ui:include src="/views/restrito/menus/menu_cadastros.xhtml" />
-				</h:form>
-			</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation"  acceptcharset="ISO-8859-1" >
+				<p:breadCrumb> 
+					<p:menuitem value="Home" action="#{permissaoMBean.home}"  ajax="false" immediate="true"/>
+				    <p:menuitem value="Administração" action="#" ajax="false" immediate="true"/>
+				    <p:menuitem value="Permissão" action="#{permissaoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
+				    <p:menuitem value="Cadastrar" action="#" ajax="false" immediate="true"/>  
+				</p:breadCrumb>
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu"  acceptcharset="ISO-8859-1" >
+				<ui:include src="/views/restrito/menus/menu_administracao.xhtml" />
+			</h:form>
+		</ui:define>
 			<ui:define name="content">
 				<h:form id="form-cadastro"  acceptcharset="ISO-8859-1" >
 					<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  

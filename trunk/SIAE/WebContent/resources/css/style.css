@@ -8,6 +8,35 @@ body {
 	width: 100%;
 }
 
+.navegacao {
+	position: relative;
+	left: 0;
+	width: 990px;
+	padding-bottom: 10px;
+}
+
+#content {
+	display: table;
+}
+
+#main-content {
+		display: table-cell;
+		position:relative;
+		width: 800px;
+		padding-right: 5px;
+		padding-left: 5px;
+}
+
+header, footer, section, aside, nav, article {
+	display: block;
+}
+
+aside {
+		display: table;
+		width: 180px;
+		position: relative;
+}
+
 #container {
 	padding-top:0;
 	margin: 0 auto;  
