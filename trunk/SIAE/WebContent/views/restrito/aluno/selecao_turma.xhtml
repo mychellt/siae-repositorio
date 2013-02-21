@@ -7,15 +7,23 @@
 		<ui:define name="header">
 			<ui:include src="/template/header.xhtml" />
 		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb>  
+					<p:menuitem value="Home" action="#{matriculaAlunoMBean.home}" ajax="false" immediate="true"/>
+				    <p:menuitem value="Matrículas" action="#{matriculaAlunoMBean.iniciarMatricula}" ajax="false" immediate="true"/>
+				    <p:menuitem value="Realizar Matrícula de Aluno" ajax="false" immediate="true"/>  
+				    <p:menuitem value="Seleção de Turma" ajax="false" immediate="true"/>
+				</p:breadCrumb>
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_cadastros.xhtml" />
+			</h:form>
+		</ui:define>
 		<ui:define name="content">
 		<h:form id="form-matricula-aluno"  acceptcharset="ISO-8859-1">
-			<p:breadCrumb>  
-				<p:menuitem value="Home" action="#{matriculaAlunoMBean.home}" ajax="false" immediate="true"/>
-			    <p:menuitem value="Matrículas" action="#{matriculaAlunoMBean.iniciarMatricula}" ajax="false" immediate="true"/>
-			    <p:menuitem value="Realizar Matrícula de Aluno" ajax="false" immediate="true"/>  
-			    <p:menuitem value="Seleção de Turma" ajax="false" immediate="true"/>
-			</p:breadCrumb> 
-			<br/>
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
 			<table class="formulario" style="width: 70%">
 				<caption>
@@ -124,6 +132,7 @@
 				</tfoot>
 			</table>
     	</h:form>
+    	<br /><br />
 		</ui:define>
 		<ui:define name="footer">
 			<ui:include src="/template/footer.xhtml" />
