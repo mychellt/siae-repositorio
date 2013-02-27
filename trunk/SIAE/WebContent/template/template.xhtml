@@ -11,39 +11,34 @@
         <h:outputScript library="js" name="formatador.js"/>
     </h:head>
     <h:body>
-    	<div id="container">
-	    	<header>
-	    		<div id="header">
-		   			<ui:insert name="header">
-		   				Cabeçalho	    			
-		   			</ui:insert>
-	    		</div>
+    	<section id="container">
+	    	<header id="header">
+	   			<ui:insert name="header">
+	   				Cabeçalho	    			
+	   			</ui:insert>
 	    	</header>
-    		<div class="navegacao">
+    		<nav>
     			<ui:insert name="navegation">
+    				Indicador de Navegação
     			</ui:insert>
-    		</div>
-	    	<div id="content">
+    		</nav>
+    		<section id="content">
 	    		<aside>
 	    			<ui:insert name="menu">
 	    				Menu Lateral
 	    			</ui:insert>
 	    		</aside>
-	    		<div id="main-content">
-			    	<section>
-			 			<ui:insert name="content">
-			 				Conteúdo
-						</ui:insert>
-			   		</section>
-	    		</div>
-	    	</div>
-		    <footer>
-		    	<div id="footer">
-			    	<ui:insert name="footer">
-			   				Rodapé	    			
-		   			</ui:insert>
-		    	</div>
+	    		<section id="main-content">
+		 			<ui:insert name="content">
+		 				Conteúdo
+					</ui:insert>
+			   	</section>
+	    	</section>
+		    <footer id="footer">
+		    	<ui:insert name="footer">
+		   				Rodapé	    			
+	   			</ui:insert>
 		    </footer>
-		</div>
+		</section>
     </h:body>
 </html>
