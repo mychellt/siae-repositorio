@@ -7,14 +7,23 @@
 		<ui:define name="header">
 			<ui:include src="/template/header.xhtml" />
 		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb>  
+					<p:menuitem value="Home" action="#{pessoaMBean.home}" ajax="false"/>
+				    <p:menuitem value="Cadastros"/>
+				    <p:menuitem value="#{pessoaMBean.nomeObjCadastro}" action="#{pessoaMBean.controlador.iniciarCadastro}" />
+				    <p:menuitem value="Comprovante de Cadastro" />  
+				</p:breadCrumb> 
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_cadastros.xhtml" />
+			</h:form>
+		</ui:define>
 		<ui:define name="content">
 		<h:form id="form-comprovante"  acceptcharset="ISO-8859-1">
-			<p:breadCrumb>  
-				<p:menuitem value="Home" action="#{pessoaMBean.home}" ajax="false"/>
-			    <p:menuitem value="Cadastros"/>
-			    <p:menuitem value="#{pessoaMBean.nomeObjCadastro}" action="#{pessoaMBean.controlador.iniciarCadastro}" />
-			    <p:menuitem value="Comprovante de Cadastro" />  
-			</p:breadCrumb> 
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
 			<br/>
 			<table class="formulario" style="width: 80%">
