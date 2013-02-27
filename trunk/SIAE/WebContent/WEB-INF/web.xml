@@ -41,7 +41,7 @@
   
   <context-param>
     <param-name>primefaces.THEME</param-name>
-    <param-value>le-frog</param-value>
+    <param-value>south-street</param-value>
   </context-param>
 	
 </web-app>
