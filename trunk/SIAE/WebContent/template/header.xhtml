@@ -1,3 +1,4 @@
-<a href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" xmlns:h="http://java.sun.com/jsf/html">
-	<h:graphicImage value="/resources/images/layout/logof.png" height="20" />
+<a href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" 
+	xmlns:h="http://java.sun.com/jsf/html" id="logout">
+	<h:graphicImage value="/resources/images/layout/logof.png" height="20"  rendered="#{usuarioMBean.usuarioLogado}"/>
 </a>

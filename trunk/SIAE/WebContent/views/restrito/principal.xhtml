@@ -1,21 +1,33 @@
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-	<html xmlns="http://www.w3.org/1999/xhtml"
-	      xmlns:h="http://java.sun.com/jsf/html"
-	      xmlns:f="http://java.sun.com/jsf/core"
-	      xmlns:ui="http://java.sun.com/jsf/facelets"
-	      xmlns:p="http://primefaces.org/ui"> 
-		<ui:composition template="/template/template.xhtml">
-			<ui:define name="header">
+<!DOCTYPE html> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="pt-br">
+      <h:head>
+		<meta charset="iso-8859-1" />  
+        <title>SIAE - Sistema Integrado de Gestão Escolar</title>
+        <h:outputStylesheet name="style.css"  library="css"/>
+        <h:outputScript library="js" name="formatador.js"/>
+    </h:head> 
+	<h:body>
+		<section id="container">
+			<header id="header">
 				<ui:include src="/template/header.xhtml" />
-			</ui:define>
-			<ui:define name="content">
-				<h:form>
-					<ui:include src="/views/restrito/includes/menu.xhtml"/>
-					<ui:include src="/views/restrito/includes/info_usuario.xhtml"/>
-				</h:form>
-			</ui:define>
-			<ui:define name="footer">
+			</header>
+			 <section id="content">
+			 	<section id="detalhes-usuario">
+			 		<section id="foto-usuario">
+			 			<h:outputText value="#{usuario.pessoa.nome}" />
+			 		</section>
+			 		<section id="infos-usuario">
+			 		
+			 		</section>
+			 	</section>
+			</section>
+			 <footer id="footer">
 				<ui:include src="/template/footer.xhtml" />
-			</ui:define>
-		</ui:composition>
-	</html>
+			</footer>
+		</section>
+	</h:body>
+</html>

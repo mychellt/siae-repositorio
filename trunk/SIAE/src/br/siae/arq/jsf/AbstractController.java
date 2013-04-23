@@ -11,9 +11,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import br.siae.arq.dominio.Usuario;
 import br.siae.arq.utils.ReflectionUtils;
 import br.siae.arq.utils.RequestUtils;
 import br.siae.arq.utils.ValidatorUtil;
@@ -140,6 +142,17 @@ public class AbstractController {
 			}
 		}
 	}
+	
+	public Usuario getUsuarioLogado() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Usuario usuario = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
+		return usuario;
+	}
+	
+	public boolean isUsuarioLogado() {
+		return ValidatorUtil.isNotEmpty(getUsuarioLogado()); 
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static <T> T getMBean(String mbeanName) {
 		FacesContext fc = FacesContext.getCurrentInstance();

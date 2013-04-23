@@ -38,6 +38,9 @@ public class AuthorizationListener implements PhaseListener{
 			else {
 				usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 				logado =  ValidatorUtil.isNotEmpty(usuario);
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.getExternalContext().getSessionMap().put("usuario", usuario);
+
 			}
         } 
 		

@@ -1,48 +1,58 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core" 
-	template="/template/template.xhtml"
-	xmlns:p="http://primefaces.org/ui">
-		<ui:define name="header">
-			
-		</ui:define>
-		<ui:define name="content">
-			<br/><br/><br/>
-			<ui:include src="/template/erros.xhtml" />
-				<br/><br/><br/>
-				
-				<form action="#{facesContext.externalContext.requestContextPath}/j_spring_security_check" method="post" id="form">
-					<table style="width: 30%" class="formulario">
-					<caption>Entrar no Sistema</caption>
-					<tr>
-						<td class="obrigatorio">
-							<h:outputText value="Login:" />
-						</td>
-						<td>
-							 <p:inputText id="j_username"  size="15"  label="Firstname" />  
-						</td>
-					</tr>
-					<tr>
-						<td class="obrigatorio">
-							<h:outputText value="Senha:"/>
-						</td>
-						<td>
-							 <p:password size="15" id="j_password" />
-						</td>
-					</tr>
-					<tfoot>
-						<tr>
-							<td colspan="2" style="text-align: center;">
-								 <h:commandButton type="submit" value="Login" style="margin:0" />  
-							</td>
-						</tr>
-					</tfoot>
-				</table>
-			</form>
-			<br/><br/><br/>
-	</ui:define>
-	<ui:define name="footer">
-			<ui:include src="/template/footer.xhtml" />
-		</ui:define>
-</ui:composition>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      lang="pt-br">
+    <h:head>
+		<meta charset="iso-8859-1" />  
+        <title>SIAE - Sistema Integrado de Gestão Escolar</title>
+        <h:outputStylesheet name="style.css"  library="css"/>
+        <h:outputScript library="js" name="formatador.js"/>
+    </h:head>
+    <h:body>
+    	<section id="container">
+    		<header id="header">
+				<ui:include src="/template/header_login.xhtml" />
+			</header>
+			<section id="content">
+				<section id="main-content">
+					<ui:include src="/template/erros.xhtml" />					
+					<form action="#{facesContext.externalContext.requestContextPath}/j_spring_security_check" method="post" id="form">
+						<table style="width: 30%" class="formulario">
+							<caption>Entrar no Sistema</caption>
+							<tr>
+								<td class="obrigatorio">
+									<h:outputText value="Login:" />
+								</td>
+								<td>
+									 <p:inputText id="j_username"  size="15"  label="Firstname" />  
+								</td>
+							</tr>
+							<tr>
+								<td class="obrigatorio">
+									<h:outputText value="Senha:"/>
+								</td>
+								<td>
+									 <p:password size="15" id="j_password" />
+								</td>
+							</tr>
+							<tfoot>
+								<tr>
+									<td colspan="2" style="text-align: center;">
+										 <h:commandButton type="submit" value="Login" style="margin:0" />  
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</form>
+				</section>
+			</section>
+			<section id="infos-tecnicas" style="padding-top: 50px;">
+			</section>
+			<footer id="footer">
+				<ui:include src="/template/footer.xhtml" />
+			</footer>
+		</section>
+	</h:body>
+</html>
