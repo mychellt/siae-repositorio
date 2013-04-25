@@ -1,6 +1,7 @@
 package br.siae.jsf;
 
 import javax.annotation.Resource;
+
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.persistence.NoResultException;

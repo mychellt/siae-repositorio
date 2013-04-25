@@ -182,7 +182,18 @@ div.legenda {
 section#detalhes-usuario {
 	 border-radius: 10px 10px 10px 10px;
 	 border: 10px;
-	 background-color: rgba(0, 193, 43, 0.3);
+	 background-color: rgba(0, 193, 43, 0.9);
 	 width: 990px;
-	 
+	-moz-opacity:0.9;
+     -webkit-opacity:0.9;
+}
+
+section#foto-usuario {
+	display: inline;
+	position: relative;
+}
+
+section#infos-usuario {
+	display: inline;
+	position: relative;
 }
