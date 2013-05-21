@@ -1,4 +1,16 @@
-<a href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" 
-	xmlns:h="http://java.sun.com/jsf/html" id="logout">
-	<h:graphicImage value="/resources/images/layout/logof.png" height="20"  rendered="#{usuarioMBean.usuarioLogado}"/>
-</a>
+<div id="info-sistema">
+	<h1>
+		<span>
+			SIAE -
+		</span>
+	</h1>
+	<h3>Sistema Integrado de Administração escolar</h3>
+	<div class="dir">
+		<span class="sair">
+			<a href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" 
+				xmlns:h="http://java.sun.com/jsf/html" id="logout">
+				<h:graphicImage value="/resources/images/layout/logof.png" height="20"  rendered="#{usuarioMBean.usuarioLogado}"/>
+			</a>
+		</span>
+	</div>
+</div>

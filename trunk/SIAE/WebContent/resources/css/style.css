@@ -24,6 +24,8 @@ section#main-content {
 		width: 800px;
 		padding-right: 5px;
 		padding-left: 5px;
+		padding-bottom: 20px;
+		padding-top: 20px;
 }
 
 header, footer, section, aside, nav, article {
@@ -45,10 +47,26 @@ section#container {
 	box-shadow-left: 5px;
 }
 
- .ui-widget {  
-     font-size: 12px !important;  
- }
 
+.ui-menu {
+  border-bottom-left-radius:0px;
+  border-bottom-right-radius:0px;
+  border-top-left-radius:0px;
+  border-top-right-radius:0px;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+     font-size: 11px !important;
+}
+
+.ui-breadcrumb {
+  border-bottom-left-radius:0px;
+  border-bottom-right-radius:0px;
+  border-top-left-radius:0px;
+  border-top-right-radius:0px;
+}
+ 
+ 
 .content{
 	width: 980px;
 	background-color: #fff;
@@ -179,21 +197,49 @@ div.legenda {
 }
 
 
-section#detalhes-usuario {
-	 border-radius: 10px 10px 10px 10px;
-	 border: 10px;
-	 background-color: rgba(0, 193, 43, 0.9);
-	 width: 990px;
-	-moz-opacity:0.9;
-     -webkit-opacity:0.9;
+
+#info-sistema {
+  background: none repeat scroll 0 0 #3A8104;;
+  color:#FFFFFF;
+  display:block;
+  margin:0 auto;
+  padding:1px 4px 0;
+  position:relative;
+  text-align:left;
+  border-top: 4px solid #D99C44;
 }
 
-section#foto-usuario {
+#info-sistema h3 {
 	display: inline;
-	position: relative;
+  	font-size: 1.0em;
+  	font-weight: normal;
+  	position: relative;
 }
 
-section#infos-usuario {
-	display: inline;
-	position: relative;
+#info-sistema h1 {
+  display:inline;
+  font-size:1.0em;
+  font-weight:bold;
+}
+
+#info-sistema div.dir {
+  color:#FFFFFF;
+  display:inline;
+  height:16px;
+  margin:0;
+  padding:0 5px 0 0;
+  position:absolute;
+  right:0;
+  text-align:right;
+  top:0;
+  width:auto;
+}
+
+
+#info-sistema h1 span {
+  font-family:Arial;
+  font-size:1.1em;
+  letter-spacing:0.1em;
+  margin-right:10px;
+  position:relative;
 }
