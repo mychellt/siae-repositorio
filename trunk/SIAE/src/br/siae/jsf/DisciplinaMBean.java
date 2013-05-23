@@ -24,6 +24,8 @@ public class DisciplinaMBean extends AbstractSiaeController<Disciplina> implemen
 	@Resource(name="disciplinaService")
 	private DisciplinaService service;
 	
+	private Disciplina disciplina;
+	
 	
 	public DisciplinaMBean() {
 		resetObj();
@@ -80,21 +82,22 @@ public class DisciplinaMBean extends AbstractSiaeController<Disciplina> implemen
 		return getPaginaCadastro();
 	}
 
-	public String remover() {
-		obj = service.getByPrimaryKey(Disciplina.class, getParameterInt("idDisciplina") );
-		if( ValidatorUtil.isEmpty(obj) ) {
+	public String remover(Disciplina disciplina) {
+		disciplina = service.getByPrimaryKey(Disciplina.class, disciplina.getId() );
+		if( ValidatorUtil.isEmpty(disciplina) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
 			return null;
 		}
 		try {
-			obj = service.executeRemocao(obj);
-			lista.remove(obj);
+			disciplina = service.executeRemocao(disciplina);
 		}
 		catch(Exception e) {
 			addMensagemErro( processaException(e) );
+			return null;
 		}
 		
+		lista.remove(disciplina);
 		resetObj();
 		return getPaginaCadastro();
 	}
@@ -130,6 +133,14 @@ public class DisciplinaMBean extends AbstractSiaeController<Disciplina> implemen
 			addMensagemErro(processaException(e));
 		}
 		return new ArrayList<Disciplina>();
+	}
+
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
 	}
 
 }

@@ -103,8 +103,8 @@
 			          		<f:setPropertyActionListener target="#{cargoMBean.obj}" value="#{cargo}"/>
 			          	</h:commandLink>
 			          	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remoção de Cargo" severity="alert" widgetVar="confirmation">  
-					        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{cargoMBean.remover}"  ajax="false">
-					     		<f:param name="idCargo" value="#{cargo.id}"/>  
+					        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{cargoMBean.remover}">
+								<f:setPropertyActionListener target="#{cargoMBean.obj}" value="#{cargo}"/>
 					        </p:commandButton>
 					        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
 				        </p:confirmDialog>

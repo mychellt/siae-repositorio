@@ -94,7 +94,7 @@ public class CargoMBean extends AbstractSiaeController<Cargo> implements ArqExce
 	}
 	
 	public String remover() {
-		obj = service.getByPrimaryKey(Cargo.class, getParameterInt("idCargo") );
+		obj = service.getByPrimaryKey(Cargo.class, obj.getId() );
 		if( ValidatorUtil.isEmpty(obj) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
