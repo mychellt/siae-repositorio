@@ -106,6 +106,9 @@ public class DisciplinaMBean extends AbstractSiaeController<Disciplina> implemen
 		if( ValidatorUtil.isEmpty(obj.getNivel()) ) {
 			addMensagemErro("Nível: campo obrigatório não informado");
 		}
+		if( ValidatorUtil.isEmpty(obj.getCargaHoraria())){
+			addMensagemErro("Carga Horária: campo obrigatório não informado");
+		}
 	}
 
 	@Override
@@ -115,7 +118,7 @@ public class DisciplinaMBean extends AbstractSiaeController<Disciplina> implemen
 			return "Já existe uma disciplina cadastrada com esse informações";
 		}
 		if( DAOUtils.isFKConstraintError(e) ) {
-			return "Ocorreu um erro ao tentar remover o registro. Por favor entre em contato com o administrador do sistema.";
+			return "O registro não pode ser removido pois existe uma associação com outros registros utilizados no sistema.";
 		}
 		return e.getMessage();
 	}

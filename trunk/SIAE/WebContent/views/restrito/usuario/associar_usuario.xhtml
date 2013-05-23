@@ -7,15 +7,23 @@
 		<ui:define name="header">
 			<ui:include src="/template/header.xhtml" />
 		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb>  
+					<p:menuitem value="Home" action="#{usuarioMBean.home}" ajax="false" immediate="true"/>
+				    <p:menuitem value="Cadastros" ajax="false" immediate="true"/>
+				    <p:menuitem value="Usuário" action="#{alunoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
+				    <p:menuitem value="Associar Usuário" ajax="false" immediate="true"/>  
+				</p:breadCrumb> 
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_cadastros.xhtml" />
+			</h:form>
+		</ui:define>
 		<ui:define name="content">
 		<h:form id="form-associar-usuario"  acceptcharset="ISO-8859-1" >
-			<p:breadCrumb>  
-				<p:menuitem value="Home" action="#{usuarioMBean.home}" ajax="false" immediate="true"/>
-			    <p:menuitem value="Cadastros" ajax="false" immediate="true"/>
-			    <p:menuitem value="Aluno" action="#{alunoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
-			    <p:menuitem value="Cadastrar" ajax="false" immediate="true"/>  
-			</p:breadCrumb> 
-			<br/>
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
 			<br/>
 			<table class="formulario" style="width: 70%">
@@ -120,7 +128,7 @@
 					</h:panelGroup>
 			</table>
 			<br/><br/>
-			<table class="formulario" style="width: 60%;">
+			<table class="formulario" style="width: 90%;">
 				<caption>
 					<h:outputText value="Associar Usuário" />
 				</caption>
@@ -155,15 +163,12 @@
 					            <h:outputText value="Permissões" />  
 					        </f:facet>
 					        <p:column selectionMode="multiple" style="width:18px" /> 
-					        
 					        <p:column headerText="Denominação" style="text-align: left;">
 					        	<h:outputText value="#{permissao.denominacao}" />
 					        </p:column>    
-					        
 					        <p:column headerText="Descrção" style="text-align: left;">
 					        	<h:outputText value="#{permissao.descricao}" />
 					        </p:column>    
-					        
 						</p:dataTable>
 					</td>
 				</tr>
@@ -177,7 +182,6 @@
 				</tfoot>
 			</table>
     	</h:form>
-    	<br/><br/>
 		</ui:define>
 		<ui:define name="footer">
 			<ui:include src="/template/footer.xhtml" />

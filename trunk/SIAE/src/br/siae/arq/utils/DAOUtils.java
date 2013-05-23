@@ -7,11 +7,12 @@ import java.security.NoSuchAlgorithmException;
 import javax.persistence.PersistenceException;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.hibernate3.SessionFactoryUtils;
 
 public class DAOUtils {
+	public static final String FOREIGN_KEY_VIOLATION = "23503";
+	public static final String UNIQUE_VIOLATION = "23505";
+	
+	
 	public static String trataAspasSimples(String original) {
 		if (original != null) return original.replaceAll("'", "''");
 		else return original;
@@ -52,46 +53,18 @@ public class DAOUtils {
 		}
 		if( e.getCause() instanceof ConstraintViolationException) {
 			ConstraintViolationException cve = (ConstraintViolationException) e.getCause();
-			DataAccessException translatedException = SessionFactoryUtils.convertHibernateAccessException(cve);
-			if (translatedException instanceof DataIntegrityViolationException)
-				return true;
-			if (cve.getSQLException() != null) {
-				String msg = cve.getSQLException().getMessage();
-				if (msg.contains("duplicate key value violates"))
-					return true;
-				else {
-					if (cve.getSQLException().getNextException() != null) {
-						msg = cve.getSQLException().getNextException().toString();
-						if (msg.contains("duplicate key value violates"))
-							return true;
-					}
-				}
-			}
+			return ValidatorUtil.isNotEmpty(cve.getSQLState()) && cve.getSQLState().equals(UNIQUE_VIOLATION) ;
 		}
 		return false;
 	}
 	
 	public static boolean isFKConstraintError(Exception e) {
-
+		if( e.getCause() instanceof PersistenceException ) {
+			e = (Exception) e.getCause();
+		}
 		if (e.getCause() instanceof ConstraintViolationException) {
 			ConstraintViolationException cve = (ConstraintViolationException) e.getCause();
-			DataAccessException translatedException = SessionFactoryUtils.convertHibernateAccessException(cve);
-
-			if (translatedException instanceof DataIntegrityViolationException)
-				return true;
-
-			if (cve.getSQLException() != null) {
-				String msg = cve.getSQLException().getMessage();
-				if (msg.contains("violates foreign key constraint"))
-					return true;
-				else {
-					if (cve.getSQLException().getNextException() != null) {
-						msg = cve.getSQLException().getNextException().toString();
-						if (msg.contains("violates foreign key constraint"))
-							return true;
-					}
-				}
-			}
+			return ValidatorUtil.isNotEmpty(cve.getSQLState()) && cve.getSQLState().equals(FOREIGN_KEY_VIOLATION) ;
 		}
 		return false;
 	}

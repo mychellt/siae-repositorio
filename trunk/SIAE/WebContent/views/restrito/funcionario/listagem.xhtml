@@ -97,20 +97,16 @@
 			            <h:outputText value="#{funcionario.pessoa.certidaoNascimento.numero != 0 ? pessoa.certidaoNascimento.numero : 'Não Informado'}" />  
 			        </p:column>
 			          <p:column style="width: 7%; text-align: right;"> 
-						
 						<p:commandLink action="#{usuarioMBean.iniciarAssociacaoUsuario}" ajax="false">
 							<p:graphicImage height="23" library="images" name="operacao/usuario/novo_usuario.gif" title="Associação de Usuário"/>
 							<f:setPropertyActionListener target="#{usuarioMBean.obj.pessoa}" value="#{funcionario.pessoa}"/>
 						</p:commandLink>
-						
 			          	<h:commandLink action="#{funcionarioMBean.preAlterar}">
 			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Funcionario"/>
 							<f:setPropertyActionListener target="#{funcionarioMBean.obj}" value="#{funcionario}"/>
 			          	</h:commandLink>
-			          	
 			          </p:column>  
 	    		</p:dataTable>
-	    		<br/><br/> 
     	</h:form>
 		</ui:define>
 		<ui:define name="footer">

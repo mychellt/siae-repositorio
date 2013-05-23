@@ -37,7 +37,7 @@ public class PermissaoTest {
 		} catch (Exception e) {
 			assertNull(e);
 			e.printStackTrace();
-		}
+		}	
 		assertNotNull(permissao.getId());
 	}  
 	  

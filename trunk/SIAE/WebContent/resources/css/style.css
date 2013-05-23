@@ -16,6 +16,7 @@ nav {
 
 section#content {
 	display: table;
+	padding-bottom: 20px;
 }
 
 section#main-content {
@@ -24,8 +25,7 @@ section#main-content {
 		width: 800px;
 		padding-right: 5px;
 		padding-left: 5px;
-		padding-bottom: 20px;
-		padding-top: 20px;
+		padding-top: 15px;
 }
 
 header, footer, section, aside, nav, article {
@@ -36,7 +36,7 @@ aside {
 		display: table;
 		width: 180px;
 		position: relative;
-		padding: 10px 10px 10px 0px;
+		padding-bottom: 
 }
 
 section#container {
