@@ -24,6 +24,8 @@ public class PermissaoMBean extends AbstractSiaeController<Permissao> implements
 	@Resource(name="permissaoService")
 	private PermissaoService service;
 	
+	private Permissao permissao;
+	
 	public PermissaoMBean() {
 		resetObj();
 	}
@@ -98,20 +100,22 @@ public class PermissaoMBean extends AbstractSiaeController<Permissao> implements
 		return getPaginaCadastro();
 	}
 	
-	public String remover() {
-		if( ValidatorUtil.isEmpty(obj) ) {
+	public String remover(Permissao permissao) {
+		permissao = service.getByPrimaryKey(Permissao.class, permissao.getId() );
+		if( ValidatorUtil.isEmpty(permissao) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
 			return null;
 		}
 		try {
-			obj = service.executeRemocao(obj);
-			lista.remove(obj);
+			permissao = service.executeRemocao(permissao);
 		}
 		catch(Exception e) {
 			addMensagemErro( processaException(e) );
+			return null;
 		}
 		
+		lista.remove(permissao);
 		resetObj();
 		return getPaginaCadastro();
 	}
@@ -126,6 +130,14 @@ public class PermissaoMBean extends AbstractSiaeController<Permissao> implements
 			return "Ocorreu um erro ao tentar remover o registro. Por favor entre em contato com o administrador do sistema.";
 		}
 		return e.getMessage();
+	}
+
+	public Permissao getPermissao() {
+		return permissao;
+	}
+
+	public void setPermissao(Permissao permissao) {
+		this.permissao = permissao;
 	}
 	
 }

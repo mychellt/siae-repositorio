@@ -22,7 +22,7 @@
 			</h:form>
 		</ui:define>
 		<ui:define name="content">
-		<h:form id="form-permissao"  acceptcharset="ISO-8859-1" >
+		<h:form id="form"  acceptcharset="ISO-8859-1" >
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  
 			 <table class="formulario" style="width: 60%;">
 				<caption>Cadastro de Cargo</caption>
@@ -95,21 +95,20 @@
 			            <h:outputText value="#{cargo.nivelFuncional.denominacao}" />  
 			        </p:column>
 		         	<p:column style="width: 7%; text-align: right;"> 
-			          	<h:commandLink onclick="confirmation.show(); return false">
+			          	<p:commandLink oncomplete="confirmation.show()" update=":form:confirme-dialog">
+			          		<f:setPropertyActionListener target="#{cargoMBean.cargo}" value="#{cargo}"/>
 			          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Cargo"/>
-			          	</h:commandLink>
+			          	</p:commandLink>
 			          	<h:commandLink action="#{cargoMBean.preAlterar}">
 			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Cargo"/>
 			          		<f:setPropertyActionListener target="#{cargoMBean.obj}" value="#{cargo}"/>
 			          	</h:commandLink>
-			          	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remoção de Cargo" severity="alert" widgetVar="confirmation">  
-					        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{cargoMBean.remover}">
-								<f:setPropertyActionListener target="#{cargoMBean.obj}" value="#{cargo}"/>
-					        </p:commandButton>
-					        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
-				        </p:confirmDialog>
 		           </p:column>  
 	    		</p:dataTable>
+	    		<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"  header="Remoção de Cargo" severity="alert" widgetVar="confirmation">  
+			        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" actionListener="#{cargoMBean.remover(cargoMBean.cargo)}"  ajax="false" update=":form:table-cargos"/>
+			        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+	       		</p:confirmDialog>
     	</h:form>
 		</ui:define>
 		<ui:define name="footer">

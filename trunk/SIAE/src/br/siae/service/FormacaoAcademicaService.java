@@ -20,4 +20,8 @@ public class FormacaoAcademicaService extends AbstractService{
 		}
 		return formacao;
 	}
+	public FormacaoAcademica executeRemocao( FormacaoAcademica formacao ) throws NegocioException {
+		formacao = (FormacaoAcademica) remover(formacao);
+		return formacao;
+	}
 }

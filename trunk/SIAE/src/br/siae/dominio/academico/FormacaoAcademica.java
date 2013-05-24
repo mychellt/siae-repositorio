@@ -29,9 +29,6 @@ public class FormacaoAcademica implements Persistable{
 	@Column(name="denominacao")
 	private String denominacao;
 	
-	@Column(name="instituicao_ensino")
-	private String instituicaoEnsino;
-	
 	public long getId() {
 		return id;
 	}
@@ -54,14 +51,6 @@ public class FormacaoAcademica implements Persistable{
 
 	public void setDenominacao(String denominacao) {
 		this.denominacao = denominacao;
-	}
-
-	public String getInstituicaoEnsino() {
-		return instituicaoEnsino;
-	}
-
-	public void setInstituicaoEnsino(String instituicaoEnsino) {
-		this.instituicaoEnsino = instituicaoEnsino;
 	}
 
 	@Override

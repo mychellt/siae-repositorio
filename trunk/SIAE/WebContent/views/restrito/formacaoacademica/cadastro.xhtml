@@ -22,7 +22,7 @@
 			</h:form>
 		</ui:define>
 		<ui:define name="content">
-		<h:form id="form-permissao"  acceptcharset="ISO-8859-1" >
+		<h:form id="form"  acceptcharset="ISO-8859-1" >
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  
 			<br/>
 				 <table class="formulario" style="width: 54%;">
@@ -33,14 +33,6 @@
 						</th>
 						<td>
 							 <p:inputText size="50" value="#{formacaoAcademicaMBean.obj.denominacao}"/>
-						</td>
-					</tr>
-					<tr>
-						<th class="obrigatorio">
-							<h:outputText value="Instituição de Ensino"/>
-						</th>
-						<td>
-							  <p:inputText size="50" value="#{formacaoAcademicaMBean.obj.instituicaoEnsino}"/>
 						</td>
 					</tr>
 					<tr>
@@ -75,33 +67,24 @@
 			        <p:column headerText="Curso" style="text-align: left;">  
 		            	<h:outputText value="#{formacao.denominacao}" />
 			        </p:column>
-			        <p:column headerText="Instituição de Ensino" style="text-align: left;">  
-			            <h:outputText value="#{formacao.instituicaoEnsino}" />
-			        </p:column>
 			       	<p:column headerText="Nível" style="text-align: left;">  
 			            <h:outputText value="#{formacao.nivel.denominacao}" />
 			        </p:column>
 			        <p:column style="text-align: right; width: 8%;">
-			        
-			            <h:commandLink onclick="confirmation.show(); return false">
+			            <p:commandLink oncomplete="confirmation.show()" update=":form:confirme-dialog">
 			        		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Formação Acadêmica" />
-			        	</h:commandLink>
-			        	
+			        		<f:setPropertyActionListener target="#{formacaoAcademicaMBean.formacao}" value="#{formacao}"/>
+			        	</p:commandLink>
 			        	<h:commandLink action="#{formacaoAcademicaMBean.preAlterar}" >
 			        		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Formação Acadêmica"/>
 			        		<f:setPropertyActionListener target="#{formacaoAcademicaMBean.obj}" value="#{formacao}"/>
 			        	</h:commandLink>
-			 
-			        	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remoção de Permissão" severity="alert" widgetVar="confirmation">  
-					        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{formacaoAcademicaMBean.remover}"  ajax="false">
-					        	<f:setPropertyActionListener target="#{formacaoAcademicaMBean.obj}" value="#{formacao}"/>  
-					        </p:commandButton>
-					        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
-				        </p:confirmDialog>
-				        
 			        </p:column>
                 </p:dataTable>
-	    		<br/><br/> 
+	    		<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"  header="Remoção de Cargo" severity="alert" widgetVar="confirmation">  
+			        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" actionListener="#{formacaoAcademicaMBean.remover(formacaoAcademicaMBean.formacao)}"  ajax="false" update=":form:tabela-formacoes"/>
+			        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+	       		</p:confirmDialog>
     	</h:form>
 		</ui:define>
 		<ui:define name="footer">

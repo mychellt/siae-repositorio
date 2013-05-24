@@ -23,6 +23,8 @@ public class FormacaoAcademicaMBean extends AbstractSiaeController<FormacaoAcade
 	@Resource(name="formacaoAcademicaService")
 	private FormacaoAcademicaService service;
 	
+	private FormacaoAcademica formacao;
+	
 	public FormacaoAcademicaMBean() {
 		resetObj();
 	}
@@ -49,10 +51,30 @@ public class FormacaoAcademicaMBean extends AbstractSiaeController<FormacaoAcade
 			resetObj();
 			return null;
 		}
+		obj = service.getByPrimaryKey(FormacaoAcademica.class, obj.getId());
 		setConfirmButton("Alterar");
 		return getPaginaCadastro();
 	}
 	
+	public String remover(FormacaoAcademica formacao) {
+		formacao = service.getByPrimaryKey(FormacaoAcademica.class, formacao.getId() );
+		if( ValidatorUtil.isEmpty(formacao) ) {
+			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
+			resetObj();
+			return null;
+		}
+		try {
+			formacao = service.executeRemocao(formacao);
+		}
+		catch(Exception e) {
+			addMensagemErro( processaException(e) );
+			return null;
+		}		
+		lista.remove(formacao);
+		resetObj();
+		addMensagemInformacao("Operação realizada com sucesso!");
+		return getPaginaCadastro();
+	}
 	public String cadastrar() {
 		validar();
 		
@@ -89,9 +111,6 @@ public class FormacaoAcademicaMBean extends AbstractSiaeController<FormacaoAcade
 		if( ValidatorUtil.isEmpty(obj.getDenominacao()) ) {
 			addMensagemErro("Curso: campo obrigatório não informado");
 		}
-		if( ValidatorUtil.isEmpty(obj.getInstituicaoEnsino()) ) {
-			addMensagemErro("Instituição de Ensino: campo obrigatório não informado");
-		}
 		if( ValidatorUtil.isEmpty(obj.getNivel()) ) {
 			addMensagemErro("Nível: campo obrigatório não informado");
 		}
@@ -101,6 +120,14 @@ public class FormacaoAcademicaMBean extends AbstractSiaeController<FormacaoAcade
 	public String processaException(Exception e) {
 		e.printStackTrace();
 		return e.getMessage();
+	}
+
+	public FormacaoAcademica getFormacao() {
+		return formacao;
+	}
+
+	public void setFormacao(FormacaoAcademica formacao) {
+		this.formacao = formacao;
 	}
 
 }

@@ -20,10 +20,11 @@ import br.siae.dominio.rh.NivelFuncional;
 @Controller
 @Scope("session")
 public class CargoMBean extends AbstractSiaeController<Cargo> implements ArqException {
-
 	
 	@Resource(name="cargoService")
 	private CargoService service;
+	
+	private Cargo cargo;
 	
 	public CargoMBean() {
 		resetObj();
@@ -93,22 +94,22 @@ public class CargoMBean extends AbstractSiaeController<Cargo> implements ArqExce
 		return getPaginaCadastro();
 	}
 	
-	public String remover() {
-		obj = service.getByPrimaryKey(Cargo.class, obj.getId() );
-		if( ValidatorUtil.isEmpty(obj) ) {
+	public String remover(Cargo cargo) {
+		cargo = service.getByPrimaryKey(Cargo.class, cargo.getId() );
+		if( ValidatorUtil.isEmpty(cargo) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
 			return null;
 		}
 		try {
-			obj = service.executeRemocao(obj);
-			lista.remove(obj);
+			cargo = service.executeRemocao(cargo);
 		}
 		catch(Exception e) {
 			addMensagemErro( processaException(e) );
-		}
-		
+		}		
+		lista.remove(cargo);
 		resetObj();
+		addMensagemInformacao("Operação realizada com sucesso!");
 		return getPaginaCadastro();
 	}
 	
@@ -122,5 +123,13 @@ public class CargoMBean extends AbstractSiaeController<Cargo> implements ArqExce
 			return "Ocorreu um erro ao tentar remover o registro. Por favor entre em contato com o administrador do sistema.";
 		}
 		return e.getMessage();
+	}
+
+	public Cargo getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
 	}
 }

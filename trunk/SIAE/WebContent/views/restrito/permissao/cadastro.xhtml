@@ -23,7 +23,7 @@
 			</h:form>
 		</ui:define>
 			<ui:define name="content">
-				<h:form id="form-cadastro"  acceptcharset="ISO-8859-1" >
+				<h:form id="form"  acceptcharset="ISO-8859-1" >
 					<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  
 					<br/>
 					<table class="formulario" width="35%">
@@ -76,22 +76,20 @@
 				        </p:column>
 				          <p:column style="width: 7%; text-align: right;"> 
 				          	<f:facet name="header"/>
-				          	<h:commandLink onclick="confirmation.show(); return false">
+				          	<p:commandLink oncomplete="confirmation.show()" update=":form:confirme-dialog">
 				          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Permissão"/>
-				          	</h:commandLink>
+				          		<f:setPropertyActionListener target="#{permissaoMBean.permissao}" value="#{permissao}"/>
+				          	</p:commandLink>
 				          	<h:commandLink action="#{permissaoMBean.preAlterar}">
 				          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Permissão"/>
 				          		<f:setPropertyActionListener target="#{permissaoMBean.obj}" value="#{permissao}"/>
 				          	</h:commandLink>    
-				          	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remoção de Permissão" severity="alert" widgetVar="confirmation">  
-						        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{permissaoMBean.remover}"  ajax="false">
-						        	<f:setPropertyActionListener target="#{permissaoMBean.obj}" value="#{permissao}"/>  
-						        </p:commandButton>
-						        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
-					        </p:confirmDialog>
 				          </p:column>  
 			   		</p:dataTable>
-	   				<br/><br/> 
+			   		<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"  header="Remoção de Disciplina" severity="alert" widgetVar="confirmation">  
+				        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" actionListener="#{permissaoMBean.remover(permissaoMBean.permissao)}"  ajax="false" update=":form:table-permissoes"/>
+				        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+			        </p:confirmDialog>
 	    	</h:form>
 		</ui:define>
 		<ui:define name="footer">

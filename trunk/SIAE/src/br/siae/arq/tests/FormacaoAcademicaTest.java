@@ -27,7 +27,6 @@ public class FormacaoAcademicaTest {
 	public void testSave() {
 		FormacaoAcademica formacao = new FormacaoAcademica();
 		formacao.setDenominacao("Junit denominação");
-		formacao.setInstituicaoEnsino("Junit Instituição de Ensino");
 		formacao.setNivel( service.getByPrimaryKey(NivelFormacao.class, NivelFormacao.GRADUACAO));
 		try {
 			service.executeCadastro(formacao);
