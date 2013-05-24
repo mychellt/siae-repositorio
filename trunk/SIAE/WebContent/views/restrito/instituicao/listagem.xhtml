@@ -50,28 +50,20 @@
                 </p:column>
                 
                 <p:column style="width: 7%;">
-                
-	                <h:commandLink onclick="confirmation.show(); return false">
+	                <p:commandLink oncomplete="confirmation.show()" update=":form:confirme-dialog">
+	                	<f:setPropertyActionListener target="#{instituicaoMBean.instituicaoRemocao}" value="#{instituicao}"/>
 		          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Instituição"/>
-		          	</h:commandLink>
-                
+		          	</p:commandLink>
 		        	<h:commandLink action="#{instituicaoMBean.preAlterar}" >
 		        		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Instituição"/>
 		        		<f:setPropertyActionListener target="#{instituicaoMBean.obj}" value="#{instituicao}"/>
 		        	</h:commandLink>
-		        	
-		        	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remoção de Permissão" severity="alert" widgetVar="confirmation">  
-				        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{instituicaoMBean.remover}"  ajax="false">
-				        	<f:setPropertyActionListener target="#{instituicaoMBean.obj}" value="#{instituicao}"/>  
-				        </p:commandButton>
-				        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
-			        </p:confirmDialog>
-		        	
                 </p:column>
-	                  
-             </p:dataTable>  
-
-	    	<br/><br/>
+             </p:dataTable>
+             <p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"  header="Remoção de Instituição" severity="alert" widgetVar="confirmation">  
+		        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" actionListener="#{instituicaoMBean.remover(instituicaoMBean.instituicaoRemocao)}"  ajax="false" update=":form:tabela-instituicoes"/>
+		        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+       		</p:confirmDialog>  
 	    	<p:dialog id="display" widgetVar="instituicaoDialog" resizable="false"  width="400" showEffect="fade" hideEffect="fade">  
   				<ui:include src="/views/restrito/instituicao/visualizacao.xhtml" />
 		    </p:dialog>   

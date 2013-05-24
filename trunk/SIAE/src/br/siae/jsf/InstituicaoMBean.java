@@ -32,7 +32,9 @@ public class InstituicaoMBean extends AbstractSiaeController<Instituicao> implem
 	@Resource(name="instituicaoService")
 	private InstituicaoService service;
 	
-	private Instituicao instituicaoSelecionada;
+	private Instituicao instituicaoVisualizacao;
+	
+	private Instituicao instituicaoRemocao;
 	
 	/** Municípios para o endereço da pessoa. */
 	private Collection<Municipio> municipiosEndereco;
@@ -49,7 +51,7 @@ public class InstituicaoMBean extends AbstractSiaeController<Instituicao> implem
 	
 	public String iniciarListagem() {
 		resetObj();
-		instituicaoSelecionada = new Instituicao();
+		instituicaoVisualizacao = new Instituicao();
 		try {
 			lista = (List<Instituicao>) service.getAll( Instituicao.class );
 		} catch (NegocioException e) {
@@ -114,21 +116,24 @@ public class InstituicaoMBean extends AbstractSiaeController<Instituicao> implem
 		}
 	}
 	
-	public String remover() {
-		if( ValidatorUtil.isEmpty(obj) ) {
+	public String remover(Instituicao instituicao) {
+		instituicao = service.getByPrimaryKey(Instituicao.class, instituicao.getId());
+		if( ValidatorUtil.isEmpty(instituicao) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
 			return null;
 		}
 		try {
-			obj = service.executeRemocao(obj);
-			lista.remove(obj);
+			instituicao = service.executeRemocao(instituicao);
 		}
 		catch(Exception e) {
 			addMensagemErro( processaException(e) );
+			return null;
 		}
 		
+		lista.remove(instituicao);
 		resetObj();
+		addMensagemInformacao("Operação realizada com sucesso!");
 		return getPaginaListagem();
 	}
 	
@@ -140,7 +145,7 @@ public class InstituicaoMBean extends AbstractSiaeController<Instituicao> implem
 			return "Já existe uma Instituição cadastrada com esse Código.";
 		}
 		if( DAOUtils.isFKConstraintError(e) ) {
-			return "Ocorreu um erro ao tentar remover o registro. Por favor entre em contato com o administrador do sistema.";
+			return "O registro não pode ser removido pois existe uma associação com outros registros utilizados no sistema.";
 		}
 		return e.getMessage();
 	}
@@ -151,11 +156,11 @@ public class InstituicaoMBean extends AbstractSiaeController<Instituicao> implem
 	}
 
 	public Instituicao getInstituicaoSelecionada() {
-		return instituicaoSelecionada;
+		return instituicaoVisualizacao;
 	}
 
 	public void setInstituicaoSelecionada(Instituicao instituicaoSelecionada) {
-		this.instituicaoSelecionada = instituicaoSelecionada;
+		this.instituicaoVisualizacao = instituicaoSelecionada;
 	}
 	public Collection<Municipio> getMunicipiosEndereco() {
 		return municipiosEndereco;
@@ -163,6 +168,14 @@ public class InstituicaoMBean extends AbstractSiaeController<Instituicao> implem
 
 	public void setMunicipiosEndereco(Collection<Municipio> municipiosEndereco) {
 		this.municipiosEndereco = municipiosEndereco;
+	}
+
+	public Instituicao getInstituicaoRemocao() {
+		return instituicaoRemocao;
+	}
+
+	public void setInstituicaoRemocao(Instituicao instituicaoRemocao) {
+		this.instituicaoRemocao = instituicaoRemocao;
 	}
 
 }
