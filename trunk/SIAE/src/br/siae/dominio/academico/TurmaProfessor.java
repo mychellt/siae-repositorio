@@ -1,5 +1,6 @@
 package br.siae.dominio.academico;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -123,6 +124,7 @@ public class TurmaProfessor implements Persistable, Cloneable{
 	}
 
 	public Collection<DisciplinaTurmaProfessor> getDisciplinasRemoacao() {
+		if( ValidatorUtil.isEmpty(disciplinasRemoacao)) return new ArrayList<DisciplinaTurmaProfessor>();
 		return disciplinasRemoacao;
 	}
 

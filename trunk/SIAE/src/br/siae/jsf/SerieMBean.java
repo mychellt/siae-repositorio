@@ -25,6 +25,8 @@ public class SerieMBean extends AbstractSiaeController<Serie> implements ArqExce
 	@Resource(name="serieService")
 	private SerieService serieService;
 	
+	private Serie serie;
+	
 	public SerieMBean() {
 		resetObj();
 	}
@@ -89,32 +91,47 @@ public class SerieMBean extends AbstractSiaeController<Serie> implements ArqExce
 		}
 	}
 	
-	public String remover() {
-		obj = serieService.getByPrimaryKey(Serie.class, getParameterInt("idSerie") );
-		if( ValidatorUtil.isEmpty(obj) ) {
+	public String remover(Serie serie) {
+		serie = serieService.getByPrimaryKey(Serie.class, serie.getId());
+		if( ValidatorUtil.isEmpty(serie) ) {
 			addMensagemErro("O elemento selecionando não se encontra na base de dados.");
 			resetObj();
 			return null;
 		}
 		try {
-			obj = (Serie) serieService.executeRemocao(obj);
-			lista.remove(obj);
+			serie = (Serie) serieService.executeRemocao(serie);
 		}
-		catch(NegocioException e) {
+		catch(Exception e) {
 			addMensagemErro( processaException(e) );
+			return null;
 		}
+		lista.remove(serie);
+		addMensagemInformacao("Operação realizada com sucesso!");
+		resetObj();
 		return getPaginaCadastro();
 	}
 
 	@Override
 	public String processaException(Exception e) {
+		e.printStackTrace();
 		if( DAOUtils.isUniqueConstraintErro(e) ) {
-			return "Já existe um Série cadastrada com essa denominação para esse Niível.";
+			return "Já existe uma disciplina cadastrada com esse informações";
+		}
+		if( DAOUtils.isFKConstraintError(e) ) {
+			return "O registro não pode ser removido pois existe uma associação com outros registros utilizados no sistema.";
 		}
 		return e.getMessage();
 	}
 	
 	public Collection<Serie> getAll() {
 		return ArqCache.getSeries();
+	}
+
+	public Serie getSerie() {
+		return serie;
+	}
+
+	public void setSerie(Serie serie) {
+		this.serie = serie;
 	}
 }

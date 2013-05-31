@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import br.siae.arq.erro.ArqException;
 import br.siae.arq.erro.NegocioException;
 import br.siae.arq.jsf.AbstractSiaeController;
+import br.siae.arq.utils.DAOUtils;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.FormacaoAcademica;
 import br.siae.dominio.academico.NivelFormacao;
@@ -119,6 +120,12 @@ public class FormacaoAcademicaMBean extends AbstractSiaeController<FormacaoAcade
 	@Override
 	public String processaException(Exception e) {
 		e.printStackTrace();
+		if( DAOUtils.isUniqueConstraintErro(e) ) {
+			return "Já existe uma disciplina cadastrada com esse informações";
+		}
+		if( DAOUtils.isFKConstraintError(e) ) {
+			return "O registro não pode ser removido pois existe uma associação com outros registros utilizados no sistema.";
+		}
 		return e.getMessage();
 	}
 

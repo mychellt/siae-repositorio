@@ -22,7 +22,7 @@
 			</h:form>
 		</ui:define>
 		<ui:define name="content">
-		<h:form id="form-listagem-turma"  acceptcharset="ISO-8859-1" >
+		<h:form id="form"  acceptcharset="ISO-8859-1" >
 			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  
 				<br/><br/>
 				<div class="legenda">
@@ -51,25 +51,20 @@
 			        </p:column>
 			        
 			          <p:column style="width: 10%; text-align: right;"> 
-			          
-			          	<h:commandLink onclick="confirmation.show(); return false">
+			          	<p:commandLink oncomplete="confirmation.show()" update=":form:confirme-dialog">
 			          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Turma"/>
-			          	</h:commandLink>
-			          	
+			          		<f:setPropertyActionListener target="#{turmaMBean.turma}" value="#{turma}" />
+			          	</p:commandLink>
 			          	<h:commandLink action="#{turmaMBean.preAlterar}">
 			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Turma"/>
 			          		<f:setPropertyActionListener target="#{turmaMBean.obj}" value="#{turma}"/>
 			          	</h:commandLink>
-			          	
-			          	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Remoção de Turma" severity="alert" widgetVar="confirmation">  
-					        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{turmaMBean.remover}"  ajax="false">
-					        	<f:setPropertyActionListener target="#{turmaMBean.obj}" value="#{turma}"/>  
-					        </p:commandButton>
-					        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
-				        </p:confirmDialog>
 			          </p:column>  
 	    		</p:dataTable>
-	    		<br/><br/>
+	    		<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"  header="Remoção de Turma" severity="alert" widgetVar="confirmation">  
+			        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" actionListener="#{turmaMBean.remover(turmaMBean.turma)}"  ajax="false" update=":form:tabela-turmas"/>
+			        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+		        </p:confirmDialog>
 	    		<p:dialog id="display" widgetVar="turmaDialog" resizable="false"  width="400" showEffect="fade" hideEffect="fade">  
   					<p:dataTable id="professores" var="turmaProfessor" value="#{turmaMBean.obj.professores}" paginator="false" styleClass="subformulario">
 						<f:facet name="header" >  

@@ -137,11 +137,11 @@
 								        <p:column style="text-align: right; width: 10%;">
 								        
 								       		 <h:commandLink onclick="confirmation.show(); return false">
-								          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Permissão"/>
+								          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover"/>
 								          	</h:commandLink>
 								          	
 								          	 <h:commandLink action="#{turmaMBean.preAlterarProfessor}">
-								          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Turma"/>
+								          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar"/>
 								          		<f:setPropertyActionListener target="#{turmaMBean.turmaProfessor}" value="#{turmaProfessor}"/>
 								          	</h:commandLink>   
 			      
@@ -162,7 +162,7 @@
 				<tfoot>
 					<tr style="text-align: center;">
 						<td colspan="2">
-							<p:commandButton value="#{turmaMBean.confirmButton}" actionT="#{turmaMBean.cadastrar}" ajax="false"/>
+							<p:commandButton value="#{turmaMBean.confirmButton}" action="#{turmaMBean.cadastrar}" ajax="false"/>
 							<p:commandButton value="Cancelar" action="#{turmaMBean.cancelar}" ajax="false" immediate="true"/>
 						</td>
 					</tr>

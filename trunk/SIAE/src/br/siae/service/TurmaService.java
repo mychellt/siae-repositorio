@@ -9,6 +9,7 @@ import br.siae.arq.erro.NegocioException;
 import br.siae.arq.service.AbstractService;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.DisciplinaTurmaProfessor;
+import br.siae.dominio.academico.Serie;
 import br.siae.dominio.academico.Turma;
 import br.siae.dominio.academico.TurmaProfessor;
 
@@ -44,5 +45,8 @@ public class TurmaService extends AbstractService{
 			alterar(turma);
 		}
 		return turma;
+	}
+	public Turma executeRemocao(Turma turma) throws NegocioException {
+		return (Turma) remover(turma);
 	}
 }
