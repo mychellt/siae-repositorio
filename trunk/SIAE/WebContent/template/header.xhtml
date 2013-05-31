@@ -19,13 +19,21 @@
 			</span>
 		</div>
 	</div>
-	<div>
+	<div id="info-ano-letivo">
+		<div class="modulos">
+			<p:commandButton id="modalDialogButton" value="Modal" onclick="dialog.show();" type="button"/>  
+			<p:dialog id="dialog-modulo" header="Módulos" widgetVar="dialog" modal="true" height="100">  
+			    <h:outputText value="This is a Modal Dialog." />  
+			</p:dialog> 
+		</div>
 		<span>
-			Ano Letivo:
+			<p:outputLabel  value="Ano Letivo"/>
 		</span>
-		<h:selectOneMenu value="#{anoMBean.obj}" id="ano-letivo" >  
-			<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
-        	<f:selectItems value="#{anoMBean.all}" var="ano" itemLabel="#{ano.denominacao}" itemValue="#{ano}"/>
-   		</h:selectOneMenu>
+		<div id="ano-letivo">
+			<p:selectOneMenu value="#{anoMBean.obj}"  >  
+				<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+	        	<f:selectItems value="#{anoMBean.all}" var="ano" itemLabel="#{ano.denominacao}" itemValue="#{ano}"/>
+	   		</p:selectOneMenu>
+		</div>
 	</div>
 </ui:composition>
