@@ -61,6 +61,9 @@ public class FuncionarioMBean extends AbstractSiaeController<Funcionario> implem
 			resetObj();
 			return null;
 		}
+		pessoaMBean.setExibirInfoCpf(false);
+		pessoaMBean.setControlador(this);
+		pessoaMBean.setObj(obj.getPessoa());
 		setConfirmButton("Alterar");
 		return getPaginaCadastro();
 	}
@@ -106,11 +109,17 @@ public class FuncionarioMBean extends AbstractSiaeController<Funcionario> implem
 			}
 			else {
 				pessoaMBean.resetObj();
-				obj.getPessoa().setCpf(pessoaMBean.getCpf());				
+				obj.getPessoa().setCpf(pessoaMBean.getCpf());
+				pessoaMBean.getObj().setCpf(pessoaMBean.getCpf());
 			}
 		} catch (Exception e) {
 			if( !(e instanceof NoResultException ) ) {
 				addMensagemErro( processaException(e) );
+			}
+			else {
+				pessoaMBean.resetObj();
+				obj.getPessoa().setCpf(pessoaMBean.getCpf());
+				pessoaMBean.getObj().setCpf(pessoaMBean.getCpf());
 			}
 		}
 		pessoaMBean.setExibirInfoCpf(false);
