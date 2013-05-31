@@ -1,16 +1,31 @@
-<div id="info-sistema">
-	<h1>
-		<span>
-			SIAE -
-		</span>
-	</h1>
-	<h3>Sistema Integrado de Administração escolar</h3>
-	<div class="dir">
-		<span class="sair">
-			<a href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" 
-				xmlns:h="http://java.sun.com/jsf/html" id="logout">
-				<h:graphicImage value="/resources/images/layout/logof.png" height="20"  rendered="#{usuarioMBean.usuarioLogado}"/>
-			</a>
-		</span>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+	<div id="info-sistema">
+		<h1>
+			<span>
+				SIAE -
+			</span>
+		</h1>
+		<h3>Sistema Integrado de Administração escolar</h3>
+		<div class="dir">
+			<span class="sair">
+				<a href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" 
+					xmlns:h="http://java.sun.com/jsf/html" id="logout">
+					<h:graphicImage value="/resources/images/layout/logof.png" height="20"  rendered="#{usuarioMBean.usuarioLogado}"/>
+				</a>
+			</span>
+		</div>
 	</div>
-</div>
+	<div>
+		<span>
+			Ano Letivo:
+		</span>
+		<h:selectOneMenu value="#{anoMBean.obj}" id="ano-letivo" >  
+			<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+        	<f:selectItems value="#{anoMBean.all}" var="ano" itemLabel="#{ano.denominacao}" itemValue="#{ano}"/>
+   		</h:selectOneMenu>
+	</div>
+</ui:composition>

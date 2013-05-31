@@ -13,10 +13,7 @@ import org.primefaces.component.dialog.Dialog;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import sun.print.resources.serviceui_zh_CN;
-
 import br.siae.arq.cache.ArqCache;
-import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.dominio.Pessoa;
 import br.siae.arq.dominio.TipoPessoa;
 import br.siae.arq.erro.ArqException;
@@ -24,7 +21,6 @@ import br.siae.arq.erro.NegocioException;
 import br.siae.arq.jsf.AbstractSiaeController;
 import br.siae.arq.jsf.PessoaMBean;
 import br.siae.arq.service.PessoaService;
-import br.siae.arq.service.ServiceFactory;
 import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.TurmaProfessor;
 import br.siae.dominio.rh.Professor;

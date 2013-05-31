@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import br.siae.arq.dao.GenericDAO;
 import br.siae.arq.dominio.Pessoa;
 import br.siae.dominio.academico.Aluno;
-import br.siae.dominio.rh.Funcionario;
 
 @Repository
 @Transactional
