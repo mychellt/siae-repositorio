@@ -13,11 +13,19 @@ import br.siae.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Aluno;
 import br.siae.dominio.academico.RequerimentoMatricula;
 import br.siae.dominio.academico.Turma;
+import br.siae.matricula.jsf.ConsultadorAlunoMBean;
 import br.siae.service.MatriculaAlunoService;
 
 @Controller
 @Scope("session")
 public class MatriculaAlunoMBean extends AbstractSiaeController<RequerimentoMatricula> implements ArqException{
+	/** Formulário para matricula do aluno. */
+	public static final String FORM_MATRICULA = "/views/restrito/matricula/form_matricula.jsf";
+	/** Página para seleção do aluno a ser matriculado. */
+	public static final String SELECAO_ALUNO_MATRICULA = "/views/restrito/matricula/selecao_aluno_matricula.jsf";
+	/** Comprovante de matrícula.*/
+	public static final String COMPROVANTE_MATRICULA = "/views/restrito/matricula/comprovante_matricula.jsf";
+	
 	/** Listagem de alunos recuperados da busca. */
 	private Collection<Aluno> alunos;
 	
@@ -31,14 +39,13 @@ public class MatriculaAlunoMBean extends AbstractSiaeController<RequerimentoMatr
 	@Resource(name="matriculaAlunoService")
 	private MatriculaAlunoService service;
 	
-	public static final String FORM_MATRICULA = "/views/restrito/aluno/matricula.jsf";
-	public static final String FORM_SELECAO_TURMA = "/views/restrito/aluno/selecao_turma.jsf";
-	public static final String COMPROVANTE_MATRICULA = "/views/restrito/aluno/comprovante_matricula.jsf";
+	@Resource(name="consultadorAlunoMBean")
+	private ConsultadorAlunoMBean consultador;
 	
 	public MatriculaAlunoMBean() {
 		resetObj();
 	}
-
+	
 	private void resetObj() {
 		obj = new RequerimentoMatricula();
 	}
@@ -60,7 +67,7 @@ public class MatriculaAlunoMBean extends AbstractSiaeController<RequerimentoMatr
 		if( ValidatorUtil.isNotEmpty( aluno.getRequerimentoMatricula() ) ){
 			obj = aluno.getRequerimentoMatricula();
 		}
-		return FORM_SELECAO_TURMA;
+		return FORM_MATRICULA;
 	}
 	
 	public String matricular() {

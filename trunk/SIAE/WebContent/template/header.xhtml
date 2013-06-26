@@ -1,39 +1,16 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-	<div id="info-sistema">
-		<h1>
-			<span>
-				SIAE -
-			</span>
-		</h1>
-		<h3>Sistema Integrado de Administração escolar</h3>
-		<div class="dir">
-			<span class="sair">
-				<a href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" 
-					xmlns:h="http://java.sun.com/jsf/html" id="logout">
-					<h:graphicImage value="/resources/images/layout/logof.png" height="20"  rendered="#{usuarioMBean.usuarioLogado}"/>
-				</a>
-			</span>
-		</div>
-	</div>
-	<div id="info-ano-letivo">
-		<div class="modulos">
-			<p:commandButton id="modalDialogButton" value="Modal" onclick="dialog.show();" type="button"/>  
-			<p:dialog id="dialog-modulo" header="Módulos" widgetVar="dialog" modal="true" height="100">  
-			    <h:outputText value="This is a Modal Dialog." />  
-			</p:dialog> 
-		</div>
+<div id="info-sistema">
+	<h1>
 		<span>
-			<p:outputLabel  value="Ano Letivo"/>
+			SIAE -
 		</span>
-		<div id="ano-letivo">
-			<p:selectOneMenu value="#{anoMBean.obj}"  >  
-				<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
-	        	<f:selectItems value="#{anoMBean.all}" var="ano" itemLabel="#{ano.denominacao}" itemValue="#{ano}"/>
-	   		</p:selectOneMenu>
-		</div>
+	</h1>
+	<h3>Sistema Integrado de Administração escolar</h3>
+	<div class="dir">
+		<span class="sair">
+			<a href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" 
+				xmlns:h="http://java.sun.com/jsf/html" id="logout">
+				<h:graphicImage value="/resources/images/layout/logof.png" height="20"  rendered="#{usuarioMBean.usuarioLogado}"/>
+			</a>
+		</span>
 	</div>
-</ui:composition>
+</div>

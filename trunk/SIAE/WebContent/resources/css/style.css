@@ -10,6 +10,7 @@ body {
 
 nav {
 	position: relative;
+	left: 0;
 	width: 990px;
 }
 
@@ -196,19 +197,6 @@ div.legenda {
 }
 
 
-#info-ano-letivo {
-  color:#FFFFFF;
-  text-align:right;
-  display: table;
-}
-
-#info-ano-letivo div.modulos {
-	display: block;
-}
-
-#info-ano-letivo div.ano-letivo {
-	display: block;
-}
 
 #info-sistema {
   background: none repeat scroll 0 0 #3A8104;;

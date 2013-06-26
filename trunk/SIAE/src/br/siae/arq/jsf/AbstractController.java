@@ -126,7 +126,6 @@ public class AbstractController {
 		}
 	}
 	
-	
 	public static void resetBean(String name) {
 		if (!ValidatorUtil.isEmpty(name)) {
 			Object mbean =  getMBean(name);
