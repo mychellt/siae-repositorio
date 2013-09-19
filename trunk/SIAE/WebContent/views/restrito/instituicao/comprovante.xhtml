@@ -1,0 +1,118 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb>  
+				    <p:menuitem value="Administração" action="#{instituicaoMBean.home}" immediate="true" ajax="false"/>
+				    <p:menuitem value="Instituição" action="#{instituicaoMBean.iniciarCadastro}" immediate="true" ajax="false"/>
+				    <p:menuitem value="Cadastrar" />  
+				</p:breadCrumb> 
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_cadastros.xhtml" />
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form-comprovante"  acceptcharset="ISO-8859-1">
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
+			<br/>
+			<table class="formulario" style="width: 60%">
+				<caption>
+					<h:outputText value="Comprovante de Cadastro (Instituição)" />
+				</caption>
+				<tr>
+					<th style="font-weight: bold;">
+						<h:outputText value="Nome:"/>
+					</th>
+					<td>
+						 <h:outputText value="#{instituicaoMBean.obj.nome}"/>
+					</td>
+				</tr>
+				<tr>
+					<th style="font-weight: bold;">
+						<h:outputText value="Código INEP:"/>
+					</th>
+					<td>
+						  <h:outputText value="#{instituicaoMBean.obj.codigoInep}"/>
+					</td>
+				</tr>
+				<tr>
+					<th style="font-weight: bold;">
+						<h:outputText value="Modalidade:"/>
+					</th>
+					<td>
+						  <h:outputText value="#{instituicaoMBean.obj.modalidade.denominacao}"/>
+					</td>
+				</tr>
+				<tr>
+					<th style="font-weight: bold;">
+						<h:outputText value="Email:"/>
+					</th>
+					<td>
+						  <h:outputText value="#{instituicaoMBean.obj.email}"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table class="subformulario" style="width: 100%">
+							<caption>
+								<h:outputText value="Endereço" />
+							</caption>
+							<tr>
+								<th style="font-weight: bold;">
+									<h:outputText value="CEP:" />
+								</th>
+								<td>
+									<h:outputText value="#{not empty instituicaoMBean.obj.endereco.cep ? instituicaoMBean.obj.endereco.cep : 'Não Informado'}" />
+								</td>
+							</tr>
+							<tr>
+								<th style="font-weight: bold;">
+									<h:outputText value="Logradouro:" />
+								</th>
+								<td>
+									<h:outputText value="#{instituicaoMBean.obj.endereco.nomeExibicao}"/>
+								</td>
+							</tr>
+							<tr>
+								<th style="font-weight: bold;">
+									<h:outputText value="Bairro:" />
+								</th>
+								<td>
+									<h:outputText value="#{not empty instituicaoMBean.obj.endereco.bairro ? instituicaoMBean.obj.endereco.bairro : 'Não Informado'}" /> 
+								</td>
+							</tr>
+							<tr>
+								<th style="font-weight: bold;">
+									<h:outputText value="Município:" />
+								</th>
+								<td>
+									<h:outputText value="#{not empty instituicaoMBean.obj.endereco.municipio.nome ? instituicaoMBean.obj.endereco.municipio.nomeExibicao : 'Não Informado'}" />
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tfoot>
+					<tr>
+						<td colspan="2" style="text-align: center;">
+							<p:commandButton action="#{instituicaoMBean.iniciarCadastro}" value="Cadastrar Outra Instituição" ajax="false" immediate="true"/>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

@@ -1,0 +1,160 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb>  
+				    <p:menuitem value="Administração" action="#{instituicaoMBean.home}" immediate="true" ajax="false"/>
+				    <p:menuitem value="Instituição" action="#{instituicaoMBean.iniciarCadastro}" immediate="true" ajax="false"/>
+				    <p:menuitem value="Cadastrar" />  
+				</p:breadCrumb> 
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_cadastros.xhtml" />
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form-instituicao"  acceptcharset="ISO-8859-1" >
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  
+			<br/>
+			 <table class="formulario" width="35%">
+				<caption>Cadastro de Instituição</caption>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Nome:"/>
+					</th>
+					<td>
+						 <p:inputText size="50" value="#{instituicaoMBean.obj.nome}"/>
+					</td>
+				</tr>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Código INEP:"/>
+					</th>
+					<td>
+						  <p:inputText value="#{instituicaoMBean.obj.codigoInep}"/>
+					</td>
+				</tr>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Modalidade:" />
+					</th>
+					<td>  
+						<p:selectOneMenu value="#{instituicaoMBean.obj.modalidade}" converter="converterNivel" id="nivel">  
+							<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
+            				<f:selectItems value="#{nivelMBean.all}" var="nivel" itemLabel="#{nivel.denominacao}" itemValue="#{nivel}" />  
+						</p:selectOneMenu>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<h:outputText value="E-mail:"/>
+					</th>
+					<td>
+						  <p:inputText value="#{instituicaoMBean.obj.email}"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+					<table class="subformulario" style="width: 100%">
+						<caption>
+							<h:outputText value="Endereço" />
+						</caption>
+						<tr>
+							<th>
+								<h:outputText value="CEP:" />
+							</th>
+							<td colspan="3">
+								<p:inputMask value="#{instituicaoMBean.obj.endereco.cep}" id="cep-endereco" mask="99.999-999" size="8"/>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h:outputText value="Logradouro:" />
+							</th>
+							<td>
+								<table style="width: 100%">
+									<tr>
+										<td>
+											<p:selectOneMenu value="#{instituicaoMBean.obj.endereco.logradouro}" id="logradouro-endereco" converter="converterLogradouro">  
+												<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+					            				<f:selectItems value="#{logradouroMBean.all}" var="logradouro" itemLabel="#{logradouro.denominacao}" itemValue="#{logradouro}"/>  
+											</p:selectOneMenu>
+										</td>
+										<td colspan="2">
+											<p:inputText value="#{instituicaoMBean.obj.endereco.denominacao}" size="60" id="denominacao-endereco"/>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h:outputText value="Bairro:" />
+							</th>
+							<td>
+								<table style="width: 100%">
+									<tr>
+										<td style="width: 70%">
+											<p:inputText value="#{instituicaoMBean.obj.endereco.bairro}" size="60" id="bairro-endereco"/>
+										</td>
+										<th>
+											<h:outputText value="Número:" />
+										</th>
+										<td style="width: 30%">
+											<p:inputText value="#{instituicaoMBean.obj.endereco.numero}" size="10" id="numero-endereco"/>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h:outputText value="Estado" />
+							</th>
+							<td>
+								<p:selectOneMenu value="#{instituicaoMBean.obj.endereco.estado}" converter="converterEstado" id="estado-endereco">  
+									<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+		            				<f:selectItems value="#{estadoMBean.all}" var="estado" itemLabel="#{estado.nome}" itemValue="#{estado}"/> 
+		            				<p:ajax update="municipio-endereco" listener="#{instituicaoMBean.changeEstadoEndereco}"/> 
+								</p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<h:outputText value="Município:" />
+							</th>
+							<td colspan="3">
+								<p:selectOneMenu id="municipio-endereco"  value="#{instituicaoMBean.obj.endereco.municipio}" converter="converterMunicipio">  
+									<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+		            				<f:selectItems value="#{instituicaoMBean.municipiosEndereco}" var="municipio" itemLabel="#{municipio.nome}" itemValue="#{municipio}"/> 
+								</p:selectOneMenu>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tfoot>
+				<tr>
+					<td colspan="2" style="text-align: center;">
+						 <p:commandButton value="#{instituicaoMBean.confirmButton}" action="#{instituicaoMBean.cadastrar}" ajax="false" />
+               			 <p:commandButton value="Cancelar" action="#{instituicaoMBean.cancelar}" ajax="false" immediate="true"/>
+               			 <p:commandButton value="Voltar" action="#{instituicaoMBean.iniciarListagem}" ajax="false" immediate="true" rendered="#{instituicaoMBean.obj.id != 0 }"/>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

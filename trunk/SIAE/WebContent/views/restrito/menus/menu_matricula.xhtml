@@ -1,0 +1,16 @@
+<ui:composition 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
+		 <p:panel header="Menu Cadastro" collapsed="false" toggleOrientation="horizontal" toggleable="true">
+		 	<p:panelMenu> 
+		  		 <p:submenu label="Matrículas" rendered="#{facesContext.externalContext.isUserInRole('ROLE_ADMIN')}">
+			  		<p:menuitem value="Realizar Matrícula" action="#{matriculaAlunoMBean.iniciarMatricula}" ajax="false" immediate="true"/>
+			  		<p:menuitem value="Emitir Comprovante Matrícula" action="#{matriculaAlunoMBean.iniciarEmissaoComprovante}" ajax="false" immediate="true"/>
+			  	</p:submenu>
+			</p:panelMenu>
+		</p:panel>
+</ui:composition>

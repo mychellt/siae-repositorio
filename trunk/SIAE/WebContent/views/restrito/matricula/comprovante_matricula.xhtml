@@ -1,0 +1,135 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb>  
+					<p:menuitem value="Home" action="#{matriculaAlunoMBean.home}" ajax="false"/>
+				    <p:menuitem value="Matrícula" action="#{matriculaAlunoMBean.iniciarMatricula}" ajax="false"/>
+				    <p:menuitem value="Comprovante de Matrícula" />
+				</p:breadCrumb> 
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_matricula.xhtml" />
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+			<h:form id="form"  acceptcharset="ISO-8859-1" >
+				<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
+				<br/>
+				<table class="formulario" style="width: 80%;">
+					<caption>
+						<h:outputText value="Dados do Aluno" />
+					</caption>
+					<tr>
+						<th style="font-weight: bold; width: 50%;">
+							<h:outputText value="Nome:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty matriculaAlunoMBean.aluno.pessoa.nome ? matriculaAlunoMBean.aluno.pessoa.nome : 'Não Informado' }"/>
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="CPF:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty matriculaAlunoMBean.aluno.pessoa.cpf ? matriculaAlunoMBean.aluno.pessoa.cpf : 'Não Informado' }"  >
+								<f:converter converterId="converterCPF"/>
+							</h:outputText>
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="Nome da Mãe:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty matriculaAlunoMBean.aluno.pessoa.nomeMae ? matriculaAlunoMBean.aluno.pessoa.nomeMae : 'Não Informado'}" />
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="Nome do Pai:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty matriculaAlunoMBean.aluno.pessoa.nomePai ? matriculaAlunoMBean.aluno.pessoa.nomePai : 'Não Informado'}" />
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="Data do Nascimento:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty matriculaAlunoMBean.aluno.pessoa.dataNascimento ? matriculaAlunoMBean.aluno.pessoa.dataNascimento : 'Não Informado'}" >
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="Número de Matrícula:" />	
+						</th>
+						<td>
+							<h:outputText value="#{matriculaAlunoMBean.aluno.requerimentoMatricula.numeroMatricula}" />
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="Data de Processamento:" />	
+						</th>
+						<td>
+							<h:outputText value="#{matriculaAlunoMBean.aluno.requerimentoMatricula.dataCadastro}" >
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+							</h:outputText>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<p:dataTable id="turmes" var="item" value="#{matriculaAlunoMBean.aluno.requerimentoMatricula.itens}"   paginator="false" rows="10">  
+						        <f:facet name="header">  
+						            <h:outputText value="Turma(s) Cadastrada(s)" /> 
+						        </f:facet>
+						        <p:column style="text-align: left; width: 30%;" headerText="Nome">  
+						            <h:outputText value="#{item.turma.nome}" />  
+						        </p:column>
+						        <p:column style="text-align: left; width: 30%;"  headerText="Série">  
+						            <h:outputText value="#{item.turma.serie.denominacao}" />  
+						        </p:column>
+						        <p:column style="text-align: left; width: 20%;"  headerText="Turno">  
+						            <h:outputText value="#{item.turma.turno.denominacao}" />  
+						        </p:column>
+						        <p:column style="text-align: center; width: 10%;"  headerText="Quantidade de Vagas">  
+						            <h:outputText value="#{item.turma.numeroVagas}" />  
+						        </p:column>
+				    		</p:dataTable>
+						</td>
+					</tr>
+					<tfoot>
+						<tr style="text-align: center;">
+							<td colspan="2">
+								<p:commandButton value="Voltar" action="#{matriculaAlunoMBean.iniciarEmissaoComprovante}" immediate="true" ajax="false"/>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				<br/>
+				
+				<div style="text-align: center;">
+					<p:commandLink>
+						<h:graphicImage height="60"  value="/resources/images/operacao/matricula/imprimir.png" title="Imprimir Comprovante"/>
+					</p:commandLink>
+				</div>
+	    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

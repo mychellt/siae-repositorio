@@ -1,0 +1,110 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb>  
+					<p:menuitem value="Home" action="#{professorMBean.home}" ajax="false"/>
+				    <p:menuitem value="Cadastros"/>
+				    <p:menuitem value="professor" action="#{professorMBean.iniciarCadastro}" />
+				    <p:menuitem value="Listar/Alterar" />  
+				</p:breadCrumb> 
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_cadastros.xhtml" />
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form-cadastro-professor"  acceptcharset="ISO-8859-1">
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
+			<br/>
+			<center>
+				<a href="#"  onclick="filtro.show();">
+					<p:graphicImage library="images" name="operacao/filtragem.gif" />
+				</a>
+				<p:dialog header="Consulta de professor" widgetVar="filtro" resizable="false"  width="540" showEffect="fade" hideEffect="fade">
+					<h:panelGrid id="panel-filtro" columns="3" cellpadding="4">  
+						<h:selectBooleanCheckbox value="#{consultadorProfessorMBean.consultadorPessoa.byNome}" />
+						<h:outputText value="Nome do professor:" />
+						<p:inputText value="#{consultadorProfessorMBean.obj.pessoa.nome}" size="40"/>
+						
+						<h:selectBooleanCheckbox value="#{consultadorProfessorMBean.consultadorPessoa.byCpf}" />
+						<h:outputText value="Cpf do professor:" />
+						<p:inputText value="#{consultadorProfessorMBean.obj.pessoa.cpf}" onkeyup="formataCPF(this, event, null)"  size="14" maxlength="14" converter="converterCPF"  />
+						
+						<h:selectBooleanCheckbox value="#{consultadorProfessorMBean.consultadorPessoa.byRg}" />
+						<h:outputText value="RG do professor:" />
+						<p:inputText value="#{consultadorProfessorMBean.obj.pessoa.identidade.numero}" size="14"/>
+						
+						<h:selectBooleanCheckbox value="#{consultadorProfessorMBean.consultadorPessoa.byNomeMae}" />
+						<h:outputText value="Nome da Mãe:" />
+						<p:inputText value="#{consultadorProfessorMBean.obj.pessoa.nomeMae}" size="40"/>
+						
+						<h:selectBooleanCheckbox value="#{consultadorProfessorMBean.consultadorPessoa.byNomePai}" />
+						<h:outputText value="Nome da Pai:" />
+						<p:inputText value="#{consultadorProfessorMBean.obj.pessoa.nomePai}" size="40" />
+						
+						<center>
+							<h:outputText value="" />
+							<p:commandButton id="button-consultar" value="Consultar" action="#{consultadorProfessorMBean.consultar}" ajax="false" onclick="filtro.hide();"/>
+							<h:outputText value="" />
+						</center>
+					</h:panelGrid>
+				</p:dialog> 
+			</center>
+			<br/><br/>
+				<div class="legenda">
+					<h:graphicImage library="images" name="/operacao/alterar.png" />: <h:outputText value="Alterar professor" />
+					<p:graphicImage height="25" library="images" name="operacao/usuario/novo_usuario.gif" />: <h:outputText value="Associação de Usúario" />
+				</div>
+				<p:dataTable id="listagem-professor" var="professor" value="#{consultadorProfessorMBean.lista}"   paginator="true" rows="10"  
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum registro encontrado.">  
+			        <f:facet name="header">  
+			           <h:outputText value="Professor(es) Cadastrado(s)" />
+			        </f:facet>
+			        <p:column style="width: 25%; text-align: left;" headerText="Nome">
+			            <h:outputText value="#{professor.pessoa.nome}" />  
+			        </p:column>
+			         <p:column style="width: 25%; text-align: left;" headerText="Lotação">
+			            <h:outputText value="#{professor.lotacao.nome}" />  
+			        </p:column>
+			        <p:column style="width: 12%; text-align: center;" headerText="CPF">
+			            <h:outputText value="#{professor.pessoa.cpf}" >
+			            	<f:converter converterId="converterCPF"/>
+			            </h:outputText>  
+			        </p:column>
+			        <p:column style="width: 10%; text-align: center;" headerText="RG">
+			            <h:outputText value="#{professor.pessoa.identidade.numero != 0 ? pessoa.identidade.numero : 'Não Informado'}" />  
+			        </p:column>
+			        <p:column style="width: 10%; text-align: center;" headerText="Registro de Nascimento">
+			            <h:outputText value="#{professor.pessoa.certidaoNascimento.numero != 0 ? pessoa.certidaoNascimento.numero : 'Não Informado'}" />  
+			        </p:column>
+			          <p:column style="width: 8%; text-align: right;">
+			           
+			           	<p:commandLink action="#{usuarioMBean.iniciarAssociacaoUsuario}" ajax="false">
+							<p:graphicImage height="23" library="images" name="operacao/usuario/novo_usuario.gif" title="Associação de Usuário"/>
+							<f:setPropertyActionListener target="#{usuarioMBean.obj.pessoa}" value="#{professor.pessoa}"/>
+						</p:commandLink>
+						
+			          	<h:commandLink action="#{professorMBean.preAlterar}">
+			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar professor"/>
+							<f:setPropertyActionListener target="#{professorMBean.obj}" value="#{professor}"/>
+			          	</h:commandLink>
+			          	
+			          </p:column>  
+	    		</p:dataTable>
+	    		<br/><br/> 
+    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

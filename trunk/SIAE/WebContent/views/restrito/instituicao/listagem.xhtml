@@ -1,0 +1,75 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb>  
+				    <p:menuitem value="Administração" action="#{instituicaoMBean.home}" immediate="true" ajax="false"/>
+				    <p:menuitem value="Instituição" action="#{instituicaoMBean.iniciarCadastro}" immediate="true" ajax="false"/>
+				  	<p:menuitem value="Listar/Alterar" />  
+				</p:breadCrumb> 
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_cadastros.xhtml" />
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form"  acceptcharset="ISO-8859-1">
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
+			<br/>
+			<div class="legenda">
+				<h:graphicImage library="images" name="/operacao/alterar.png" />: <h:outputText value="Alterar Instituição" />
+			</div>
+			<p:dataTable var="instituicao" value="#{instituicaoMBean.lista}" rowKey="#{instituicao.id}" paginator="true" rows="10"  
+                selection="#{instituicaoMBean.instituicaoSelecionada}" selectionMode="single" id="tabela-instituicoes">
+                
+                <p:ajax event="rowSelect" update=":form:display" oncomplete="instituicaoDialog.show()" />
+                
+                <f:facet name="header">  
+		            <h:outputText value="Instituições Cadastradas" /> 
+		        </f:facet>
+		        
+                <p:column headerText="Nome" >
+                	<h:outputText value="#{instituicao.nome}" />
+                </p:column>  
+                
+                <p:column headerText="Código INEP" >
+                	<h:outputText value="#{instituicao.codigoInep}" />
+                </p:column>
+                  
+                <p:column headerText="Modalidade" >
+                	<h:outputText value="#{instituicao.modalidade.denominacao}" />
+                </p:column>
+                
+                <p:column style="width: 7%;">
+	                <p:commandLink oncomplete="confirmation.show()" update=":form:confirme-dialog">
+	                	<f:setPropertyActionListener target="#{instituicaoMBean.instituicaoRemocao}" value="#{instituicao}"/>
+		          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Instituição"/>
+		          	</p:commandLink>
+		        	<h:commandLink action="#{instituicaoMBean.preAlterar}" >
+		        		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Instituição"/>
+		        		<f:setPropertyActionListener target="#{instituicaoMBean.obj}" value="#{instituicao}"/>
+		        	</h:commandLink>
+                </p:column>
+             </p:dataTable>
+             <p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"  header="Remoção de Instituição" severity="alert" widgetVar="confirmation">  
+		        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" actionListener="#{instituicaoMBean.remover(instituicaoMBean.instituicaoRemocao)}"  ajax="false" update=":form:tabela-instituicoes"/>
+		        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+       		</p:confirmDialog>  
+	    	<p:dialog id="display" widgetVar="instituicaoDialog" resizable="false"  width="400" showEffect="fade" hideEffect="fade">  
+  				<ui:include src="/views/restrito/instituicao/visualizacao.xhtml" />
+		    </p:dialog>   
+    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

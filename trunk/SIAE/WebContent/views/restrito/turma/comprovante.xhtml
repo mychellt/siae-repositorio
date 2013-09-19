@@ -1,0 +1,103 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb> 
+					<p:menuitem value="Home" action="#{pessoaMBean.home}" ajax="false"/>
+				    <p:menuitem value="Cadastros"/>
+				    <p:menuitem value="#{pessoaMBean.controlador.obj.nomeExibicao}" action="#{pessoaMBean.controlador.iniciarCadastro}" />
+				    <p:menuitem value="Comprovante de Cadastro" />   
+				</p:breadCrumb>
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_cadastros.xhtml" />
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form-comprovante"  acceptcharset="ISO-8859-1">
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
+			<br/>
+			<table class="formulario" style="width: 80%">
+				<caption>
+					<h:outputText value="Informações da Turma"/>
+				</caption>
+				<tr>
+					<th style="font-weight: bold; width: 50%">
+						<h:outputText value="Ano:" />
+					</th>
+					<td>
+						<h:outputText value="#{turmaMBean.obj.ano}" />
+					</td>
+				</tr>
+				<tr>
+					<th style="font-weight: bold;">
+						<h:outputText value="Nome:" />
+					</th>
+					<td>
+						<h:outputText value="#{turmaMBean.obj.nome}" />
+					</td>
+				</tr>
+				<tr>
+					<th style="font-weight: bold;">
+						<h:outputText value="Série:" />
+					</th>
+					<td>
+						<h:outputText value="#{turmaMBean.obj.serie.denominacao}" />
+					</td>
+				</tr>
+				<tr>
+					<th style="font-weight: bold;">
+						<h:outputText value="Turno:" />
+					</th>
+					<td>
+						<h:outputText value="#{turmaMBean.obj.turno.denominacao}" />
+					</td>
+				</tr>
+				<tr>
+					<th style="font-weight: bold;">
+						<h:outputText value="Número de Vagas:" />
+					</th>
+					<td>
+						<h:outputText value="#{turmaMBean.obj.numeroVagas}" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<p:dataTable id="professores" var="turmaProfessor" value="#{turmaMBean.obj.professores}" paginator="false" styleClass="subformulario">
+							<f:facet name="header" >  
+					            <h:outputText value="Professor(es) Adicionado(s)" />  
+					        </f:facet>
+					        
+					        <p:column headerText="Nome da Professor" style="text-align: left; width: 49%;">
+					        	<h:outputText value="#{turmaProfessor.professor.nomeExibicao}" />
+					        </p:column>    
+					        
+					        <p:column headerText="Disciplina(s)" style="text-align: left; width: 49%;">
+					        	<h:outputText value="#{turmaProfessor.disciplinasExibicao}" />
+					        </p:column>
+						</p:dataTable>
+					</td>
+				</tr>
+				<tfoot>
+					<tr>
+						<td colspan="2" style="text-align: center;">
+							<p:commandButton ajax="false" action="#{turmaMBean.iniciarCadastro}" value="Cadastrar Outra Turma"/>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>
