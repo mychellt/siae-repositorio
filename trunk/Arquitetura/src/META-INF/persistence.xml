@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation = "http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" version="2.0">
+    <persistence-unit name="jpaUnit" transaction-type="RESOURCE_LOCAL">
+    	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+    	<!-- Pacote Comum -->
+		<class>br.arq.dominio.CertidaoNascimento</class>
+		<class>br.arq.dominio.CertificadoMilitar</class>
+		<class>br.arq.dominio.Endereco</class>
+		<class>br.arq.dominio.Estado</class>
+		<class>br.arq.dominio.Identidade</class>
+		<class>br.arq.dominio.Logradouro</class>
+		<class>br.arq.dominio.Municipio</class>
+		<class>br.arq.dominio.Naturalidade</class>
+		<class>br.arq.dominio.Pais</class>	
+		<class>br.arq.dominio.Pessoa</class>
+		<class>br.arq.dominio.TipoPessoa</class>
+		<class>br.arq.dominio.Sexo</class>
+		<class>br.arq.dominio.TituloEleitor</class>
+		
+		<!-- Pacote Segurança -->
+    	<class>br.arq.seguranca.Permissao</class>
+    	<class>br.arq.seguranca.PermissaoUsuario</class>
+		<class>br.arq.seguranca.Usuario</class>
+		
+    	<properties>
+        	<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+         	<property name="hibernate.show_sql"  value="true" />
+<!-- 		 	<property name="hibernate.format_sql" value="true" /> -->
+		    <property name="hibernate.use_sql_comments" value="true"/>
+      </properties>
+    </persistence-unit>
+</persistence>
