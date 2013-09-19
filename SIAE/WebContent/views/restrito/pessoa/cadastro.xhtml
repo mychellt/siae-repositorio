@@ -1,0 +1,442 @@
+<ui:composition
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+     	 <p:dialog id="info-cpf" visible="#{pessoaMBean.exibirInfoCpf}" closable="false" header="Informe o CPF do Aluno" width="250" resizable="false" modal="true" widgetVar="informacaoCPF">
+				<h:outputText value="#{pessoaMBean.mensagemErroCpf}" style="color: red; font-weight: bold;" />
+				<br/><br/>
+				<table style="width: 100%;">
+					<tr>
+						<th>
+							<h:outputText value="CPF:" />
+						</th>
+						<td>
+							<p:inputMask mask="999.999.999-99" value="#{pessoaMBean.cpf}"  size="14" maxlength="14" converter="converterCPF" />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+								<h:selectBooleanCheckbox onclick="informacaoCPF.hide();"/><h:outputText value="O #{pessoaMBean.controlador.obj.nomeExibicao} não possui CPF." />
+						</td>
+					</tr>
+					<tfoot>
+						<tr>
+							<td colspan="2" style="text-align: center; ">
+								<p:commandButton value="Enviar" action="#{alunoMBean.carregarDados}" ajax="false" rendered="#{pessoaMBean.cadastroAluno}"/>
+								<p:commandButton value="Enviar" action="#{professorMBean.carregarDados}" ajax="false" rendered="#{pessoaMBean.cadastroProfessor}"/>
+								<p:commandButton value="Enviar" action="#{funcionarioMBean.carregarDados}" ajax="false" rendered="#{pessoaMBean.cadastroFuncionario}"/>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</p:dialog>
+		<table class="formulario" style="width: 80%">
+				<caption>
+					<h:outputText value="#{pessoaMBean.descricaoCadastro}" />
+				</caption>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Nome:" />
+					</th>
+					<td>
+						<p:inputText value="#{pessoaMBean.obj.nome}" size="70"/>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<h:outputText value="CPF:" />
+					</th>
+					<td>
+						<p:inputMask mask="999.999.999-99" value="#{pessoaMBean.obj.cpf}"  size="14" maxlength="14" converter="converterCPF" />
+					</td>
+				</tr>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Nome da Mãe:" />
+					</th>
+					<td>
+						<p:inputText value="#{pessoaMBean.obj.nomeMae}" size="70"/>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<h:outputText value="Nome da Pai:" />
+					</th>
+					<td>
+						<p:inputText value="#{pessoaMBean.obj.nomePai}" size="70" id="nome-pai"/>
+					</td>
+				</tr>
+				<tr>
+					<th nowrap="nowrap" class="obrigatorio">
+						<h:outputText value="Data do Nascimento:" />
+					</th>
+					<td>
+						<p:calendar  pattern="MM/dd/yyyy"  maxlength="10" size="8" value="#{pessoaMBean.obj.dataNascimento}" id="data-nascimento" onkeypress="formataData(this,event)" />  
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<h:outputText value="E-mail:" />
+					</th>
+					<td>
+						<p:inputText value="#{pessoaMBean.obj.email}" id="email-pessoa"/>
+					</td>
+				</tr>
+				<tr>
+					<th>	
+						<h:outputText value="Telefone:" />
+					</th>
+					<td>
+						<p:inputMask value="#{pessoaMBean.obj.telefone}" id="telefone-pessoa" mask="(99) 9999-9999" size="12"/>
+					</td>
+				</tr>
+				<tr>
+					<th>	
+						<h:outputText value="Celular:" />
+					</th>
+					<td>
+						<p:inputMask value="#{pessoaMBean.obj.celular}" id="celular-pessoa" mask="(99) 9999-9999" size="12"/>
+					</td>
+				</tr>
+				<tr>
+					<th class="obrigatorio">	
+						<h:outputText value="Sexo" />
+					</th>
+					<td>
+						<p:selectOneMenu value="#{pessoaMBean.obj.sexo}" id="sexo-pessoa" converter="converterSexo">  
+							<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+            				<f:selectItems value="#{sexoMBean.all}" var="sexo" itemLabel="#{sexo.denominacao}" itemValue="#{sexo}"/>  
+						</p:selectOneMenu>
+					</td>
+				</tr>
+				<h:panelGroup rendered="#{pessoaMBean.cadastroProfessor}">
+					<tr>
+						<th class="obrigatorio">
+							<h:outputText value="Lotação:" />
+						</th>
+						<td>
+							<p:selectOneMenu value="#{professorMBean.obj.lotacao}" id="lotacao-professor" converter="converterInstituicao">  
+								<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+	            				<f:selectItems value="#{instituicaoMBean.all}" var="instituicao" itemLabel="#{instituicao.nomeCodigo}" itemValue="#{instituicao}"/>  
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</h:panelGroup>
+				<h:panelGroup rendered="#{pessoaMBean.cadastroFuncionario}">
+					<tr>
+						<th class="obrigatorio">
+							<h:outputText value="Lotação:" />
+						</th>
+						<td>
+							<p:selectOneMenu value="#{funcionarioMBean.obj.lotacao}" id="lotacao-funcionario" converter="converterInstituicao">  
+								<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+	            				<f:selectItems value="#{instituicaoMBean.all}" var="instituicao" itemLabel="#{instituicao.nomeCodigo}" itemValue="#{instituicao}"/>  
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</h:panelGroup>
+				<tr>
+					<td colspan="2">
+						<table class="subformulario" style="width: 100%">
+							<caption>Endereço</caption>
+							<tr>
+								<th>
+									<h:outputText value="CEP:" />
+								</th>
+								<td colspan="3">
+									<p:inputMask value="#{pessoaMBean.obj.endereco.cep}" id="cep-endereco-pessoa" mask="99.999-999" size="8"/>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Logradouro:" />
+								</th>
+								<td>
+									<table style="width: 100%">
+										<tr>
+											<td>
+												<p:selectOneMenu value="#{pessoaMBean.obj.endereco.logradouro}" id="logradouro-endereco-pessoa" converter="converterLogradouro">  
+													<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+						            				<f:selectItems value="#{logradouroMBean.all}" var="logradouro" itemLabel="#{logradouro.denominacao}" itemValue="#{logradouro}"/>  
+												</p:selectOneMenu>
+											</td>
+											<td colspan="2">
+												<p:inputText value="#{pessoaMBean.obj.endereco.denominacao}" size="60" id="denominacao-endereco-pessoa"/>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Bairro:" />
+								</th>
+								<td>
+									<table style="width: 100%">
+										<tr>
+											<td style="width: 70%">
+												<p:inputText value="#{pessoaMBean.obj.endereco.bairro}" size="60" id="bairro-endereco-pessoa"/>
+											</td>
+											<th>
+												<h:outputText value="Número:" />
+											</th>
+											<td style="width: 30%">
+												<p:inputText value="#{pessoaMBean.obj.endereco.numero}" size="10" id="numero-endereco-pessoa"/>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Estado" />
+								</th>
+								<td>
+									<p:selectOneMenu value="#{pessoaMBean.obj.endereco.estado}" converter="converterEstado" id="estado-endereco-pessoa">  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+			            				<f:selectItems value="#{estadoMBean.all}" var="estado" itemLabel="#{estado.nome}" itemValue="#{estado}"/> 
+			            				<p:ajax update="municipio-endereco-pessoa" listener="#{pessoaMBean.changeEstadoEndereco}"/> 
+									</p:selectOneMenu>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Município:" />
+								</th>
+								<td colspan="3">
+									<p:selectOneMenu id="municipio-endereco-pessoa"  value="#{pessoaMBean.obj.endereco.municipio}" converter="converterMunicipio">  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+			            				<f:selectItems value="#{pessoaMBean.municipiosEndereco}" var="municipio" itemLabel="#{municipio.nome}" itemValue="#{municipio}"/> 
+									</p:selectOneMenu>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table style="width: 100%" class="subformulario">
+							<caption>Documentação</caption>
+							<tr>
+								<th>
+									<h:outputText value="RG:" />
+								</th>
+								<td>
+									<p:inputText value="#{pessoaMBean.obj.identidade.numero}" id="numero-identidade-pessoa"/>
+								</td>
+								<th>
+									<h:outputText value="Orgão de Expedição:" />
+								</th>
+								<td>
+									<p:inputText value="#{pessoaMBean.obj.identidade.orgaoExpedidor}" id="orgao-expedidor-identidade-pessoa"/>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="UF:" />
+								</th>
+								<td>
+									<p:selectOneMenu value="#{pessoaMBean.obj.identidade.estado}" converter="converterEstado" id="estado-identidade-pessoa">  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+			            				<f:selectItems value="#{estadoMBean.all}" var="estado" itemLabel="#{estado.nome}" itemValue="#{estado}"/> 
+									</p:selectOneMenu>
+								</td>
+								<th>
+									<h:outputText value="Data de Expedição:" />
+								</th>
+								<td>
+									<p:calendar maxlength="10" size="8" onkeypress="formataData(this,event)" pattern="MM/dd/yyyy" value="#{pessoaMBean.obj.identidade.dataExpedicao}" id="data-expedicao-identidade-pessoa"  />  
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" style="color: #BED6F8;">
+									<hr />
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Certificado Militar:" />
+								</th>
+								<td>
+									<p:inputText value="#{pessoaMBean.obj.certificadoMilitar.numero}" id="numero-certificado-militar"/>
+								</td>
+								<th>
+									<h:outputText value="Data de Expedição:" />
+								</th>
+								<td>
+									<p:calendar maxlength="10" size="8" onkeypress="formataData(this,event)" pattern="MM/dd/yyyy"  value="#{pessoaMBean.obj.certificadoMilitar.dataExpedicao}" id="data-expedicao-certificado-militar"/>  	
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Série:" />
+								</th>
+								<td>
+									<p:inputText value="#{pessoaMBean.obj.certificadoMilitar.serie}" id="serie-certificado-militar"/>
+								</td>
+								<th>
+									<h:outputText value="Cetegoria:" />
+								</th>
+								<td>
+									<p:inputText value="#{pessoaMBean.obj.certificadoMilitar.categoria}" id="categoria-certificado-militar"/>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Orgão" />
+								</th>
+								<td>
+									<p:inputText value="#{pessoaMBean.obj.certificadoMilitar.orgao}" id="orgao-certificado-militar"/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" style="color: #BED6F8;">
+									<hr />
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Certidão de Nascimento:" />
+								</th>
+								<td>
+									<p:inputText value="#{pessoaMBean.obj.certidaoNascimento.numero}" id="numero-certidao-nascimento"/>
+								</td>
+								<th>
+									<h:outputText value="Data de Expedição:" />
+								</th>
+								<td>
+									<p:calendar maxlength="10" size="8" onkeypress="formataData(this,event)" pattern="MM/dd/yyyy"  value="#{pessoaMBean.obj.certidaoNascimento.dataExpedicao}" id="data-expedicao-certidao-nascimento"/>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Cartório:" />
+								</th>
+								<td colspan="3 ">
+									<p:inputText value="#{pessoaMBean.obj.certidaoNascimento.cartorio}" size="65" id="cartorio-certidao-nascimento"/>	
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Livro:" />
+								</th>
+								<td>
+									<p:inputText value="#{pessoaMBean.obj.certidaoNascimento.livro}" id="livro-certidao-nascimento"/>		
+								</td>
+								<th>
+									<h:outputText value="Folha:" />
+								</th>
+								<td>
+									<p:inputText value="#{pessoaMBean.obj.certidaoNascimento.folha}" id="folha-certidao-nascimento"/>		
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" style="color: #BED6F8;">
+									<hr />
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Titulo de Eleitor:" />
+								</th>
+								<td>
+									<p:inputText value="#{pessoaMBean.obj.tituloEleitor.numero}" id="numero-titulo-eleitor"/>		
+								</td>
+								<th>
+									<h:outputText value="UF:" />
+								</th>
+								<td>
+									<p:selectOneMenu value="#{pessoaMBean.obj.tituloEleitor.uf}" converter="converterEstado" id="uf-titulo-eleitor">  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+			            				<f:selectItems value="#{estadoMBean.all}" var="estado" itemLabel="#{estado.nome}" itemValue="#{estado}"/> 
+									</p:selectOneMenu>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Zona:" />
+								</th>
+								<td>
+									<p:inputText value="#{pessoaMBean.obj.tituloEleitor.zona}" id="zona-titulo-eleitor"/>
+								</td>
+								<th>
+									<h:outputText value="Seção:" />
+								</th>
+								<td>
+									<p:inputText value="#{pessoaMBean.obj.tituloEleitor.secao}" id="secao-titulo-eleitor"/>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4" style="color: #BED6F8;">
+									<hr />
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Passaporte:" />
+								</th>
+								<td>
+									<p:inputText value="#{pessoaMBean.obj.passaporte}" id="passaporte-pessoa"/>			
+								</td>
+								
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table style="width: 100%" class="subformulario">
+							<caption>Naturalidade</caption>
+							<tr>
+								<th>
+									<h:outputText value="País:" />
+								</th>
+								<td>
+									<p:selectOneMenu value="#{pessoaMBean.obj.naturalidade.pais}" converter="converterPais" id="pais-naturalidade-pessoa">  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+			            				<f:selectItems value="#{paisMBean.all}" var="pais" itemLabel="#{pais.nome}" itemValue="#{pais}"/> 
+									</p:selectOneMenu>
+								</td>
+								<th>
+									<h:outputText value="Estado:" />
+								</th>
+								<td>
+									<p:selectOneMenu value="#{pessoaMBean.obj.naturalidade.estado}" converter="converterEstado" id="estado-naturalidade-pessoa">  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+			            				<f:selectItems value="#{estadoMBean.all}" var="estado" itemLabel="#{estado.nome}" itemValue="#{estado}"/>
+			            				<p:ajax update="municipio-naturalidade-pessoa" listener="#{pessoaMBean.changeEstadoNaturalidade}"/> 
+									</p:selectOneMenu>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<h:outputText value="Município:" />
+								</th>
+								<td>
+									<p:selectOneMenu value="#{pessoaMBean.obj.naturalidade.municipio}" converter="converterMunicipio" id="municipio-naturalidade-pessoa">  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="0" />  
+			            				<f:selectItems value="#{pessoaMBean.municipiosNaturalidade}" var="municipio" itemLabel="#{municipio.nome}" itemValue="#{municipio}"/> 
+									</p:selectOneMenu>
+								</td>
+								<th>
+									<h:outputText value="Naturalidade:" />
+								</th>
+								<td>
+									<p:inputText value="#{pessoaMBean.obj.naturalidade.denominacao}" id="denominacao-naturalidade-pessoa"/>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tfoot>
+					<tr style="text-align: center;">
+						<td colspan="2">
+							<p:commandButton ajax="false" value="#{pessoaMBean.controlador.confirmButton}" action="#{pessoaMBean.controlador.cadastrar}" />
+							<p:commandButton value="Cancelar" action="#{pessoaMBean.cancelar}"/>
+						</td>
+					</tr>
+				</tfoot>
+			</table> 
+</ui:composition>

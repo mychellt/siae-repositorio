@@ -1,0 +1,93 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb>  
+				    <p:menuitem value="Administração" action="#{formacaoAcademicaMBean.home}" immediate="true" ajax="false"/>
+				    <p:menuitem value="Formação Acadêmica" action="#{formacaoAcademicaMBean.iniciarCadastro}" immediate="true" ajax="false"/>
+				    <p:menuitem value="Cadastrar" />  
+				</p:breadCrumb> 
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_cadastros.xhtml" />
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form"  acceptcharset="ISO-8859-1" >
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  
+			<br/>
+				 <table class="formulario" style="width: 54%;">
+					<caption>Cadastro de Formação Acadêmica</caption>
+					<tr>
+						<th class="obrigatorio">
+							<h:outputText value="Curso:"/>
+						</th>
+						<td>
+							 <p:inputText size="50" value="#{formacaoAcademicaMBean.obj.denominacao}"/>
+						</td>
+					</tr>
+					<tr>
+						<th class="obrigatorio">
+							<h:outputText value="Nível:" />
+						</th>
+						<td>  
+							<p:selectOneMenu value="#{formacaoAcademicaMBean.obj.nivel}" converter="converterNivelFormacao" id="nivel">  
+								<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
+	            				<f:selectItems value="#{nivelFormacaoMBean.all}" var="nivel" itemLabel="#{nivel.denominacao}" itemValue="#{nivel}" />  
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tfoot>
+						<tr>
+							<td colspan="2" style="text-align: center;">
+								 <p:commandButton value="#{formacaoAcademicaMBean.confirmButton}" ajax="false" actionListener="#{formacaoAcademicaMBean.cadastrar}" update="@Form"/>
+	                			 <p:commandButton value="Cancelar" ajax="false" actionListener="#{formacaoAcademicaMBean.cancelar}" immediate="true"/>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				<br/><br/>
+				<div class="legenda">
+					<h:graphicImage library="images" name="/operacao/remover.png" />: Remover Formação Acadêmica
+					<h:graphicImage library="images" name="/operacao/alterar.png" />: Alterar Formação Acadêmica
+				</div>
+				<p:dataTable var="formacao" value="#{formacaoAcademicaMBean.lista}" rowKey="#{formacao.id}" paginator="true" rows="10"  id="tabela-formacoes">
+					<f:facet name="header" >  
+			            <h:outputText value="Formações Cadastradas" /> 
+			        </f:facet>
+			        <p:column headerText="Curso" style="text-align: left;">  
+		            	<h:outputText value="#{formacao.denominacao}" />
+			        </p:column>
+			       	<p:column headerText="Nível" style="text-align: left;">  
+			            <h:outputText value="#{formacao.nivel.denominacao}" />
+			        </p:column>
+			        <p:column style="text-align: right; width: 8%;">
+			            <p:commandLink oncomplete="confirmation.show()" update=":form:confirme-dialog">
+			        		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Formação Acadêmica" />
+			        		<f:setPropertyActionListener target="#{formacaoAcademicaMBean.formacao}" value="#{formacao}"/>
+			        	</p:commandLink>
+			        	<h:commandLink action="#{formacaoAcademicaMBean.preAlterar}" >
+			        		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Formação Acadêmica"/>
+			        		<f:setPropertyActionListener target="#{formacaoAcademicaMBean.obj}" value="#{formacao}"/>
+			        	</h:commandLink>
+			        </p:column>
+                </p:dataTable>
+	    		<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"  header="Remoção de Cargo" severity="alert" widgetVar="confirmation">  
+			        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" actionListener="#{formacaoAcademicaMBean.remover(formacaoAcademicaMBean.formacao)}"  ajax="false" update=":form:tabela-formacoes"/>
+			        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+	       		</p:confirmDialog>
+    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

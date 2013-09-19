@@ -1,0 +1,102 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb>  
+					<p:menuitem value="Home" action="#{serieMBean.home}" ajax="false" immediate="true"/>
+				    <p:menuitem value="Cadastros" action="#{serieMBean.home}" ajax="false" immediate="true"/>
+				    <p:menuitem value="Série" action="#{serieMBean.iniciarCadastro}" ajax="false" immediate="true"/>
+				    <p:menuitem value="Cadastrar" />  
+				</p:breadCrumb> 
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_cadastros.xhtml" />
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form"  acceptcharset="ISO-8859-1">
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
+			<br/>
+			<table style="width: 35%" class="formulario">
+				<caption>Cadastrar Série</caption>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Denominação:" />
+					</th>
+					<td>
+						<p:inputText value="#{serieMBean.obj.denominacao}" size="40"/>
+					</td>
+				</tr>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Nível:" />
+					</th>
+					<td>  
+						<p:selectOneMenu value="#{serieMBean.obj.nivel}" converter="converterNivel" id="nivel">  
+							<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
+            				<f:selectItems value="#{nivelMBean.all}" var="nivel" itemLabel="#{nivel.denominacao}" itemValue="#{nivel}" />  
+						</p:selectOneMenu>
+					</td>
+				</tr>
+				<tfoot>
+					<tr style="text-align: center;">
+						<td colspan="2"> 
+							<p:commandButton value="#{serieMBean.confirmButton}" action="#{serieMBean.cadastrar}" ajax="false"/>
+							<p:commandButton value="Cancelar" action="#{serieMBean.cancelar}" ajax="false" immediate="true"/>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+			<br/><br/>
+				<div class="legenda">
+					<h:graphicImage library="images" name="/operacao/remover.png" />: Remover Série
+					<h:graphicImage library="images" name="/operacao/alterar.png" />: Alterar Série
+				</div>
+				<p:dataTable id="tabela-serie" var="serie" value="#{serieMBean.lista}"  emptyMessage="Nenhum registro encontrado." paginator="true" rows="10" 
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  rowsPerPageTemplate="5,10,15">  
+			        <f:facet name="header">  
+			            Séries 
+			        </f:facet>  
+			        <p:column style="width: 20%;">  
+			            <f:facet name="header">  
+			                <h:outputText value="Denominação" />  
+			            </f:facet>  
+			            <h:outputText value="#{serie.denominacao}" />  
+			        </p:column>    
+			        <p:column style="width: 71%;">  
+			            <f:facet name="header">  
+			                <h:outputText value="Nível" />  
+			            </f:facet>  
+			            <h:outputText value="#{serie.nivel.denominacao}" />  
+			        </p:column>
+			          <p:column style="width: 7%; text-align: right;"> 
+			          	<f:facet name="header"/>
+			          	<p:commandLink oncomplete="confirmation.show()" update=":form:confirme-dialog">
+			          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Série"/>
+			          		<f:setPropertyActionListener target="#{serieMBean.serie}" value="#{serie}" />
+			          	</p:commandLink>			          	
+			          	<h:commandLink action="#{serieMBean.preAlterar}">
+			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Série"/>
+			          		<f:setPropertyActionListener target="#{serieMBean.obj}" value="#{serie}" />
+			          	</h:commandLink>
+			          </p:column>
+	    		</p:dataTable>
+	    		<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"  header="Remoção de Série" severity="alert" widgetVar="confirmation">  
+			        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" actionListener="#{serieMBean.remover(serieMBean.serie)}"  ajax="false" update=":form:tabela-serie"/>
+			        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+		        </p:confirmDialog>
+		  </h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

@@ -1,0 +1,128 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb>  
+					<p:menuitem value="Home" action="#{matriculaAlunoMBean.home}" ajax="false"/>
+				    <p:menuitem value="Matrícula" action="#{matriculaAlunoMBean.iniciarMatricula}" ajax="false"/>
+				    <p:menuitem value="Realizar Matrícula" />
+				</p:breadCrumb> 
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_matricula.xhtml" />
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form"  acceptcharset="ISO-8859-1">
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  
+			<table style="width: 60%;" class="formulario">
+				<caption>
+					<h:outputText value="Buscar Aluno" />
+				</caption>
+				<tr>
+					<td>
+						<p:selectBooleanCheckbox value="#{consultadorAlunoMBean.porNome}" id="porNome"/>
+					</td>
+					<td>
+						<h:outputText value="Nome:" />
+					</td>
+					<td>
+						<p:inputText value="#{consultadorAlunoMBean.obj.pessoa.nome}" size="45">
+							<p:ajax event="click" listener="#{consultadorAlunoMBean.porNome(true)}" update="porNome"/>
+						</p:inputText>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p:selectBooleanCheckbox value="#{consultadorAlunoMBean.porCPF}" id="porCPF"/>
+					</td>
+					<td>
+						<h:outputText value="CPF:" />
+					</td>
+					<td>
+						<p:inputMask mask="999.999.999-99" value="#{consultadorAlunoMBean.obj.pessoa.cpf}"  size="14" maxlength="14" converter="converterCPF" >
+							<p:ajax event="click" listener="#{consultadorAlunoMBean.porCPF(true)}" update="porCPF"/>
+						</p:inputMask>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p:selectBooleanCheckbox value="#{consultadorAlunoMBean.porMatricula}" id="porMatricula"/>
+					</td>
+					<td>
+						<h:outputText value="Matrícula:" />
+					</td>
+					<td>
+						<p:inputText value="#{consultadorAlunoMBean.obj.requerimentoMatricula.numeroMatricula}"  size="14" maxlength="14">
+							<p:ajax event="click" listener="#{consultadorAlunoMBean.porMatricula(true)}" update="porMatricula"/>
+						</p:inputText>
+					</td>
+				</tr>
+				<tfoot>
+					<tr style="text-align: center;">
+						<td colspan="3">
+							<p:commandButton value="Buscar" action="#{consultadorAlunoMBean.buscar}" ajax="false"/>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+			<br/><br/><br/>
+			<div class="legenda">
+				<h:graphicImage library="images" name="/operacao/matricula/matricular.png" height="20" />: <h:outputText value="Realizar Matrícula" />
+			</div>
+			<p:dataTable id="tabela-alunos" var="aluno" value="#{consultadorAlunoMBean.lista}"   paginator="true" rows="10">
+				<f:facet name="header">  
+		            <h:outputText value="Aluno(s) Encontrado(s)" /> 
+		        </f:facet>
+		        <p:column style="width: 40%; text-align: left;">  
+		            <f:facet name="header">  
+		                <h:outputText value="Nome" />  
+		            </f:facet>  
+		            <h:outputText value="#{aluno.pessoa.nome}" />  
+		        </p:column>
+		        <p:column style="width: 10%; text-align: center;">  
+		            <f:facet name="header">  
+		                <h:outputText value="CPF" />  
+		            </f:facet>
+		            <h:outputText value="#{aluno.pessoa.cpf}" >
+		            	<f:converter converterId="converterCPF"/>
+		            </h:outputText>  
+		        </p:column>
+		        <p:column style="width: 10%; text-align: center;">  
+		            <f:facet name="header">  
+		                <h:outputText value="RG" />  
+		            </f:facet>  
+		            <h:outputText value="#{aluno.pessoa.identidade.numero != 0 ? aluno.pessoa.identidade.numero : 'Não Informado'}" />  
+		        </p:column>
+		        <p:column style="width: 10%; text-align: center;">  
+		            <f:facet name="header">  
+		                <h:outputText value="Registro de Nascimento" />  
+		            </f:facet>  
+		            <h:outputText value="#{aluno.pessoa.certidaoNascimento.numero != 0 ? aluno.pessoa.certidaoNascimento.numero : 'Não Informado'}" />  
+		        </p:column>
+		          <p:column style="width: 7%; text-align: right;"> 
+		          	<h:commandLink action="#{matriculaAlunoMBean.preRealizarMatricula}">
+		          		<h:graphicImage library="images" name="/operacao/matricula/matricular.png" title="Realizar Matrícula" height="20"/>
+						<f:setPropertyActionListener target="#{matriculaAlunoMBean.aluno}" value="#{aluno}"/>
+		          	</h:commandLink>
+		          	<h:commandLink action="#{matriculaAlunoMBean.preEmitirComprovanteMatricula	}">
+		          		<h:graphicImage library="images" name="/operacao/matricula/comprovante.png" title="Emitir Comprovante Matrícula" height="20"/>
+						<f:setPropertyActionListener target="#{matriculaAlunoMBean.aluno}" value="#{aluno}"/>
+		          	</h:commandLink>
+		          </p:column>    
+			</p:dataTable>
+    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

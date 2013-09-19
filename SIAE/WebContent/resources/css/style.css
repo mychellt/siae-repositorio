@@ -1,0 +1,245 @@
+@CHARSET "UTF-8";
+
+
+body {
+    background: url("#{resource['images/layout/bg.jpg']}") repeat scroll center center; 
+    padding-top:0;
+	margin: 0;
+	width: 100%;
+}
+
+nav {
+	position: relative;
+	left: 0;
+	width: 990px;
+}
+
+section#content {
+	display: table;
+	padding-bottom: 20px;
+}
+
+section#main-content {
+		display: table-cell;
+		position:relative;
+		width: 800px;
+		padding-right: 5px;
+		padding-left: 5px;
+		padding-top: 15px;
+}
+
+header, footer, section, aside, nav, article {
+	display: block;
+}
+
+aside {
+		display: table;
+		width: 180px;
+		position: relative;
+		padding-bottom: 
+}
+
+section#container {
+	padding-top:0;
+	margin: 0 auto;  
+	width: 989px;
+	background-color: #fff;
+	box-shadow-left: 5px;
+}
+
+
+.ui-menu {
+  border-bottom-left-radius:0px;
+  border-bottom-right-radius:0px;
+  border-top-left-radius:0px;
+  border-top-right-radius:0px;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+     font-size: 11px !important;
+}
+
+.ui-breadcrumb {
+  border-bottom-left-radius:0px;
+  border-bottom-right-radius:0px;
+  border-top-left-radius:0px;
+  border-top-right-radius:0px;
+}
+ 
+ 
+.content{
+	width: 980px;
+	background-color: #fff;
+}
+
+
+footer#footer {
+    background: none repeat scroll 0 0 #3A8104;;
+    border-bottom: 4px solid #D99C44;
+    color: #FFFFFF;
+    line-height: 2em;
+    position: relative;
+    text-align: center;
+}
+
+footer#footer p {
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+
+/** Classes para formulários */
+div.formulario p.caption{
+	padding: 0px;
+	font-family: Verdana;
+	font-style: normal;
+	font-weight: bold;
+	font-variant: small-caps;
+	text-align: center;
+	background: url(menu/bg_opcao_menu.gif) center;
+	color: white;
+	border: 1px solid #45930B;
+}
+
+
+
+table.formulario {
+	margin: 0 auto;
+    font-size: 12px !important;
+    border-radius: 0px 0px 6px 6px;
+    background:  repeat-x scroll 50% top;
+    border: 1px solid #45930B;
+ 
+}
+
+table.formulario caption{
+	padding: 0.5em 1em 0.3em;
+	background: url("/siae/javax.faces.resource/images/ui-bg_highlight-soft_33_3a8104_1x100.png.jsf?ln=primefaces-south-street") repeat-x scroll 50% 50% #3A8104;
+   	border: 1px solid #45930B; 
+    font-weight: normal;
+    border-radius: 6px 6px 0px 0px;
+    padding-left: 5px;
+    color: white;
+}
+
+table.formulario tfoot { text-align: center; font-weight: normal;}
+table.formulario th {  text-align: right;  font-weight: normal;}
+table.formulario thead {  text-align: left;  font-weight: normal;}
+table.formulario tr { text-align: left;  font-weight: normal;}
+table.formulario tr td { padding: 2px; font-weight: normal;}
+table.formulario tr { padding: 3px 0 3px 20px; font-weight: normal;}
+table.formulario th { text-align: right;  font-weight: normal;}
+
+table.subformulario {
+	margin: 0 auto;
+	border: 1px solid #45930B;
+	border-top: 0px;
+    font-size: 12px !important;
+    border-radius: 0px 0px 0px 0px;
+    width: 100%;
+}
+
+table.subFormulario tr td { padding: 2px; }
+
+table.subformulario caption{
+	padding: 0.2em 1em 0.1em;
+	background:  #45930B;;
+    border: 1px solid #45930B;
+    color: white;
+    border-radius: 0px 0px 0px 0px;
+}
+table.subformulario tfoot { text-align: center; }
+
+th.obrigatorio{ 
+	background:  url("#{resource['images/layout/obrigatorio.png']}") no-repeat right ; 
+	padding-right: 13px;
+}
+th.rotulo{ 
+	text-align: right; 
+	font-weight: bold; 
+}
+td.obrigatorio{ 
+	background:  url("#{resource['images/layout/obrigatorio.png']}") no-repeat right ; 
+	padding-right: 13px;
+}
+div.obrigatorio{ 
+	background:  url("#{resource['images/layout/obrigatorio.png']}") no-repeat left;
+	font-size: 0.9em;
+	padding-left: 13px;
+	margin: auto 39%;
+}
+
+div.caption {
+	padding: 0.2em 1em 0.1em;
+	background:  #BED6F8;
+    border: 1px solid #BED6F8;
+    color: black;
+    font-weight: bold;
+    border-radius: 0px 0px 0px 0px;
+}
+div.obrigatorioModalPanel { 
+		background:  url("#{resource['images/layout/obrigatorio.png']}") no-repeat;
+		font-size: 0.9em;
+		margin: auto 30%;
+}
+span.obrigatorio{ 
+	background:  url("#{resource['images/layout/obrigatorio.png']}") no-repeat right ; 
+	padding-right: 13px;
+}
+
+div.legenda {
+	text-align: center;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+
+
+#info-sistema {
+  background: none repeat scroll 0 0 #3A8104;;
+  color:#FFFFFF;
+  display:block;
+  margin:0 auto;
+  padding:1px 4px 0;
+  position:relative;
+  text-align:left;
+  border-top: 4px solid #D99C44;
+}
+
+#info-sistema h3 {
+	display: inline;
+  	font-size: 1.0em;
+  	font-weight: normal;
+  	position: relative;
+}
+
+#info-sistema h1 {
+  display:inline;
+  font-size:1.0em;
+  font-weight:bold;
+}
+
+#info-sistema div.dir {
+  color:#FFFFFF;
+  display:inline;
+  height:16px;
+  margin:0;
+  padding:0 5px 0 0;
+  position:absolute;
+  right:0;
+  text-align:right;
+  top:0;
+  width:auto;
+}
+
+
+#info-sistema h1 span {
+  font-family:Arial;
+  font-size:1.1em;
+  letter-spacing:0.1em;
+  margin-right:10px;
+  position:relative;
+}

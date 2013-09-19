@@ -1,0 +1,167 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb>  
+					<p:menuitem value="Home" action="#{matriculaAlunoMBean.home}" ajax="false"/>
+				    <p:menuitem value="Matrícula" action="#{matriculaAlunoMBean.iniciarMatricula}" ajax="false"/>
+				    <p:menuitem value="Realizar Matrícula" />
+				</p:breadCrumb> 
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_matricula.xhtml" />
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+			<h:form id="form"  acceptcharset="ISO-8859-1" >
+				<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
+				<br/>
+				<table class="formulario" style="width: 60%;">
+					<caption>
+						<h:outputText value="Dados do Aluno" />
+					</caption>
+					<tr>
+						<th style="font-weight: bold; width: 50%;">
+							<h:outputText value="Nome:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty matriculaAlunoMBean.aluno.pessoa.nome ? matriculaAlunoMBean.aluno.pessoa.nome : 'Não Informado' }"/>
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="CPF:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty matriculaAlunoMBean.aluno.pessoa.cpf ? matriculaAlunoMBean.aluno.pessoa.cpf : 'Não Informado' }"  >
+								<f:converter converterId="converterCPF"/>
+							</h:outputText>
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="Nome da Mãe:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty matriculaAlunoMBean.aluno.pessoa.nomeMae ? matriculaAlunoMBean.aluno.pessoa.nomeMae : 'Não Informado'}" />
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="Nome do Pai:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty matriculaAlunoMBean.aluno.pessoa.nomePai ? matriculaAlunoMBean.aluno.pessoa.nomePai : 'Não Informado'}" />
+						</td>
+					</tr>
+					<tr>
+						<th style="font-weight: bold;">
+							<h:outputText value="Data do Nascimento:" />
+						</th>
+						<td>
+							<h:outputText value="#{not empty matriculaAlunoMBean.aluno.pessoa.dataNascimento ? matriculaAlunoMBean.aluno.pessoa.dataNascimento : 'Não Informado'}" >
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+						</td>
+					</tr>
+				</table>
+				<br/>
+				<table class="formulario" style="width: 40%;">
+					<caption>
+						<h:outputText value="Consultar Turma" />
+					</caption>
+					<tr>
+						<td>
+							<p:selectBooleanCheckbox value="#{consultadorTurmaMBean.porNome}" id="porNome"/>
+						</td>
+						<th>
+							<h:outputText value="Nome:" />
+						</th>
+						<td>
+							<h:inputText value="#{consultadorTurmaMBean.obj.nome}" >
+								<p:ajax event="click" listener="#{consultadorTurmaMBean.porNome(true)}" update="porNome"/>
+							</h:inputText>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p:selectBooleanCheckbox value="#{consultadorTurmaMBean.porSerie}" id="porSerie"/>
+						</td>
+						<th>
+							<h:outputText value="Serie:" />
+						</th>
+						<td>  
+							<p:selectOneMenu value="#{consultadorTurmaMBean.obj.serie}" converter="converterSerie" id="serie">  
+								<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
+	            				<f:selectItems value="#{serieMBean.all}" var="serie" itemLabel="#{serie.denominacao}" itemValue="#{serie}" /> 
+	            				<p:ajax event="change" listener="#{consultadorTurmaMBean.porSerie(true)}" update="porSerie"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p:selectBooleanCheckbox value="#{consultadorTurmaMBean.porTurno}" id="porTurno"/>
+						</td>
+						<th class="obrigatorio">
+							<h:outputText value="Turno:" />
+						</th>
+						<td>
+							<p:selectOneMenu value="#{consultadorTurmaMBean.obj.turno}" converter="converterTurno" id="turno"  >  
+								<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
+	            				<f:selectItems value="#{turnoMBean.all}" var="turno" itemLabel="#{turno.denominacao}" itemValue="#{turno}" /> 
+	            				<p:ajax event="change" listener="#{consultadorTurmaMBean.porTurno(true)}" update="porTurno"/> 
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tfoot>
+						<tr style="text-align: center;">
+							<td colspan="3">
+								<p:commandButton value="Consultar" action="#{consultadorTurmaMBean.consultar}" ajax="false"/>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				<br/>
+				<p:dataTable id="turmas" style="width:100%" var="turma" value="#{consultadorTurmaMBean.dataModel}" paginator="false" rows="10"  selection="#{consultadorTurmaMBean.arrayTurma}">
+					<f:facet name="header" >  
+			            <h:outputText value="Turmas" />  
+			        </f:facet>
+			        <p:column selectionMode="multiple" style="width:18px" /> 
+			        
+			        <p:column headerText="Nome" style="text-align: left;">
+			        	<h:outputText value="#{turma.nome}" />
+			        </p:column>    
+			        
+			        <p:column headerText="Série" style="text-align: left;">
+			        	<h:outputText value="#{turma.serie.denominacao}" />
+			        </p:column>    
+			        
+			        <p:column headerText="Turno" style="text-align: Center;">
+			        	<h:outputText value="#{turma.turno.denominacao}" />
+			        </p:column>
+				</p:dataTable>
+				<table class="formulario" style="width: 100%">
+					<tfoot>
+						<tr style="text-align: center;">
+							<td>
+								<p:commandButton value="Voltar" action="#{matriculaAlunoMBean.iniciarEmissaoComprovante}" immediate="true" ajax="false"/>
+								<p:commandButton value="Concluir Matrícula" action="#{matriculaAlunoMBean.matricular}" ajax="false"/>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+	    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

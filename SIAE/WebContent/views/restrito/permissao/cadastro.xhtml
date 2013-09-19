@@ -1,0 +1,98 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation"  acceptcharset="ISO-8859-1" >
+				<p:breadCrumb> 
+					<p:menuitem value="Home" action="#{permissaoMBean.home}"  ajax="false" immediate="true"/>
+				    <p:menuitem value="Administração" action="#" ajax="false" immediate="true"/>
+				    <p:menuitem value="Permissão" action="#{permissaoMBean.iniciarCadastro}" ajax="false" immediate="true"/>
+				    <p:menuitem value="Cadastrar" action="#" ajax="false" immediate="true"/>  
+				</p:breadCrumb>
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu"  acceptcharset="ISO-8859-1" >
+				<ui:include src="/views/restrito/menus/menu_administracao.xhtml" />
+			</h:form>
+		</ui:define>
+			<ui:define name="content">
+				<h:form id="form"  acceptcharset="ISO-8859-1" >
+					<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  
+					<br/>
+					<table class="formulario" width="35%">
+						<caption>Cadastro de Permissão</caption>
+						<tr>
+							<th class="obrigatorio">
+								<h:outputText value="Denominação:"/>
+							</th>
+							<td>
+								 <p:inputText size="40" value="#{permissaoMBean.obj.denominacao}"/>
+							</td>
+						</tr>
+						<tr>
+							<th class="obrigatorio">
+								<h:outputText value="Descrição:"/>
+							</th>
+							<td>
+								  <p:inputTextarea rows="5" cols="40"  value="#{permissaoMBean.obj.descricao}"/>
+							</td>
+						</tr>
+						<tfoot>
+							<tr>
+								<td colspan="2" style="text-align: center;">
+									 <p:commandButton value="#{permissaoMBean.confirmButton}" ajax="false" actionListener="#{permissaoMBean.cadastrar}" update="@Form"/>
+			               			 <p:commandButton value="Cancelar" ajax="false" actionListener="#{permissaoMBean.cancelar}" immediate="true"/>
+								</td>
+							</tr>
+						</tfoot>
+					</table>	
+					<br/><br/>
+					<div class="legenda">
+						<h:graphicImage library="images" name="/operacao/remover.png" />: Remover Permissão
+						<h:graphicImage library="images" name="/operacao/alterar.png" />: Alterar Permissão
+					</div>
+					<p:dataTable id="table-permissoes" var="permissao" value="#{permissaoMBean.lista}"   paginator="true" rows="10">  
+				        <f:facet name="header">  
+				            Permissões 
+				        </f:facet>  
+				        <p:column style="width: 20%;">  
+				            <f:facet name="header">  
+				                <h:outputText value="Denominação" />  
+				            </f:facet>  
+				            <h:outputText value="#{permissao.denominacao}" />  
+				        </p:column>    
+				        <p:column style="width: 71%;">  
+				            <f:facet name="header">  
+				                <h:outputText value="Descrição" />  
+				            </f:facet>  
+				            <h:outputText value="#{permissao.descricao}" />  
+				        </p:column>
+				          <p:column style="width: 7%; text-align: right;"> 
+				          	<f:facet name="header"/>
+				          	<p:commandLink oncomplete="confirmation.show()" update=":form:confirme-dialog">
+				          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Permissão"/>
+				          		<f:setPropertyActionListener target="#{permissaoMBean.permissao}" value="#{permissao}"/>
+				          	</p:commandLink>
+				          	<h:commandLink action="#{permissaoMBean.preAlterar}">
+				          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Permissão"/>
+				          		<f:setPropertyActionListener target="#{permissaoMBean.obj}" value="#{permissao}"/>
+				          	</h:commandLink>    
+				          </p:column>  
+			   		</p:dataTable>
+			   		<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"  header="Remoção de Disciplina" severity="alert" widgetVar="confirmation">  
+				        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" actionListener="#{permissaoMBean.remover(permissaoMBean.permissao)}"  ajax="false" update=":form:table-permissoes"/>
+				        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+			        </p:confirmDialog>
+	    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      lang="pt-br">
+    <h:head>
+		<meta charset="iso-8859-1" />  
+        <title>SIAE - Sistema Integrado de Gestão Escolar</title>
+        <h:outputStylesheet name="style.css"  library="css"/>
+        <h:outputScript library="js" name="formatador.js"/>
+    </h:head>
+    <h:body>
+    	<section id="container">
+	    	<header id="header">
+	   			<ui:insert name="header">
+	   				Cabeçalho	    			
+	   			</ui:insert>
+	    	</header>
+    		<nav>
+    			<ui:insert name="navegation">
+    				Indicador de Navegação
+    			</ui:insert>
+    		</nav>
+    		<section id="content">
+	    		<aside>
+	    			<ui:insert name="menu">
+	    				Menu Lateral
+	    			</ui:insert>
+	    		</aside>
+	    		<section id="main-content">
+		 			<ui:insert name="content">
+		 				Conteúdo
+					</ui:insert>
+			   	</section>
+	    	</section>
+		    <footer id="footer">
+		    	<ui:insert name="footer">
+		   				Rodapé	    			
+	   			</ui:insert>
+		    </footer>
+		</section>
+    </h:body>
+</html>

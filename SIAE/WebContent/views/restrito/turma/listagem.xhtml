@@ -1,0 +1,88 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb>  
+				    <p:menuitem value="Cadastros" action="#{turmaMBean.home}" immediate="true" ajax="false"/>
+				    <p:menuitem value="Turma" action="#{turmaMBean.iniciarListagem}" immediate="true" ajax="false"/>
+				    <p:menuitem value="Listar/Alterar" />  
+				</p:breadCrumb> 
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_cadastros.xhtml" />
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form"  acceptcharset="ISO-8859-1" >
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />  
+				<br/><br/>
+				<div class="legenda">
+					<h:graphicImage library="images" name="/operacao/remover.png" />: Remover Turma
+					<h:graphicImage library="images" name="/operacao/alterar.png" />: Alterar Turma
+				</div>
+				<p:dataTable id="tabela-turmas" var="turma" value="#{turmaMBean.lista}"   paginator="true" rows="10">  
+			        <f:facet name="header">  
+			            <h:outputText value="Turma(s) Cadastrada(s)" /> 
+			        </f:facet>
+			          
+			        <p:column style="text-align: left; width: 30%;" headerText="Nome">  
+			            <h:outputText value="#{turma.nome}" />  
+			        </p:column>
+			            
+			        <p:column style="text-align: left; width: 30%;"  headerText="Série">  
+			            <h:outputText value="#{turma.serie.denominacao}" />  
+			        </p:column>
+			        
+			        <p:column style="text-align: left; width: 20%;"  headerText="Turno">  
+			            <h:outputText value="#{turma.turno.denominacao}" />  
+			        </p:column>
+			        
+			        <p:column style="text-align: center; width: 10%;"  headerText="Quantidade de Vagas">  
+			            <h:outputText value="#{turma.numeroVagas}" />  
+			        </p:column>
+			        
+			          <p:column style="width: 10%; text-align: right;"> 
+			          	<p:commandLink oncomplete="confirmation.show()" update=":form:confirme-dialog">
+			          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover Turma"/>
+			          		<f:setPropertyActionListener target="#{turmaMBean.turma}" value="#{turma}" />
+			          	</p:commandLink>
+			          	<h:commandLink action="#{turmaMBean.preAlterar}">
+			          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar Turma"/>
+			          		<f:setPropertyActionListener target="#{turmaMBean.obj}" value="#{turma}"/>
+			          	</h:commandLink>
+			          </p:column>  
+	    		</p:dataTable>
+	    		<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"  header="Remoção de Turma" severity="alert" widgetVar="confirmation">  
+			        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" actionListener="#{turmaMBean.remover(turmaMBean.turma)}"  ajax="false" update=":form:tabela-turmas"/>
+			        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+		        </p:confirmDialog>
+	    		<p:dialog id="display" widgetVar="turmaDialog" resizable="false"  width="400" showEffect="fade" hideEffect="fade">  
+  					<p:dataTable id="professores" var="turmaProfessor" value="#{turmaMBean.obj.professores}" paginator="false" styleClass="subformulario">
+						<f:facet name="header" >  
+				            <h:outputText value="Professor(es) Adicionado(s)" />  
+				        </f:facet>
+				        
+				        <p:column headerText="Nome da Professor" style="text-align: left; width: 49%;">
+				        	<h:outputText value="#{turmaProfessor.professor.nomeExibicao}" />
+				        </p:column>    
+				        
+				        <p:column headerText="Disciplina(s)" style="text-align: left; width: 49%;">
+				        	<h:outputText value="#{turmaProfessor.disciplinasExibicao}" />
+				        </p:column>
+					</p:dataTable>
+		    	</p:dialog> 
+    	</h:form>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

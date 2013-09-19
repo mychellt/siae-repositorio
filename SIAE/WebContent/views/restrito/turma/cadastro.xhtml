@@ -1,0 +1,177 @@
+<ui:composition template="/template/template.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+		<ui:define name="header">
+			<ui:include src="/template/header.xhtml" />
+		</ui:define>
+		<ui:define name="navegation">
+			<h:form id="form-navegation">
+				<p:breadCrumb> 
+					<p:menuitem value="Home" action="#{turmaMBean.home}"  ajax="false" immediate="true"/>
+				    <p:menuitem value="Cadastros" action="#{turmaMBean.home}" ajax="false" immediate="true"/>
+				    <p:menuitem value="Turma" action="#{turmaMBean.iniciarCadastro}" ajax="false" immediate="true"/>
+				    <p:menuitem value="Cadastrar" />  
+				</p:breadCrumb>
+			</h:form>
+		</ui:define>
+		<ui:define name="menu">
+			<h:form id="form-menu">
+				<ui:include src="/views/restrito/menus/menu_cadastros.xhtml" />
+			</h:form>
+		</ui:define>
+		<ui:define name="content">
+		<h:form id="form"  acceptcharset="ISO-8859-1">
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
+			<br/>
+			<table style="width: 70%" class="formulario">
+				<caption>Cadastrar Turma</caption>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Ano:" />
+					</th>
+					<td>
+						<p:inputText value="#{turmaMBean.obj.ano}" size="4" maxlength="4"/>
+					</td>
+				</tr>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Nome:" />
+					</th>
+					<td>
+						<p:inputText value="#{turmaMBean.obj.nome}" />
+					</td>
+				</tr>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Serie:" />
+					</th>
+					<td>  
+						<p:selectOneMenu value="#{turmaMBean.obj.serie}" converter="converterSerie" id="serie">  
+							<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
+            				<f:selectItems value="#{serieMBean.all}" var="serie" itemLabel="#{serie.denominacao}" itemValue="#{serie}" />  
+						</p:selectOneMenu>
+					</td>
+				</tr>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Turno:" />
+					</th>
+					<td>
+						<p:selectOneMenu value="#{turmaMBean.obj.turno}" converter="converterTurno" id="turno">  
+							<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
+            				<f:selectItems value="#{turnoMBean.all}" var="turno" itemLabel="#{turno.denominacao}" itemValue="#{turno}" />  
+						</p:selectOneMenu>
+					</td>
+				</tr>
+				<tr>
+					<th class="obrigatorio">
+						<h:outputText value="Número de Vagas:" />
+					</th>
+					<td>
+						<p:inputText value="#{turmaMBean.obj.numeroVagas}" size="9" maxlength="9"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table style="width: 100%" class="subformulario">
+							<caption>
+								<h:outputText value="Docente(s) da Turma" />
+							</caption>
+							<tr>
+								<th class="obrigatorio">
+									<h:outputText value="Professor:" />
+								</th>
+								<td colspan="2">
+									<p:selectOneMenu value="#{turmaMBean.turmaProfessor.professor}" converter="converterProfessor" id="professor-turma">  
+										<f:selectItem itemLabel="-- Selecione --" itemValue="0"/>  
+			            				<f:selectItems value="#{professorMBean.all}" var="professor" itemLabel="#{professor.nomeExibicao}" itemValue="#{professor}" />  
+									</p:selectOneMenu>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<p:dataTable id="disciplinas" style="width:100%" var="disciplina" value="#{turmaMBean.disciplinas}" paginator="false" rows="10"  selection="#{turmaMBean.disciplinasSelecionadas}">
+										<f:facet name="header" >  
+								            <h:outputText value="Disicplinas" />  
+								        </f:facet>
+								        <p:column selectionMode="multiple" style="width:18px" /> 
+								        
+								        <p:column headerText="Nome da Disciplina" style="text-align: left;">
+								        	<h:outputText value="#{disciplina.nome}" />
+								        </p:column>    
+								        
+								        <p:column headerText="Nível" style="text-align: left;">
+								        	<h:outputText value="#{disciplina.nivel.denominacao}" />
+								        </p:column>    
+								        
+								        <p:column headerText="Reprova" style="text-align: Center;">
+								        	<h:outputText value="#{disciplina.reprova ? 'Sim' : 'Não'}" />
+								        </p:column>    
+								        
+									</p:dataTable>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: center;" colspan="3">
+									<h:commandButton action="#{turmaMBean.inserirProfessor}" value="Inserir" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<p:dataTable id="professores" var="turmaProfessor" value="#{turmaMBean.obj.professores}" paginator="false">
+										<f:facet name="header" >  
+								            <h:outputText value="Professores Adicionados" />  
+								        </f:facet>
+								        
+								        <p:column headerText="Nome da Professor" style="text-align: left; width: 40%;">
+								        	<h:outputText value="#{turmaProfessor.professor.nomeExibicao}" />
+								        </p:column>    
+								        
+								        <p:column headerText="Disciplinas" style="text-align: left; width: 40%;">
+								        	<h:outputText value="#{turmaProfessor.disciplinasExibicao}" />
+								        </p:column>
+								            
+								        <p:column style="text-align: right; width: 10%;">
+								        
+								       		 <h:commandLink onclick="confirmation.show(); return false">
+								          		<h:graphicImage library="images" name="/operacao/remover.png" title="Remover"/>
+								          	</h:commandLink>
+								          	
+								          	 <h:commandLink action="#{turmaMBean.preAlterarProfessor}">
+								          		<h:graphicImage library="images" name="/operacao/alterar.png" title="Alterar"/>
+								          		<f:setPropertyActionListener target="#{turmaMBean.turmaProfessor}" value="#{turmaProfessor}"/>
+								          	</h:commandLink>   
+			      
+								          	<p:confirmDialog id="confirme-dialog" message="Deseja realmente remover o registro?"    header="Desassociar Professor" severity="alert" widgetVar="confirmation">  
+										        <p:commandButton id="confirm" value="Sim" oncomplete="confirmation.hide()" action="#{turmaMBean.removerProfessor}"  ajax="false">
+										        	<f:setPropertyActionListener target="#{turmaMBean.turmaProfessor}" value="#{turmaProfessor}"/>  
+										        </p:commandButton>
+										        <p:commandButton id="decline" value="Não" onclick="confirmation.hide()" type="button"/>  
+									        </p:confirmDialog>
+									        
+								        </p:column>
+									</p:dataTable>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tfoot>
+					<tr style="text-align: center;">
+						<td colspan="2">
+							<p:commandButton value="#{turmaMBean.confirmButton}" action="#{turmaMBean.cadastrar}" ajax="false"/>
+							<p:commandButton value="Cancelar" action="#{turmaMBean.cancelar}" ajax="false" immediate="true"/>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+    	</h:form>
+    	<br/><br/>
+		</ui:define>
+		<ui:define name="footer">
+			<ui:include src="/template/footer.xhtml" />
+		</ui:define>
+</ui:composition>

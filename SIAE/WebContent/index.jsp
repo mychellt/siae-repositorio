@@ -1,0 +1,1 @@
+<% response.sendRedirect("views/publico/login.jsf");%>
