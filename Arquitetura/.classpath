@@ -70,5 +70,6 @@
 	<classpathentry kind="lib" path="libs/spring-security-taglibs-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="libs/spring-security-web-3.1.0.RC1-sources.jar"/>
 	<classpathentry kind="lib" path="libs/spring-security-web-3.1.0.RC1.jar"/>
+	<classpathentry kind="lib" path="libs/commons-lang-2.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
