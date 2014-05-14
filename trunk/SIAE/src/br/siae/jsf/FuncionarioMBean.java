@@ -1,7 +1,6 @@
 package br.siae.jsf;
 
 import javax.annotation.Resource;
-
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.persistence.NoResultException;
@@ -10,16 +9,16 @@ import org.primefaces.component.dialog.Dialog;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import br.siae.arq.dao.GenericDAO;
-import br.siae.arq.dominio.Pessoa;
-import br.siae.arq.dominio.TipoPessoa;
-import br.siae.arq.erro.ArqException;
-import br.siae.arq.jsf.AbstractSiaeController;
-import br.siae.arq.jsf.PessoaMBean;
-import br.siae.arq.service.PessoaService;
-import br.siae.arq.service.ServiceFactory;
-import br.siae.arq.utils.DAOUtils;
-import br.siae.arq.utils.ValidatorUtil;
+import br.arq.dao.GenericDAO;
+import br.arq.dominio.Pessoa;
+import br.arq.dominio.TipoPessoa;
+import br.arq.erros.ArqException;
+import br.arq.jsf.PessoaMBean;
+import br.arq.service.PessoaService;
+import br.arq.service.ServiceFactory;
+import br.arq.siae.jsf.AbstractSiaeController;
+import br.arq.utils.DAOUtils;
+import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.rh.Funcionario;
 import br.siae.service.FuncionarioService;
 

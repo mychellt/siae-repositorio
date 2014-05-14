@@ -5,9 +5,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import br.arq.utils.ArqCache;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.rh.Professor;
+import br.siae.utils.SIAECache;
 
 
 @FacesConverter(value = "converterProfessor")
@@ -17,7 +17,7 @@ public class ConverterProfessor implements Converter{
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		Professor professor = new Professor();
       	if( ValidatorUtil.isNotEmpty(value)){
-      		professor = ArqCache.getProfessorById( Integer.parseInt(value) ) ;
+      		professor = SIAECache.getProfessorById( Integer.parseInt(value) ) ;
       	}
         return professor;
 	}

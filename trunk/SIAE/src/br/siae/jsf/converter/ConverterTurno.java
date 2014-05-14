@@ -5,9 +5,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import br.arq.utils.ArqCache;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.comum.Turno;
+import br.siae.utils.SIAECache;
 
 
 @FacesConverter(value = "converterTurno")
@@ -17,7 +17,7 @@ public class ConverterTurno implements Converter{
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		Turno turno = new Turno();
       	if( ValidatorUtil.isNotEmpty(value)){
-      		turno = ArqCache.getTurnoById( Integer.parseInt(value) );
+      		turno = SIAECache.getTurnoById( Integer.parseInt(value) );
       	}
         return turno;
 	}

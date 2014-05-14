@@ -14,12 +14,14 @@ import br.arq.dominio.Municipio;
 import br.arq.erros.ArqException;
 import br.arq.erros.NegocioException;
 import br.arq.service.MunicipioService;
+import br.arq.siae.jsf.AbstractSiaeController;
 import br.arq.utils.ArqCache;
 import br.arq.utils.DAOUtils;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Nivel;
 import br.siae.dominio.comum.Instituicao;
 import br.siae.service.InstituicaoService;
+import br.siae.utils.SIAECache;
 
 @Controller
 @Scope("session")
@@ -88,7 +90,7 @@ public class InstituicaoMBean extends AbstractSiaeController<Instituicao> implem
 			return getPaginaCadastro();
 		}
 		addMensagemInformacao("Operação realizada com sucesso!");
-		return getPaginaComprovante();
+		return getPaginaComprovanteCadastro();
 	}
 	
 	
@@ -151,7 +153,7 @@ public class InstituicaoMBean extends AbstractSiaeController<Instituicao> implem
 
 	
 	public Collection<Instituicao> getAll() {
-		return ArqCache.getInstituicoes();
+		return SIAECache.getInstituicoes();
 	}
 
 	public Instituicao getInstituicaoSelecionada() {

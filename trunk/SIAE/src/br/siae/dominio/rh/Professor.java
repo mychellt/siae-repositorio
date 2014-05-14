@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 
 import br.arq.dao.Persistent;
 import br.arq.dominio.Pessoa;
+import br.arq.jsf.converter.ConverterCPF;
 import br.arq.seguranca.Usuario;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Disciplina;

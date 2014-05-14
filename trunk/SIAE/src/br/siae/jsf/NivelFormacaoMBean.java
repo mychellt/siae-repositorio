@@ -8,8 +8,8 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import br.siae.arq.erro.ArqException;
-import br.siae.arq.jsf.AbstractController;
+import br.arq.erros.ArqException;
+import br.arq.jsf.AbstractController;
 import br.siae.dominio.academico.NivelFormacao;
 import br.siae.service.NivelFormacaoService;
 

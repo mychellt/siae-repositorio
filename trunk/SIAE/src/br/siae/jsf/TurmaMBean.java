@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 
 import br.arq.erros.ArqException;
 import br.arq.erros.NegocioException;
+import br.arq.siae.jsf.AbstractSiaeController;
 import br.arq.utils.DAOUtils;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Disciplina;
@@ -242,7 +243,7 @@ public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqExce
 		}
 		
 		addMensagemInformacao("Operação realizada com sucesso!");
-		return getPaginaComprovante();
+		return getPaginaComprovanteCadastro();
 	}
 	
 

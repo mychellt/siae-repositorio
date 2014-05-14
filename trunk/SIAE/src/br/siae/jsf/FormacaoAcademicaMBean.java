@@ -7,11 +7,11 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import br.siae.arq.erro.ArqException;
-import br.siae.arq.erro.NegocioException;
-import br.siae.arq.jsf.AbstractSiaeController;
-import br.siae.arq.utils.DAOUtils;
-import br.siae.arq.utils.ValidatorUtil;
+import br.arq.erros.ArqException;
+import br.arq.erros.NegocioException;
+import br.arq.siae.jsf.AbstractSiaeController;
+import br.arq.utils.DAOUtils;
+import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.FormacaoAcademica;
 import br.siae.dominio.academico.NivelFormacao;
 import br.siae.service.FormacaoAcademicaService;

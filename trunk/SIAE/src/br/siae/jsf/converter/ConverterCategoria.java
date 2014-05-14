@@ -5,9 +5,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import br.arq.utils.ArqCache;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.rh.Categoria;
+import br.siae.utils.SIAECache;
 
 @FacesConverter(value = "converterCategoria")
 public class ConverterCategoria implements Converter{
@@ -16,7 +16,7 @@ public class ConverterCategoria implements Converter{
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
 	  	Categoria categoria = new Categoria();
       	if( ValidatorUtil.isNotEmpty(value)){
-      		categoria = ArqCache.getCategoriaById( Integer.parseInt(value));
+      		categoria = SIAECache.getCategoriaById( Integer.parseInt(value));
       	}
         return categoria;
     }

@@ -5,9 +5,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import br.arq.utils.ArqCache;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Nivel;
+import br.siae.utils.SIAECache;
 
 @FacesConverter(value = "converterNivel")
 public class ConverterNivel implements Converter{
@@ -16,7 +16,7 @@ public class ConverterNivel implements Converter{
 	    public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		  	Nivel nivel = new Nivel();
 	      	if( ValidatorUtil.isNotEmpty(value)){
-	      		nivel = ArqCache.getNivelById( Integer.parseInt(value) );
+	      		nivel = SIAECache.getNivelById( Integer.parseInt(value) );
 	      	}
 	        return nivel;
 	    }

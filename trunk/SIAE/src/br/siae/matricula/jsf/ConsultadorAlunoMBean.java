@@ -15,6 +15,7 @@ import br.arq.dominio.Naturalidade;
 import br.arq.dominio.Pessoa;
 import br.arq.dominio.TituloEleitor;
 import br.arq.erros.NegocioException;
+import br.arq.siae.jsf.AbstractSiaeController;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Aluno;
 import br.siae.dominio.academico.RequerimentoMatricula;
@@ -22,7 +23,7 @@ import br.siae.matricula.service.ConsultaAlunoService;
 
 @Controller
 @Scope("session")
-public class ConsultadorAlunoMBean extends AbstractSiaeController<Aluno>{
+public class ConsultadorAlunoMBean extends AbstractSiaeController<Aluno> {
 	/** Página para seleção do aluno a ser matriculado. */
 	public static final String SELECAO_ALUNO_MATRICULA = "/views/restrito/matricula/selecao_aluno_matricula.jsf";
 	
