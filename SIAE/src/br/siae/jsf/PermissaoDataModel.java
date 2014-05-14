@@ -6,7 +6,7 @@ import javax.faces.model.ListDataModel;
 
 import org.primefaces.model.SelectableDataModel;
 
-import br.siae.arq.seguranca.Permissao;
+import br.arq.seguranca.Permissao;
 
 public class PermissaoDataModel extends ListDataModel<Permissao> implements SelectableDataModel<Permissao>{
 

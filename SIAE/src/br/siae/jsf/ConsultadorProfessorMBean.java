@@ -17,6 +17,7 @@ import br.arq.dominio.Naturalidade;
 import br.arq.dominio.Pessoa;
 import br.arq.dominio.TituloEleitor;
 import br.arq.erros.ArqException;
+import br.arq.siae.jsf.AbstractSiaeController;
 import br.siae.dominio.rh.Professor;
 import br.siae.service.ProfessorService;
 

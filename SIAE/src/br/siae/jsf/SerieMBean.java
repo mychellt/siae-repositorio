@@ -9,12 +9,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.arq.erros.ArqException;
-import br.arq.utils.ArqCache;
+import br.arq.siae.jsf.AbstractSiaeController;
 import br.arq.utils.DAOUtils;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Nivel;
 import br.siae.dominio.academico.Serie;
 import br.siae.service.SerieService;
+import br.siae.utils.SIAECache;
 
 @Controller
 @Scope("session")
@@ -122,7 +123,7 @@ public class SerieMBean extends AbstractSiaeController<Serie> implements ArqExce
 	}
 	
 	public Collection<Serie> getAll() {
-		return ArqCache.getSeries();
+		return SIAECache.getSeries();
 	}
 
 	public Serie getSerie() {

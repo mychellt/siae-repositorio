@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.arq.erros.ArqException;
+import br.arq.siae.jsf.AbstractSiaeController;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.comum.Turno;
 import br.siae.service.TurnoService;
