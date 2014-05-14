@@ -15,6 +15,7 @@ import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.rh.Cargo;
 import br.siae.dominio.rh.Categoria;
 import br.siae.dominio.rh.NivelFuncional;
+import br.siae.service.CargoService;
 
 @Controller
 @Scope("session")
