@@ -17,12 +17,13 @@ import br.arq.dominio.Naturalidade;
 import br.arq.dominio.Pessoa;
 import br.arq.dominio.TituloEleitor;
 import br.arq.erros.ArqException;
+import br.arq.jsf.GenericController;
 import br.siae.dominio.rh.Funcionario;
 import br.siae.service.FuncionarioService;
 
 @Controller
 @Scope("session")
-public class ConsultadorFuncionarioMBean extends AbstractSiaeController<Funcionario> implements ArqException{
+public class ConsultadorFuncionarioMBean extends GenericController<Funcionario> implements ArqException{
 	
 	/** Indica que a busca de será feita por matrícula do aluno.*/
 	private boolean byMatricula;

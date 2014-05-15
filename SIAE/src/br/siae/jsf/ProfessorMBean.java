@@ -17,18 +17,19 @@ import br.arq.dominio.Pessoa;
 import br.arq.dominio.TipoPessoa;
 import br.arq.erros.ArqException;
 import br.arq.erros.NegocioException;
+import br.arq.jsf.GenericController;
 import br.arq.jsf.PessoaMBean;
 import br.arq.service.PessoaService;
-import br.arq.siae.jsf.AbstractSiaeController;
 import br.arq.utils.ArqCache;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.TurmaProfessor;
 import br.siae.dominio.rh.Professor;
 import br.siae.service.ProfessorService;
+import br.siae.utils.SIAECache;
 
 @Controller
 @Scope("session")
-public class ProfessorMBean extends AbstractSiaeController<Professor> implements ArqException{
+public class ProfessorMBean extends GenericController<Professor> implements ArqException{
 	
 	@Resource(name="pessoaMBean")
 	private PessoaMBean pessoaMBean;
@@ -91,7 +92,7 @@ public class ProfessorMBean extends AbstractSiaeController<Professor> implements
 		}
 		
 		addMensagemInformacao("Operação efetuada com sucesso!");
-		return PessoaMBean.COMPROVANTE_CADASTRO;
+		return PessoaMBean.getComprovanteCadastro();
 	}
 
 	
@@ -142,10 +143,10 @@ public class ProfessorMBean extends AbstractSiaeController<Professor> implements
 	}
 	public Collection<Professor> getAll() {
 		try {
-			if( ValidatorUtil.isEmpty(ArqCache.getProfessores() ) ) {
-				ArqCache.setProfessores( (List<Professor>) professorService.getAll(Professor.class) );				
+			if( ValidatorUtil.isEmpty(SIAECache.getProfessores() ) ) {
+				SIAECache.setProfessores( (List<Professor>) professorService.getAll(Professor.class) );				
 			}
-			return ArqCache.getProfessores();
+			return SIAECache.getProfessores();
 		} catch (NegocioException e) {
 			addMensagemErro(processaException(e));
 		}

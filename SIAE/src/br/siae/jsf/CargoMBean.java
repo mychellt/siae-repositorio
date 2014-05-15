@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import br.arq.erros.ArqException;
 import br.arq.erros.NegocioException;
-import br.arq.siae.jsf.AbstractSiaeController;
+import br.arq.jsf.GenericController;
 import br.arq.utils.DAOUtils;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.rh.Cargo;
@@ -19,7 +19,7 @@ import br.siae.service.CargoService;
 
 @Controller
 @Scope("session")
-public class CargoMBean extends AbstractSiaeController<Cargo> implements ArqException {
+public class CargoMBean extends GenericController<Cargo> implements ArqException {
 	
 	@Resource(name="cargoService")
 	private CargoService service;

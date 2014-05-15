@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import br.arq.erros.ArqException;
 import br.arq.erros.NegocioException;
-import br.arq.siae.jsf.AbstractSiaeController;
+import br.arq.jsf.GenericController;
 import br.arq.utils.DAOUtils;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Disciplina;
@@ -20,7 +20,7 @@ import br.siae.service.DisciplinaService;
 
 @Controller
 @Scope("session")
-public class DisciplinaMBean extends AbstractSiaeController<Disciplina> implements ArqException{
+public class DisciplinaMBean extends GenericController<Disciplina> implements ArqException{
 	@Resource(name="disciplinaService")
 	private DisciplinaService service;
 	

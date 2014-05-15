@@ -10,14 +10,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.arq.erros.ArqException;
-import br.arq.siae.jsf.AbstractSiaeController;
+import br.arq.jsf.GenericController;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.comum.Turno;
 import br.siae.service.TurnoService;
 
 @Controller
 @Scope("session")
-public class TurnoMBean extends AbstractSiaeController<Turno> implements ArqException{
+public class TurnoMBean extends GenericController<Turno> implements ArqException{
 	@Resource(name="turnoService")
 	private TurnoService service;
 	
