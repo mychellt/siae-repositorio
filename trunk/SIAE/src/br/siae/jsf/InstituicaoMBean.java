@@ -13,8 +13,8 @@ import br.arq.dominio.Endereco;
 import br.arq.dominio.Municipio;
 import br.arq.erros.ArqException;
 import br.arq.erros.NegocioException;
+import br.arq.jsf.GenericController;
 import br.arq.service.MunicipioService;
-import br.arq.siae.jsf.AbstractSiaeController;
 import br.arq.utils.ArqCache;
 import br.arq.utils.DAOUtils;
 import br.arq.utils.ValidatorUtil;
@@ -25,7 +25,7 @@ import br.siae.utils.SIAECache;
 
 @Controller
 @Scope("session")
-public class InstituicaoMBean extends AbstractSiaeController<Instituicao> implements ArqException{
+public class InstituicaoMBean extends GenericController<Instituicao> implements ArqException{
 	
 	@Resource(name="municipioService")
 	private MunicipioService municipioService;

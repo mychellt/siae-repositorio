@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.arq.erros.ArqException;
-import br.arq.siae.jsf.AbstractSiaeController;
+import br.arq.jsf.GenericController;
 import br.arq.utils.DAOUtils;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Nivel;
@@ -19,7 +19,7 @@ import br.siae.utils.SIAECache;
 
 @Controller
 @Scope("session")
-public class SerieMBean extends AbstractSiaeController<Serie> implements ArqException{
+public class SerieMBean extends GenericController<Serie> implements ArqException{
 	
 	@Resource(name="serieService")
 	private SerieService serieService;

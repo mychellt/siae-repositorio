@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 
 import br.arq.erros.ArqException;
 import br.arq.erros.NegocioException;
-import br.arq.siae.jsf.AbstractSiaeController;
+import br.arq.jsf.GenericController;
 import br.arq.utils.DAOUtils;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Disciplina;
@@ -27,7 +27,7 @@ import br.siae.service.TurmaService;
 
 @Controller
 @Scope("session")
-public class TurmaMBean extends AbstractSiaeController<Turma> implements ArqException{
+public class TurmaMBean extends GenericController<Turma> implements ArqException{
 	private TurmaProfessor turmaProfessor;
 	private DisciplinaDataModel disciplinas;
 	private Disciplina[] disciplinasSelecionadas;

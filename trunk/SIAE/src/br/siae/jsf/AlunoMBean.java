@@ -13,9 +13,9 @@ import br.arq.dominio.Estado;
 import br.arq.dominio.Pessoa;
 import br.arq.dominio.TipoPessoa;
 import br.arq.erros.ArqException;
+import br.arq.jsf.GenericController;
 import br.arq.jsf.PessoaMBean;
 import br.arq.service.PessoaService;
-import br.arq.siae.jsf.AbstractSiaeController;
 import br.arq.utils.DAOUtils;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.academico.Aluno;
@@ -23,7 +23,7 @@ import br.siae.service.AlunoService;
 
 @Controller
 @Scope("session")
-public class AlunoMBean extends AbstractSiaeController<Aluno> implements ArqException{
+public class AlunoMBean extends GenericController<Aluno> implements ArqException{
 
 	@Resource(name="pessoaMBean")
 	private PessoaMBean pessoaMBean;
@@ -95,7 +95,7 @@ public class AlunoMBean extends AbstractSiaeController<Aluno> implements ArqExce
 		}
 		
 		addMensagemInformacao("Cadastro do aluno efetuado com sucesso!");
-		return PessoaMBean.COMPROVANTE_CADASTRO;
+		return PessoaMBean.getComprovanteCadastro();
 	}
 	public String remover() {
 		if( ValidatorUtil.isEmpty(obj) ) {

@@ -13,10 +13,10 @@ import br.arq.dao.GenericDAO;
 import br.arq.dominio.Pessoa;
 import br.arq.dominio.TipoPessoa;
 import br.arq.erros.ArqException;
+import br.arq.jsf.GenericController;
 import br.arq.jsf.PessoaMBean;
 import br.arq.service.PessoaService;
 import br.arq.service.ServiceFactory;
-import br.arq.siae.jsf.AbstractSiaeController;
 import br.arq.utils.DAOUtils;
 import br.arq.utils.ValidatorUtil;
 import br.siae.dominio.rh.Funcionario;
@@ -24,7 +24,7 @@ import br.siae.service.FuncionarioService;
 
 @Controller
 @Scope("session")
-public class FuncionarioMBean extends AbstractSiaeController<Funcionario> implements ArqException{
+public class FuncionarioMBean extends GenericController<Funcionario> implements ArqException{
 
 	@Resource(name="pessoaMBean")
 	private PessoaMBean pessoaMBean;
@@ -83,7 +83,7 @@ public class FuncionarioMBean extends AbstractSiaeController<Funcionario> implem
 		}
 		
 		addMensagemInformacao("Operação realizada com sucesso!");
-		return PessoaMBean.COMPROVANTE_CADASTRO;
+		return PessoaMBean.getComprovanteCadastro();
 	}
 	
 	public String carregarDados() {
